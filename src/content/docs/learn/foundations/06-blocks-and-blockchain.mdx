@@ -1,0 +1,62 @@
+---
+title: 1.6 Blocks & The Immutable Chain
+description: How cryptographic seals lock individual pages together so that altering the past becomes mathematically impossible.
+track: Foundations
+chapter: 6
+sims:
+  - blockchain-simulator
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import BlockChainSimulator from '@/components/sims/BlockChainSimulator';
+
+Transactions don't float around individually forever. In Bitcoin and other networks, transactions are gathered together into batches called **Blocks** (like pages in an accounting ledger).
+
+Once a block is filled with verified transactions, the network applies a digital wax seal using the block's cryptographic hash.
+
+---
+
+## Anatomy of a Block
+
+Every block contains three essential components:
+
+1. **The Transaction Data**: A list of verified transfers (e.g., `Alice sends 1 Coin to Bob`).
+2. **The Previous Hash (The Lock)**: The exact mathematical fingerprint of the preceding block.
+3. **The New Hash (Digital Fingerprint)**: The unique seal computed from this block's data combined with the previous block's hash.
+
+```
+       BLOCK 1                             BLOCK 2                             BLOCK 3
+┌────────────────────┐              ┌────────────────────┐              ┌────────────────────┐
+│ Data: Alice +10    │              │ Data: Alice -> Bob │              │ Data: Bob -> Ch.   │
+│ Prev: 0000000000   │              │ Prev: 0x44a1b2...  │              │ Prev: 0x7b2c9f...  │
+│ Hash: 0x44a1b2...  ├─────────────►│ Hash: 0x7b2c9f...  ├─────────────►│ Hash: 0x9f8e3d...  │
+└────────────────────┘              └────────────────────┘              └────────────────────┘
+```
+
+---
+
+## Interactive Lab: Tamper with Historical Blocks
+
+Below is a live 3-block blockchain. Try altering the ledger data inside **Block #1** (for example, change Alice's balance) and observe what happens to the subsequent blocks:
+
+<BlockChainSimulator client:load />
+
+---
+
+## Why Historical Revision is Impossible
+
+Notice what happened in the simulator:
+
+- When you changed Block #1, Block #1's hash changed.
+- Because Block #2 contains Block #1's old hash, Block #2's inputs no longer match.
+- Block #2's hash is invalidated, which immediately breaks Block #3, Block #4, and every block thereafter!
+
+<Aside type="caution" title="The Tamper Alert">
+  To successfully rewrite an old transaction on the blockchain, an attacker would have to
+  recalculate and re-mine that block, plus **every single subsequent block** faster than the entire
+  rest of the global network combined!
+</Aside>
+
+Now that we know how blocks link together, who earns the right to add the next block to the chain? That brings us to **Proof of Work and Proof of Stake**.
+
+[Next: Chapter 1.7 Proof of Work vs Proof of Stake &rarr;](/learn/foundations/07-pow-vs-pos/)

@@ -1,0 +1,71 @@
+---
+title: Learning Dashboard
+description: Track your curriculum progress, view your personal proof-of-learning block chain, and resume your crypto journey.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Your Progress Overview
+
+Track your journey through our 5 tracks. When you read a chapter and engage with its interactive simulation, mark it as complete to seal a block on your local blockchain ledger.
+
+<CardGrid>
+  <Card title="Track 1: Foundations" icon="seti:bicep">
+    **9 Chapters** • 5 Interactive Labs
+    - Money as a ledger
+    - The double-spend bottleneck
+    - The shared notebook & gossip protocol
+    - Cryptographic hashing & tamper-proof blocks
+    - Proof-of-Work & Proof-of-Stake consensus
+    - Supply halving & the 21M cap
+  </Card>
+
+<Card title="Track 2: Wallets & Security" icon="seti:lock">
+  **6 Chapters** • 1 Interactive Lab - Public addresses vs. Private keys (The Glass Mailbox) -
+  12/24-word seed recovery phrases - Custodial exchanges vs. self-custody cold storage - Avoiding
+  drainers, phishing, and address poisoning
+</Card>
+
+<Card title="Track 3: Exchanges & Buying" icon="seti:credit-card">
+  **7 Chapters** • 1 Interactive Lab - The Fiat Bridge: Buying with IDR / USD via Bank & QRIS - How
+  order books and matching engines work - Off-chain database trading vs. on-chain settlement -
+  Merkle trees & Zero-Knowledge Proof of Reserves
+</Card>
+
+<Card title="Track 4: Ethereum & DeFi" icon="seti:graphql">
+  **8 Chapters** • 1 Interactive Lab - The World Computer & Ethereum Virtual Machine (EVM) - Smart
+  contracts & gas fees - ERC-20 tokens, NFTs, and stablecoins (USDT/USDC) - Automated Market Makers
+  (AMMs) & liquidity pools
+</Card>
+
+  <Card title="Track 5: Market Literacy" icon="seti:chart">
+    **8 Chapters** • 2 Interactive Labs
+    - Candlestick reading (OHLC) & market volume
+    - Order types: Limit, Market, Stop-loss
+    - Risk management, position sizing, and trading psychology
+    - Paper-trading simulation with synthetic volatility
+  </Card>
+</CardGrid>
+
+---
+
+## Continue Where You Left Off
+
+<div class="p-6 rounded-xl border border-sky-500/30 bg-sky-950/20 my-6">
+  <div class="text-xs uppercase tracking-wider text-sky-400 font-bold mb-1">
+    Recommended Starting Point
+  </div>
+  <h3 class="text-xl font-bold text-slate-100 my-0">
+    1.1 What Money Really Is: It's Ledgers All The Way Down
+  </h3>
+  <p class="text-slate-300 text-sm mt-2 mb-4">
+    Before diving into Bitcoin or cryptography, discover why digital money has always been about
+    recording numbers in a notebook—and what happens when the notebook owner holds all the power.
+  </p>
+  <a
+    href="/learn/foundations/01-what-money-really-is/"
+    class="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-lg text-sm transition-all no-underline"
+  >
+    Launch Chapter 1.1 &rarr;
+  </a>
+</div>

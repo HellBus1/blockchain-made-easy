@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Story of Cryptocurrency — Interactive Presenter Walkthrough</title>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(18, 25, 43, 0.85);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.12), transparent 35%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.06), transparent 50%);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      line-height: 1.55;
+    }
+
+    /* Header */
+    .header {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f59e0b, #ec4899, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 8px 24px rgba(236, 72, 153, 0.35);
+    }
+
+    .brand h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .controls-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      border: none;
+      color: #fff;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    /* Stage Stepper Pills */
+    .stepper {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto 24px auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .step-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .step-pill:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .step-pill.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 22px var(--accent-glow);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(18, 25, 43, 0.95));
+    }
+
+    .step-pill .step-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 4px;
+      color: var(--accent);
+    }
+
+    .step-pill .step-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Main Stage Layout */
+    .main-grid {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 22px;
+      flex: 1;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Stage Banner */
+    .stage-header {
+      margin-bottom: 20px;
+    }
+
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--accent-glow);
+      color: #fff;
+      border: 1px solid var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .stage-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .stage-subtitle {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Interactive Diagram Canvas */
+    .diagram-box {
+      background: rgba(9, 13, 22, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 28px 20px;
+      margin: 14px 0 20px 0;
+      position: relative;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .diagram-hint {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+
+    .nodes-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .node-card {
+      flex: 1;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+      border: 2px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .node-card:hover, .node-card.selected {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px var(--accent-glow);
+    }
+
+    .node-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    }
+
+    .node-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .node-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* Animated Connector Arrow */
+    .connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 64px;
+      position: relative;
+    }
+
+    .connector-label {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+      max-width: 90px;
+      line-height: 1.2;
+    }
+
+    .connector-line {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .connector-packet {
+      position: absolute;
+      top: 0;
+      left: -30%;
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--accent), #fff);
+      border-radius: 4px;
+      animation: flowPacket 1.8s infinite linear;
+    }
+
+    @keyframes flowPacket {
+      0% { left: -35%; }
+      100% { left: 105%; }
+    }
+
+    /* Node Inspector Detail Box */
+    .node-inspector {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 8px;
+    }
+
+    .inspector-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .inspector-desc {
+      font-size: 0.94rem;
+      color: #e2e8f0;
+    }
+
+    /* Right Column Cards: Presenter Script & Live Ledger */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .script-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.9));
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .card-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .analogy-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      color: #f1f5f9;
+    }
+
+    .analogy-box strong {
+      color: var(--accent);
+    }
+
+    .talking-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .talking-points li {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .talking-points li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Live Notebook / Ledger Preview */
+    .ledger-card {
+      background: #060911;
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 18px;
+      font-family: var(--font-mono);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ledger-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      margin-right: 6px;
+    }
+
+    .ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .ledger-table th {
+      text-align: left;
+      color: var(--text-muted);
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .ledger-table td {
+      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+    }
+
+    .ledger-highlight {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .ledger-footnote {
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+      .stepper {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stepper {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .nodes-row {
+        flex-direction: column;
+      }
+      .connector {
+        transform: rotate(90deg);
+        margin: 12px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">🪙</div>
+      <div>
+        <h1>The Story of Cryptocurrency: From Ledger to Fiat Purchase</h1>
+        <p>Interactive Visual Guide & Presenter Deck • Click any stage or diagram node to explore</p>
+      </div>
+    </div>
+    <div class="controls-top">
+      <button class="btn" id="prevBtn" onclick="changeStage(-1)">← Previous Act</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="changeStage(1)">Next Act →</button>
+    </div>
+  </header>
+
+  <!-- 6-Stage Stepper Bar -->
+  <nav class="stepper" id="stepperNav"></nav>
+
+  <!-- Main Content Grid -->
+  <main class="main-grid">
+    <!-- Left Column: Visual Flow & Interactive Node Inspector -->
+    <section class="panel">
+      <div>
+        <div class="stage-header">
+          <span class="stage-badge" id="stageBadge">Act 1 of 6</span>
+          <h2 class="stage-title" id="stageTitle">Loading...</h2>
+          <p class="stage-subtitle" id="stageSubtitle"></p>
+        </div>
+
+        <div class="diagram-box">
+          <span class="diagram-hint">👆 Click any card below to inspect how it works</span>
+          <div class="nodes-row" id="nodesContainer"></div>
+        </div>
+      </div>
+
+      <!-- Selected Node Deep-Dive Box -->
+      <div class="node-inspector" id="nodeInspector">
+        <div class="inspector-title" id="inspectorTitle">Select a node</div>
+        <p class="inspector-desc" id="inspectorDesc"></p>
+      </div>
+    </section>
+
+    <!-- Right Column: Speaker Notes & Live Ledger State -->
+    <aside class="right-col">
+      <!-- Speaker Script & Analogy Card -->
+      <div class="script-card">
+        <div class="card-label">🎙️ How to Explain This to Others (Speaker Guide)</div>
+        <div class="analogy-box" id="analogyBox"></div>
+        <ul class="talking-points" id="talkingPoints"></ul>
+      </div>
+
+      <!-- Live Notebook / Ledger State Card -->
+      <div class="ledger-card">
+        <div>
+          <div class="ledger-header">
+            <span><span class="status-dot"></span>LIVE NOTEBOOK (LEDGER) VIEW</span>
+            <span id="ledgerTypeTag">Centralized SQL Database</span>
+          </div>
+          <table class="ledger-table">
+            <thead>
+              <tr id="ledgerHeaders"></tr>
+            </thead>
+            <tbody id="ledgerRows"></tbody>
+          </table>
+        </div>
+        <div class="ledger-footnote" id="ledgerFootnote"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const stages = [
+      {
+        id: 1,
+        shortName: "The Middleman",
+        badge: "Act 1 • The Problem",
+        title: "The Flaw of the Single Middleman",
+        subtitle: "Why digital money historically required a bank in the middle—and why that creates a trust bottleneck.",
+        accent: "#f59e0b",
+        glow: "rgba(245, 158, 11, 0.3)",
+        analogy: "<strong>Real-World Analogy:</strong> Imagine playing Monopoly where only ONE player is allowed to hold the score sheet and the pencil. Everyone else has to trust that they won't erase a number, charge a toll, or refuse to write down your turn.",
+        points: [
+          "When you send Rp 100,000 via a banking app, no physical cash moves through your phone. The bank simply subtracts 100k from your row and adds 100k to your friend's row.",
+          "Without a bank guarding the ledger, a dishonest user could copy-paste digital money and spend it twice (the <strong>Double-Spend Problem</strong>).",
+          "The downside: Because one company owns the notebook, they control the fees, settlement speed, and access to your money."
+        ],
+        nodes: [
+          {
+            icon: "🙋‍♂️",
+            title: "Sender (You)",
+            role: "Requests Rp 100k transfer",
+            detail: "You tap 'Send Rp 100,000' on your phone. You aren't sending digital coins directly to your friend—you are sending a permission request to your bank's server."
+          },
+          {
+            icon: "🏦",
+            title: "Central Bank Ledger",
+            role: "Private middleman database",
+            edgeLabel: "Asks permission",
+            detail: "The bank checks if you have enough balance, deducts Rp 100,000 from your row, and credits your friend. Only the bank can see or edit this private ledger."
+          },
+          {
+            icon: "🙋‍♀️",
+            title: "Receiver (Friend)",
+            role: "Sees updated bank balance",
+            edgeLabel: "Updates private row",
+            detail: "Your friend receives a notification. If the bank is doing maintenance or it's an international transfer, settlement can take days and cost high fees."
+          }
+        ],
+        ledgerType: "Private Bank Database (1 Owner)",
+        ledgerHeaders: ["Account Holder", "Balance", "Controlled By"],
+        ledgerRows: [
+          ["You (User_01)", "Rp 900,000 (-100k)", "Bank Admin Only"],
+          ["Friend (User_02)", "Rp 600,000 (+100k)", "Bank Admin Only"],
+          ["System Rule", "Can freeze / edit rows", "Central Authority"]
+        ],
+        ledgerNote: "⚠️ Single Point of Failure: If the bank's server goes down or blocks your account, you cannot move your funds."
+      },
+      {
+        id: 2,
+        shortName: "Shared Notebook",
+        badge: "Act 2 • The Breakthrough",
+        title: "The Shared Notebook (The Blockchain)",
+        subtitle: "Instead of one bank guarding a secret database, thousands of computers hold an identical public copy.",
+        accent: "#38bdf8",
+        glow: "rgba(56, 189, 248, 0.3)",
+        analogy: "<strong>Real-World Analogy:</strong> Instead of one person holding the score sheet, every single villager sits in a circle with their own identical notebook. Whenever someone pays someone else, they shout it out loud and everyone writes it down on Page 52 at the exact same time.",
+        points: [
+          "Thousands of independent computers worldwide (called <strong>Nodes</strong>) keep an identical copy of the ledger.",
+          "When a page of transactions fills up, it is locked using a digital wax seal called a <strong>Cryptographic Hash</strong>—that sealed page is a <strong>Block</strong>.",
+          "Each new page includes the fingerprint of the previous page, chaining them together into an unbreakable <strong>Blockchain</strong>."
+        ],
+        nodes: [
+          {
+            icon: "📢",
+            title: "Broadcast Transfer",
+            role: "Announced to the network",
+            detail: "A transaction is broadcast to the entire global network at once rather than routed through a private corporate server."
+          },
+          {
+            icon: "🌐",
+            title: "Global Node Network",
+            role: "10,000+ identical copies",
+            edgeLabel: "Syncs everywhere",
+            detail: "Independent computers in Jakarta, Tokyo, London, and New York all check their copy of the history book to confirm the sender actually owns the coins."
+          },
+          {
+            icon: "🔗",
+            title: "Sealed Block (#101)",
+            role: "Chained by math fingerprint",
+            edgeLabel: "Cryptographic seal",
+            detail: "Once verified, the page is sealed with a unique hash fingerprint (e.g., 0x9f8a...). Changing even one comma on an old page breaks the fingerprint, so cheating is immediately rejected."
+          }
+        ],
+        ledgerType: "Public Synchronized Blockchain",
+        ledgerHeaders: ["Block #", "Prev Hash", "Transactions", "New Seal (Hash)"],
+        ledgerRows: [
+          ["Block #99", "0x44a1...", "1,420 Verified Tx", "0x7b2c..."],
+          ["Block #100", "0x7b2c...", "1,890 Verified Tx", "0x9f8e..."],
+          ["Block #101", "0x9f8e...", "2,105 Verified Tx", "0x3d1a... (Immutable)"]
+        ],
+        ledgerNote: "🔒 Tamper-Proof: Notice how Block #101 contains Block #100's exact seal (0x9f8e...). You cannot alter history without rewriting every block after it on 10,000+ computers."
+      },
+      {
+        id: 3,
+        shortName: "Birth of a Coin",
+        badge: "Act 3 • Minting Supply",
+        title: "How the First Coins Are Born (Minting)",
+        subtitle: "Where do coins come from, and why do strangers spend electricity maintaining this shared notebook?",
+        accent: "#eab308",
+        glow: "rgba(234, 179, 8, 0.3)",
+        analogy: "<strong>Real-World Analogy:</strong> Think of the network as an automated gold mine. The software rules say: 'Whoever does the heavy lifting to verify and seal the next page of the village notebook gets paid in brand-new gold coins printed automatically by the rules.'",
+        points: [
+          "Strangers don't maintain the ledger out of charity—the blockchain protocol pays them in <strong>freshly minted coins</strong> every time they seal a block.",
+          "<strong>Proof of Work (Bitcoin):</strong> Miners use specialized computers to race and solve a tough math puzzle to win the right to seal the page.",
+          "<strong>Proof of Stake (Ethereum/Solana):</strong> Validators lock up their own coins as a security deposit to verify pages; if they lie, their deposit is burned."
+        ],
+        nodes: [
+          {
+            icon: "⚡",
+            title: "Miner / Validator",
+            role: "Verifies & seals the block",
+            detail: "A miner (using hardware & electricity) or validator (staking coins) gathers pending transactions, checks every signature, and seals Block #102."
+          },
+          {
+            icon: "📜",
+            title: "Protocol Code Rule",
+            role: "Automated issuance engine",
+            edgeLabel: "Proves work/stake",
+            detail: "No central bank governor decides to print money. The open-source code automatically triggers a 'Coinbase Reward' on a strict mathematical schedule."
+          },
+          {
+            icon: "🪙",
+            title: "Brand-New Coins",
+            role: "Credited to Validator's address",
+            edgeLabel: "Mints 3.125 BTC",
+            detail: "The very first line of the new block writes: 'Create 3.125 new Coins and assign them to Validator_Address_A.' This is how all native crypto enters circulation!"
+          }
+        ],
+        ledgerType: "Block #102 — Coin Issuance Record",
+        ledgerHeaders: ["Tx Type", "From", "To Address", "Amount"],
+        ledgerRows: [
+          ["✨ MINT REWARD", "PROTOCOL (New Supply)", "bc1q_miner_alpha", "+3.125 BTC"],
+          ["Regular Transfer", "bc1q_alice88", "bc1q_bob99", "0.400 BTC"],
+          ["Regular Transfer", "bc1q_charlie", "bc1q_dave77", "1.150 BTC"]
+        ],
+        ledgerNote: "💡 Key Insight: Coins aren't MP3 or PDF files stored on your phone. 'Owning a coin' simply means the shared ledger has a line crediting your address!"
+      },
+      {
+        id: 4,
+        shortName: "Wallets & Keys",
+        badge: "Act 4 • Digital Identity",
+        title: "Mailboxes & Signatures (Wallets & Keys)",
+        subtitle: "How you claim an identity on the public notebook without giving away your name or passport.",
+        accent: "#a855f7",
+        glow: "rgba(168, 85, 247, 0.3)",
+        analogy: "<strong>Real-World Analogy:</strong> Your <strong>Public Address</strong> is like a glass mailbox on the street—anyone can walk by, see what's inside, and drop money in through the slot. Your <strong>Private Key</strong> is the唯一 physical brass key that opens the box so you can take money out.",
+        points: [
+          "A <strong>Crypto Wallet</strong> doesn't actually store coins inside the app—it stores your cryptographic keys that control your row on the global notebook.",
+          "<strong>Public Key (Wallet Address):</strong> Safe to share with anyone (like an email or bank account number) so they can send you funds.",
+          "<strong>Private Key (12/24-Word Seed Phrase):</strong> Your top-secret digital signature. Whoever holds these words controls the funds forever."
+        ],
+        nodes: [
+          {
+            icon: "📱",
+            title: "Wallet App Generator",
+            role: "Creates your math keypair",
+            detail: "When you install a wallet app, it uses offline math to generate a unique 12-word recovery phrase and derives your secret and public keys."
+          },
+          {
+            icon: "📬",
+            title: "Public Address",
+            role: "Shareable mailbox number",
+            edgeLabel: "Derives public ID",
+            detail: "Looks like '0x71C...89A' or 'bc1q...'. You copy-paste this to receive funds. Anyone can look up this address on the public notebook."
+          },
+          {
+            icon: "🔑",
+            title: "Private Key (Seed)",
+            role: "Secret digital signature",
+            edgeLabel: "Signs outgoing tx",
+            detail: "Never share this! When you want to send crypto, your wallet uses this secret key to stamp an unforgeable math signature onto the transaction."
+          }
+        ],
+        ledgerType: "Cryptographic Ownership Verification",
+        ledgerHeaders: ["Component", "Visibility", "Real-World Equivalent"],
+        ledgerRows: [
+          ["Public Address (0x71C...89A)", "🌍 Public to Everyone", "Bank Account # / Mailbox Slot"],
+          ["Ledger Balance (0.50 BTC)", "🌍 Public on Blockchain", "Visible Balance Inside Glass Box"],
+          ["Private Key / 12 Words", "🤫 Strictly Secret (You)", "Master Vault Key / Signature"]
+        ],
+        ledgerNote: "🔐 Golden Rule of Crypto: 'Not your keys, not your coins.' Whoever holds the Private Key has 100% authority to move the balance."
+      },
+      {
+        id: 5,
+        shortName: "Buying with Fiat",
+        badge: "Act 5 • The Fiat Bridge",
+        title: "Crossing the Bridge: Buying with Fiat Money",
+        subtitle: "How you use everyday Rupiah (IDR) or Dollars (USD) from your bank to buy coins from miners and sellers.",
+        accent: "#10b981",
+        glow: "rgba(16, 185, 129, 0.3)",
+        analogy: "<strong>Real-World Analogy:</strong> A <strong>Crypto Exchange</strong> is like an airport currency booth or a busy fish market. Miners bring the coins they earned on the blockchain to sell for cash; you bring Rupiah from your bank to buy those coins.",
+        points: [
+          "Your bank (Rupiah/USD) and the Blockchain don't speak the same language, so you use a <strong>Cryptocurrency Exchange</strong> (e.g., Gate, Indodax, Pintu, Coinbase) as a bridge.",
+          "<strong>Step 1 (Fiat Deposit):</strong> You transfer Rp 1,000,000 from your bank to the exchange's corporate bank account.",
+          "<strong>Step 2 (Order Book Match):</strong> When you click 'Buy', the exchange matches your Rp 1,000,000 with a seller who deposited crypto, swapping the balances inside the exchange's internal database."
+        ],
+        nodes: [
+          {
+            icon: "💵",
+            title: "You (Fiat Buyer)",
+            role: "Deposits Rp 1,000,000 via Bank",
+            detail: "You verify your ID (KYC) on an exchange app and send Rp 1,000,000 via bank transfer or QRIS/e-wallet into the exchange."
+          },
+          {
+            icon: "🏛️",
+            title: "Crypto Exchange",
+            role: "Matches Fiat Buyer & Crypto Seller",
+            edgeLabel: "Swaps on Order Book",
+            detail: "The exchange's matching engine pairs your Rp 1,000,000 buy order with a miner or trader selling 0.001 BTC. It happens instantly inside the exchange's database."
+          },
+          {
+            icon: "⛏️",
+            title: "Crypto Seller / Miner",
+            role: "Receives Rp 1,000,000 cash",
+            edgeLabel: "Sells mined coins",
+            detail: "The seller gets your Rp 1,000,000 to pay their real-world bills, and your exchange app dashboard now shows you own 0.001 BTC!"
+          }
+        ],
+        ledgerType: "Exchange Internal Database (Custodial)",
+        ledgerHeaders: ["User Account", "Fiat Balance (IDR)", "Crypto Balance (BTC)"],
+        ledgerRows: [
+          ["You (Buyer)", "Rp 0 (-1,000,000)", "0.0010 BTC (+0.0010)"],
+          ["Miner / Seller", "Rp 1,000,000 (+1,000,000)", "0.0000 BTC (-0.0010)"],
+          ["Actual Blockchain", "No on-chain move yet", "Held in Exchange Vault"]
+        ],
+        ledgerNote: "🏦 Wait—Where are the coins? Right now, the exchange holds the actual coins in its giant corporate vault and simply writes an IOU in your app account."
+      },
+      {
+        id: 6,
+        shortName: "True Ownership",
+        badge: "Act 6 • On-Chain Settlement",
+        title: "Stepping Onto the Blockchain (Self-Custody)",
+        subtitle: "Moving your purchased tokens off the exchange into your personal wallet so your name (address) is on the global ledger.",
+        accent: "#ec4899",
+        glow: "rgba(236, 72, 153, 0.3)",
+        analogy: "<strong>Real-World Analogy:</strong> Buying gold on an app is like holding a paper receipt while the shop keeps the gold in their safe. <strong>Withdrawing to your wallet</strong> is walking out of the shop with the physical gold bar locked inside your own home safe.",
+        points: [
+          "If you want 100% direct ownership, you copy your personal <strong>Public Wallet Address</strong> and click <strong>'Withdraw'</strong> on the exchange.",
+          "The exchange uses its secret key to broadcast an official message to the blockchain: <em>'Move 0.001 BTC from Exchange Vault to User's Public Address.'</em>",
+          "Validators verify and seal that transfer into the next block. Now, all 10,000+ computers worldwide agree that <strong>your address owns those coins</strong>!"
+        ],
+        nodes: [
+          {
+            icon: "🏦",
+            title: "Exchange Vault Wallet",
+            role: "Signs withdrawal request",
+            detail: "You click 'Withdraw'. The exchange takes the coins from its vault and signs an official blockchain transaction addressed to your personal wallet."
+          },
+          {
+            icon: "⛓️",
+            title: "Blockchain Validators",
+            role: "Seals Block #103 globally",
+            edgeLabel: "Broadcasts to nodes",
+            detail: "Validators worldwide check the exchange's signature, deduct the coins from the exchange's row, and seal Block #103 permanently."
+          },
+          {
+            icon: "🛡️",
+            title: "Your Personal Wallet",
+            role: "100% Self-Custody Ownership",
+            edgeLabel: "Permanent record",
+            detail: "Mission accomplished! Your coins are now recorded directly under your Public Address on the global notebook, controlled solely by your Private Key."
+          }
+        ],
+        ledgerType: "Public Blockchain — Block #103 (Final Settlement)",
+        ledgerHeaders: ["Block #", "From Address", "To Address (Yours!)", "Status"],
+        ledgerRows: [
+          ["Block #103", "bc1q_exchange_vault", "bc1q_YOUR_WALLET_88", "+0.0010 BTC"],
+          ["Network Consensus", "10,450 / 10,450 Nodes", "Verified & Sealed", "✅ IMMUTABLE"],
+          ["Key Authority", "Your Private Seed Only", "No Middleman Needed", "🔐 Self-Custody"]
+        ],
+        ledgerNote: "🎉 The Complete Journey: You turned traditional bank money (Fiat) into an unchangeable, globally verified asset on the blockchain!"
+      }
+    ];
+
+    let currentStageIdx = 0;
+    let selectedNodeIdx = 0;
+
+    function initStepper() {
+      const nav = document.getElementById("stepperNav");
+      nav.innerHTML = stages.map((st, idx) => `
+        <button class="step-pill ${idx === currentStageIdx ? 'active' : ''}" onclick="goToStage(${idx})">
+          <span class="step-num">Act ${st.id}</span>
+          <div class="step-name">${st.shortName}</div>
+        </button>
+      `).join("");
+    }
+
+    function renderStage() {
+      const st = stages[currentStageIdx];
+
+      // Update CSS variables for dynamic stage color theme
+      document.documentElement.style.setProperty("--accent", st.accent);
+      document.documentElement.style.setProperty("--accent-glow", st.glow);
+
+      // Update Stepper active state
+      const pills = document.querySelectorAll(".step-pill");
+      pills.forEach((pill, i) => {
+        pill.classList.toggle("active", i === currentStageIdx);
+      });
+
+      // Update Top Buttons
+      document.getElementById("prevBtn").disabled = currentStageIdx === 0;
+      document.getElementById("nextBtn").disabled = currentStageIdx === stages.length - 1;
+
+      // Update Header Info
+      document.getElementById("stageBadge").textContent = st.badge;
+      document.getElementById("stageTitle").textContent = st.title;
+      document.getElementById("stageSubtitle").textContent = st.subtitle;
+
+      // Render Interactive Diagram Nodes + Animated Connectors
+      const container = document.getElementById("nodesContainer");
+      let html = "";
+      st.nodes.forEach((node, idx) => {
+        if (idx > 0) {
+          html += `
+            <div class="connector">
+              <span class="connector-label">${node.edgeLabel || 'Next'}</span>
+              <div class="connector-line">
+                <div class="connector-packet"></div>
+              </div>
+            </div>
+          `;
+        }
+        html += `
+          <div class="node-card ${idx === selectedNodeIdx ? 'selected' : ''}" onclick="selectNode(${idx})">
+            <div class="node-icon">${node.icon}</div>
+            <div class="node-title">${node.title}</div>
+            <div class="node-role">${node.role}</div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+
+      // Update Node Inspector
+      updateInspector();
+
+      // Update Speaker Analogy & Talking Points
+      document.getElementById("analogyBox").innerHTML = st.analogy;
+      document.getElementById("talkingPoints").innerHTML = st.points
+        .map(pt => `<li>${pt}</li>`)
+        .join("");
+
+      // Update Live Ledger Table
+      document.getElementById("ledgerTypeTag").textContent = st.ledgerType;
+      document.getElementById("ledgerHeaders").innerHTML = st.ledgerHeaders
+        .map(h => `<th>${h}</th>`)
+        .join("");
+      document.getElementById("ledgerRows").innerHTML = st.ledgerRows
+        .map(row => `<tr>${row.map((cell, cIdx) => `<td class="${cIdx === row.length - 1 ? 'ledger-highlight' : ''}">${cell}</td>`).join("")}</tr>`)
+        .join("");
+      document.getElementById("ledgerFootnote").innerHTML = st.ledgerNote;
+    }
+
+    function updateInspector() {
+      const st = stages[currentStageIdx];
+      const node = st.nodes[selectedNodeIdx];
+      document.getElementById("inspectorTitle").textContent = `${node.icon} ${node.title} — Deep Dive`;
+      document.getElementById("inspectorDesc").textContent = node.detail;
+
+      const cards = document.querySelectorAll(".node-card");
+      cards.forEach((c, i) => c.classList.toggle("selected", i === selectedNodeIdx));
+    }
+
+    function selectNode(idx) {
+      selectedNodeIdx = idx;
+      updateInspector();
+    }
+
+    function goToStage(idx) {
+      currentStageIdx = idx;
+      selectedNodeIdx = 0;
+      renderStage();
+    }
+
+    function changeStage(delta) {
+      const next = currentStageIdx + delta;
+      if (next >= 0 && next < stages.length) {
+        goToStage(next);
+      }
+    }
+
+    // Keyboard navigation support for presenting
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") changeStage(1);
+      if (e.key === "ArrowLeft") changeStage(-1);
+    });
+
+    // Initialize on load
+    initStepper();
+    renderStage();
+  </script>
+</body>
+</html>
