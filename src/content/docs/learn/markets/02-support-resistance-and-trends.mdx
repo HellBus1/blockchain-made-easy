@@ -1,0 +1,97 @@
+---
+title: '5.2 Support, Resistance & Market Structure'
+description: Master horizontal supply and demand zones, market structure shifts, and the psychological role reversal between support and resistance.
+track: Markets
+chapter: 2
+---
+
+import ChapterProgress from '../../../../components/mdx/ChapterProgress';
+import ChapterSeal from '../../../../components/mdx/ChapterSeal';
+import Term from '../../../../components/mdx/Term';
+import { Aside } from '@astrojs/starlight/components';
+
+<ChapterProgress client:load track="markets" currentChapter={2} chapterId="markets-02" />
+
+If you look at raw charts without guidance, price appears to move randomly. But beneath the surface, price moves in direct response to **concentrated liquidity zones**.
+
+Markets do not have memory, but the human beings and algorithmic bots trading them do. Those psychological memory levels are called **Support** and **Resistance**.
+
+---
+
+### Understanding Support & Resistance
+
+```
+RESISTANCE (THE CEILING):
+  Price approaches ──► Heavy Sell Limit Orders & Profit Taking ──► Price Bounces Down
+  ▲                                                                      │
+  │                                                                      ▼
+SUPPORT (THE FLOOR):
+  Price Bounces Up ◄── Heavy Buy Limit Orders & Bargain Hunters ◄── Price approaches
+```
+
+- **Support (Demand Zone)**: A price level where buying interest is sufficiently strong to overcome selling pressure. Every time price touches this level, eager buyers step in, creating a bounce.
+- **Resistance (Supply Zone)**: A price level where selling interest is strong enough to halt an upward advance. Traders who bought lower take profits, and short-sellers enter, pushing prices down.
+
+---
+
+### The Law of Role Reversal (The Flip)
+
+One of the most reliable and profitable setups in technical analysis is the **Support-to-Resistance Flip**:
+
+```
+        BREAKOUT & RETEST CYCLE:
+                  (3) Breakout!
+                      / \
+        ─────────────/───\────────────────── Previous RESISTANCE Ceiling
+                    /     \ (4) Retest confirms
+                   /       \
+        (1) Bounce          \ ──► Becomes NEW SUPPORT Floor! ──► Rallies to New Highs
+            \     /
+             \   /
+        ──────\─/─────────────────────────── Base Support Floor
+```
+
+1. **Why does resistance become support?**
+   - When price breaks decisively above a resistance level, traders who sold there regret exiting early.
+   - Traders who shorted that level are trapped in losing positions.
+   - When the price pulls back to retest that exact breakout level, trapped shorts eagerly buy to cover their losses at break-even, and breakout traders add to their winning positions.
+   - The former ceiling instantly converts into a solid concrete floor!
+
+---
+
+### Market Structure: The 3 Market Phases
+
+Financial markets spend approximately 70% of their time consolidating in ranges and only 30% trending. You must identify which market phase you are in before risking any capital:
+
+#### 1. The Uptrend (Bullish Market Structure)
+Characterized by a stair-step series of **Higher Highs (HH)** and **Higher Lows (HL)**:
+- Every dip is bought at a higher price than the previous dip.
+- **Rule**: Buy the pullbacks to key support zones. Never short an established uptrend!
+
+#### 2. The Downtrend (Bearish Market Structure)
+Characterized by a descending cascade of **Lower Lows (LL)** and **Lower Highs (LH)**:
+- Every bounce fails at a lower price than the previous peak.
+- **Rule**: Stay in cash or stablecoins, or take short setups at resistance. Never attempt to "catch falling knives".
+
+#### 3. The Range / Consolidation
+Price is bounded horizontally between an established support floor and resistance ceiling:
+- Ideal for **Grid Trading Bots** (as learned in Track 3) to harvest continuous volatility without worrying about macro direction!
+
+---
+
+### How to Mark Key Levels Like a Pro
+
+Avoid drawing dozens of messy lines across your chart. Follow the **3-Touch Rule**:
+
+1. Switch your chart to the **Daily (1D)** timeframe.
+2. Look for price levels that have clearly caused at least **two or three sharp price reversals** over the past 3 to 12 months.
+3. Treat levels as **horizontal zones**, not razor-thin lines. An institutional order block is a price band (e.g., $64,000 – $64,800), not an exact single cent.
+4. Set price alerts slightly *before* the zone so you can observe the price action before entering a trade.
+
+<ChapterSeal
+  client:load
+  chapterId="markets-02"
+  chapterTitle="5.2 Support, Resistance & Market Structure"
+  track="markets"
+  proof="SUPPORT-RESISTANCE-MARKET-STRUCTURE-FLIP"
+/>

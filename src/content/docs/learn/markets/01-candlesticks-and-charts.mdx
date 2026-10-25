@@ -1,17 +1,101 @@
 ---
-title: 5.1 Candlesticks & Charts
-description: Reading green and red candles, timeframes, order flow, and essential risk management principles.
+title: '5.1 Reading Candlesticks (OHLC) & Market Volume'
+description: Master the visual language of financial charts — deconstructing Japanese candlesticks, real bodies, wicks, and how trading volume confirms institutional money flow.
 track: Markets
 chapter: 1
 ---
 
+import ChapterProgress from '../../../../components/mdx/ChapterProgress';
+import ChapterSeal from '../../../../components/mdx/ChapterSeal';
+import Term from '../../../../components/mdx/Term';
+import CandlestickLab from '../../../../components/sims/CandlestickLab';
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="note" title="Track 5: Market Literacy">
-  This chapter covers candlestick charts (Open, High, Low, Close), trading volume, order types
-  (Limit vs Market vs Stop-loss), and foundational risk management.
-</Aside>
+<ChapterProgress client:load track="markets" currentChapter={1} chapterId="markets-01" />
 
-### Disclaimer
+When you open any professional trading platform (such as TradingView, Binance, or Coinbase Advanced), the first thing you see is a mesmerizing sea of green and red bars pulsing across the screen.
 
-_All market literacy content is strictly educational and does not constitute financial or investment advice._
+To the untrained eye, price charts look like chaotic noise or gambling. But to an experienced trader, **candlestick charts are a real-time visual recording of human greed, fear, and institutional capital flow**.
+
+If your goal is to generate fiat income from cryptocurrency, you must be able to read this visual language fluently.
+
+---
+
+### The Anatomy of a Japanese Candlestick
+
+Invented in 18th-century Japan by rice trader Homma Munehisa, candlestick charts pack four distinct price data points into a single, intuitive shape known as **OHLC**:
+
+```
+      BULLISH CANDLE (GREEN)                BEARISH CANDLE (RED)
+             High                                  High
+              │  ◄── Upper Wick (Rejection)         │  ◄── Upper Wick
+        ┌─────┴─────┐                         ┌─────┴─────┐
+        │   CLOSE   │                         │   OPEN    │
+        │           │                         │           │
+        │ Real Body │                         │ Real Body │
+        │ (Buying)  │                         │ (Selling) │
+        │   OPEN    │                         │   CLOSE   │
+        └─────┬─────┘                         └─────┬─────┘
+              │  ◄── Lower Wick (Absorption)        │  ◄── Lower Wick
+             Low                                   Low
+```
+
+1. **Open**: The price at which the time period began.
+2. **High**: The absolute highest price traded during that period (top of the upper wick).
+3. **Low**: The absolute lowest price traded during that period (bottom of the lower wick).
+4. **Close**: The final price when the candle closed.
+
+- **Green Candle**: The Close is **higher** than the Open (Close ≥ Open). Buyers won the session.
+- **Red Candle**: The Close is **lower** than the Open (Close &lt; Open). Sellers won the session.
+
+---
+
+### What Do the Wicks and Bodies Tell You?
+
+The geometric proportions of a candlestick tell a profound psychological story:
+
+- **Large Real Body**: High conviction. If a candle has a huge green body with tiny wicks, buyers were in total control from start to finish.
+- **Long Upper Wick**: **Selling Pressure / Overhead Rejection**. Buyers pushed the price upward, but institutional sellers stepped in, rejected the advance, and dumped price back down before the close.
+- **Long Lower Wick**: **Buying Absorption / Dip Buying**. Sellers attempted to crash the price, but aggressive buyers stepped in, absorbed all the supply, and forced the price back up.
+
+---
+
+### Interactive Candlestick Anatomy & Pattern Inspector
+
+Use the interactive simulator below to sculpt candlestick shapes, test classic patterns, and understand the price action implications:
+
+<CandlestickLab client:load />
+
+---
+
+### The Truth About Trading Volume
+
+Price tells you *what* the market did. **Volume tells you *how many real dollars* backed the move.**
+
+```
+PRICE RALLY + SURGING VOLUME ──► Genuine Institutional Accumulation (Strong Continuation)
+PRICE RALLY + DECLINING VOLUME ──► Retail Trap / Fakeout (Imminent Reversal)
+```
+
+1. **High Volume on Support**: When a coin crashes into a key level and prints huge volume with a long lower wick (Hammer), it proves large institutions are absorbing panic sales with massive buy limit orders.
+2. **Breakouts on Low Volume**: If price breaks out above a major resistance level on low volume, **do not buy**. It is almost always a "bull trap" engineered to trick retail traders into buying liquidity for whales to exit.
+
+---
+
+### Multi-Timeframe Analysis (The 3-Chart Rule)
+
+Never make a financial decision looking at only one chart timeframe. Professional traders use the **Rule of Three**:
+
+1. **Daily (1D) or Weekly (1W) Chart**: Identifies the macro trend (Is the broad market in an uptrend, downtrend, or multi-month range?).
+2. **4-Hour (4H) Chart**: Identifies high-value market structure, key support/resistance zones, and swing trade setups.
+3. **1-Hour (1H) or 15-Minute (15M) Chart**: Pinpoints the exact entry trigger, calculating precise stop-loss and take-profit levels.
+
+> **Key Rule**: Never take a 15-minute buy signal if the 1-Day chart is in a relentless downtrend. Always trade in the direction of the higher-timeframe tide!
+
+<ChapterSeal
+  client:load
+  chapterId="markets-01"
+  chapterTitle="5.1 Reading Candlesticks (OHLC) & Market Volume"
+  track="markets"
+  proof="OHLC-CANDLESTICK-VOLUME-PRICE-ACTION"
+/>

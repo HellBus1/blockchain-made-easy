@@ -15,8 +15,8 @@ export default function LearningChainExplorer() {
 
   const integrity = verifyChainIntegrity(chain);
 
-  // Chapters completed across Tracks 1, 2, 3 & 4
-  const totalChapters = 27;
+  // Chapters completed across Tracks 1, 2, 3, 4 & 5 (Full Curriculum)
+  const totalChapters = 33;
   const sealedChapters = chain.filter((b) => b.chapterId !== 'genesis').length;
   const progressPct = Math.min(100, Math.round((sealedChapters / totalChapters) * 100));
 

@@ -2,7 +2,7 @@ import { useStore } from '@nanostores/react';
 import { learningChain, sealChapterBlockInstant, unsealChapterBlock } from '../../stores/progress';
 
 interface ChapterProgressProps {
-  track?: 'foundations' | 'wallets' | 'exchanges' | 'ethereum';
+  track?: 'foundations' | 'wallets' | 'exchanges' | 'ethereum' | 'markets';
   currentChapter: number;
   chapterId: string;
 }
@@ -181,6 +181,45 @@ const ETHEREUM_CHAPTERS = [
   },
 ];
 
+const MARKETS_CHAPTERS = [
+  {
+    num: 1,
+    id: 'markets-01',
+    title: '5.1 Reading Candlesticks (OHLC) & Volume',
+    url: '/learn/markets/01-candlesticks-and-charts/',
+  },
+  {
+    num: 2,
+    id: 'markets-02',
+    title: '5.2 Support, Resistance & Structure',
+    url: '/learn/markets/02-support-resistance-and-trends/',
+  },
+  {
+    num: 3,
+    id: 'markets-03',
+    title: '5.3 Advanced Orders: OCO & Trailing Stops',
+    url: '/learn/markets/03-order-types-and-execution-tactics/',
+  },
+  {
+    num: 4,
+    id: 'markets-04',
+    title: '5.4 Trading Psychology: FOMO & Discipline',
+    url: '/learn/markets/04-trading-psychology-and-discipline/',
+  },
+  {
+    num: 5,
+    id: 'markets-05',
+    title: '5.5 Portfolio Architecture: Cash-Flow Barbell',
+    url: '/learn/markets/05-portfolio-construction-and-cash-flow/',
+  },
+  {
+    num: 6,
+    id: 'markets-06',
+    title: '5.6 The Complete Income Blueprint & Graduation',
+    url: '/learn/markets/06-the-complete-income-blueprint-and-graduation/',
+  },
+];
+
 export default function ChapterProgress({
   track = 'foundations',
   currentChapter,
@@ -191,21 +230,25 @@ export default function ChapterProgress({
   const isCurrentSealed = sealedIds.has(chapterId);
 
   const chapters =
-    track === 'ethereum'
-      ? ETHEREUM_CHAPTERS
-      : track === 'exchanges'
-        ? EXCHANGES_CHAPTERS
-        : track === 'wallets'
-          ? WALLETS_CHAPTERS
-          : FOUNDATIONS_CHAPTERS;
+    track === 'markets'
+      ? MARKETS_CHAPTERS
+      : track === 'ethereum'
+        ? ETHEREUM_CHAPTERS
+        : track === 'exchanges'
+          ? EXCHANGES_CHAPTERS
+          : track === 'wallets'
+            ? WALLETS_CHAPTERS
+            : FOUNDATIONS_CHAPTERS;
   const trackName =
-    track === 'ethereum'
-      ? 'Track 4: Ethereum, Smart Contracts & Web3'
-      : track === 'exchanges'
-        ? 'Track 3: Exchanges & Income'
-        : track === 'wallets'
-          ? 'Track 2: Wallets & Security'
-          : 'Track 1: Foundations';
+    track === 'markets'
+      ? 'Track 5: Market Literacy & Execution'
+      : track === 'ethereum'
+        ? 'Track 4: Ethereum, Smart Contracts & Web3'
+        : track === 'exchanges'
+          ? 'Track 3: Exchanges & Income'
+          : track === 'wallets'
+            ? 'Track 2: Wallets & Security'
+            : 'Track 1: Foundations';
   const completedCount = chapters.filter((ch) => sealedIds.has(ch.id)).length;
   const currentChapterObj = chapters.find((ch) => ch.num === currentChapter) || chapters[0];
 
