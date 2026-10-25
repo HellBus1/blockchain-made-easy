@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import { learningChain, mineChapterBlockWithPoW, unsealChapterBlock } from '../../stores/progress';
+import {
+  learningChain,
+  mineChapterBlockWithPoW,
+  sealChapterBlockInstant,
+  unsealChapterBlock,
+} from '../../stores/progress';
 
 interface ChapterSealProps {
   chapterId: string;
   chapterTitle: string;
   nextChapterUrl?: string;
   nextChapterTitle?: string;
+  track?: string;
 }
 
 export default function ChapterSeal({
@@ -25,6 +31,15 @@ export default function ChapterSeal({
 
   // If already sealed, display the sealed block
   const isSealed = Boolean(existingBlock);
+
+  const handleInstantSign = async () => {
+    if (isMining || isSealed) return;
+    try {
+      await sealChapterBlockInstant(chapterId, chapterTitle);
+    } catch (err) {
+      console.error('Instant sign error:', err);
+    }
+  };
 
   const handleMine = async () => {
     if (isMining || isSealed) return;
@@ -68,34 +83,45 @@ export default function ChapterSeal({
       {!isSealed && !isMining && (
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Proof of Work Verification
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Chapter Completion & Verification
             </div>
             <h3 className="text-xl font-bold tracking-tight text-foreground m-0">
-              Finished Reading? Seal Your Block
+              Finished Reading? Check & Sign Your Chapter
             </h3>
             <p className="text-sm text-muted-foreground m-0 max-w-xl">
-              Permanently seal this milestone into your local cryptographic learning chain by
-              running a real SHA-256 micro-mining cycle.
+              Permanently mark this chapter complete and cryptographically seal Block #
+              {chain.length} into your local blockchain ledger.
             </p>
           </div>
 
-          <button
-            onClick={handleMine}
-            type="button"
-            className="cursor-pointer whitespace-nowrap inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-medium text-sm text-primary-foreground bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
-            Mine & Seal Block #{chain.length}
-          </button>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={handleInstantSign}
+              type="button"
+              className="cursor-pointer whitespace-nowrap inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold text-sm text-white bg-emerald-600 hover:bg-emerald-500 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              Check & Sign Block #{chain.length}
+            </button>
+
+            <button
+              onClick={handleMine}
+              type="button"
+              className="cursor-pointer whitespace-nowrap inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium text-sm text-foreground bg-muted hover:bg-muted/80 border border-border shadow-xs hover:shadow transition-all duration-150"
+              title="Run SHA-256 Proof of Work micro-mining animation"
+            >
+              <span>⛏️ Mine with PoW</span>
+            </button>
+          </div>
         </div>
       )}
 

@@ -51,8 +51,13 @@
     const progressPct = Math.round((totalCompleted / TOTAL_CURRICULUM) * 100);
     const currentPath = window.location.pathname;
 
-    // 1. Sidebar Progress Card
-    const sidebar = document.getElementById('starlight__sidebar') || document.querySelector('aside.sidebar, .sidebar-pane');
+    // 1. Sidebar Progress Card - Target .sidebar-content for high visibility inside the scrolling panel
+    const sidebar =
+      document.querySelector('.sidebar-content') ||
+      document.querySelector('#starlight__sidebar .sidebar-content') ||
+      document.getElementById('starlight__sidebar') ||
+      document.querySelector('aside.sidebar, .sidebar-pane');
+
     if (sidebar) {
       let card = sidebar.querySelector('.bme-sidebar-progress-card');
       if (!card) {
@@ -75,17 +80,17 @@
           <div class="bme-progress-bar-fill" style="width: ${progressPct}%"></div>
         </div>
         <div class="bme-progress-footer">
-          <span>${totalCompleted} of ${TOTAL_CURRICULUM} Blocks Mined</span>
+          <span>${totalCompleted} of ${TOTAL_CURRICULUM} Blocks Sealed</span>
           <a href="/dashboard/" class="bme-progress-link">Ledger ↗</a>
         </div>
       `;
     }
 
     // 2. Track Header Progress Badges
-    const summaries = document.querySelectorAll('summary, .sidebar-group-label');
+    const summaries = document.querySelectorAll('summary, .sidebar-group-label, details summary');
     summaries.forEach((el) => {
       const text = el.textContent || '';
-      if (text.includes('Track 1: Foundations')) {
+      if (text.includes('Track 1: Foundations') || text.includes('Foundations')) {
         let badge = el.querySelector('.bme-track-count');
         if (!badge) {
           badge = document.createElement('span');
@@ -93,7 +98,7 @@
           el.appendChild(badge);
         }
         badge.textContent = `(${track1Count}/${TOTAL_TRACK1})`;
-      } else if (text.includes('Track 2: Wallets & Security')) {
+      } else if (text.includes('Track 2: Wallets & Security') || text.includes('Wallets & Security')) {
         let badge = el.querySelector('.bme-track-count');
         if (!badge) {
           badge = document.createElement('span');
@@ -105,7 +110,7 @@
     });
 
     // 3. Chapter Links Status Icons (✓ Sealed, ● Active Reading, ○ Pending)
-    const links = document.querySelectorAll('nav a, aside a, .sidebar-content a');
+    const links = document.querySelectorAll('.sidebar-content a, nav a, aside a');
     links.forEach((link) => {
       const href = link.getAttribute('href') || '';
       let matchedChapterId = null;
@@ -120,8 +125,10 @@
       if (!matchedChapterId) return;
 
       const isCompleted = completed.has(matchedChapterId);
-      const isCurrent = currentPath.includes(href) || (href.length > 2 && currentPath.endsWith(href));
-      
+      const isCurrent =
+        currentPath === href ||
+        (href.length > 2 && (currentPath.includes(href) || currentPath.endsWith(href)));
+
       let badge = link.querySelector('.bme-check-badge');
       if (!badge) {
         badge = document.createElement('span');
@@ -148,7 +155,12 @@
     });
 
     // 4. Header Top Navbar Progress Pill
-    const headerContainer = document.querySelector('.header .sl-flex') || document.querySelector('header .sl-flex');
+    const headerContainer =
+      document.querySelector('.header .sl-flex:not(.title-wrapper)') ||
+      document.querySelector('.header .sl-flex') ||
+      document.querySelector('header .sl-flex') ||
+      document.querySelector('.header');
+
     if (headerContainer) {
       let headerPill = document.getElementById('bme-header-pill');
       if (!headerPill) {
@@ -166,11 +178,23 @@
     }
   }
 
-  // Hook into lifecycle events
+  function scheduleUpdates() {
+    updateSidebarAndProgress();
+    setTimeout(updateSidebarAndProgress, 60);
+    setTimeout(updateSidebarAndProgress, 300);
+    setTimeout(updateSidebarAndProgress, 1000);
+  }
+
+  // Hook into lifecycle events with instant fallback
   if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', updateSidebarAndProgress);
-    document.addEventListener('astro:page-load', updateSidebarAndProgress);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleUpdates);
+    } else {
+      scheduleUpdates();
+    }
+    document.addEventListener('astro:page-load', scheduleUpdates);
     window.addEventListener('bme:chain-updated', updateSidebarAndProgress);
     window.addEventListener('storage', updateSidebarAndProgress);
+    setInterval(updateSidebarAndProgress, 3000);
   }
 })();

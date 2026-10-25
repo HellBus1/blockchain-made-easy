@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { learningChain } from '../../stores/progress';
+import { learningChain, sealChapterBlockInstant, unsealChapterBlock } from '../../stores/progress';
 
 interface ChapterProgressProps {
   track?: 'foundations' | 'wallets';
@@ -115,6 +115,15 @@ export default function ChapterProgress({
   const chapters = track === 'wallets' ? WALLETS_CHAPTERS : FOUNDATIONS_CHAPTERS;
   const trackName = track === 'wallets' ? 'Track 2: Wallets & Security' : 'Track 1: Foundations';
   const completedCount = chapters.filter((ch) => sealedIds.has(ch.id)).length;
+  const currentChapterObj = chapters.find((ch) => ch.num === currentChapter) || chapters[0];
+
+  const handleInstantSign = async () => {
+    await sealChapterBlockInstant(chapterId, currentChapterObj.title);
+  };
+
+  const handleUnsign = () => {
+    unsealChapterBlock(chapterId);
+  };
 
   const scrollToSeal = () => {
     const sealElem = document.getElementById('chapter-seal-section');
@@ -139,21 +148,49 @@ export default function ChapterProgress({
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {isCurrentSealed ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              Block Sealed ✓
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />✓ Chapter
+                Checked & Signed
+              </span>
+              <button
+                onClick={handleUnsign}
+                type="button"
+                className="cursor-pointer text-[11px] text-muted-foreground hover:text-red-500 underline decoration-dotted transition-colors ml-0.5"
+                title="Uncheck this chapter"
+              >
+                (undo)
+              </button>
+            </div>
           ) : (
-            <button
-              onClick={scrollToSeal}
-              type="button"
-              className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-colors"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-              Unsealed — Jump to Seal ↓
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={handleInstantSign}
+                type="button"
+                className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm hover:shadow transition-all duration-150 active:scale-98"
+                title="Check off and cryptographically sign this chapter"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                Check & Sign Chapter
+              </button>
+              <button
+                onClick={scrollToSeal}
+                type="button"
+                className="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted border border-border/60 transition-colors"
+                title="Scroll down to the interactive Proof of Work mining seal"
+              >
+                <span>⛏️ PoW Seal ↓</span>
+              </button>
+            </div>
           )}
 
           <a
