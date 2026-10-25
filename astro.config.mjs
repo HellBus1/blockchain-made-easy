@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
+  session: false,
   adapter: cloudflare({
     prerenderEnvironment: 'node',
     imageService: 'compile',
