@@ -8,6 +8,8 @@ sims:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
 import BlockChainSimulator from '@/components/sims/BlockChainSimulator';
 
 Transactions don't float around individually forever. In Bitcoin and other networks, transactions are gathered together into batches called **Blocks** (like pages in an accounting ledger).
@@ -33,6 +35,8 @@ Every block contains three essential components:
 └────────────────────┘              └────────────────────┘              └────────────────────┘
 ```
 
+The very first block in any blockchain is known as the <Term id="genesis-block">Genesis Block (Block #0)</Term>.
+
 ---
 
 ## Interactive Lab: Tamper with Historical Blocks
@@ -52,11 +56,19 @@ Notice what happened in the simulator:
 - Block #2's hash is invalidated, which immediately breaks Block #3, Block #4, and every block thereafter!
 
 <Aside type="caution" title="The Tamper Alert">
-  To successfully rewrite an old transaction on the blockchain, an attacker would have to
+  To successfully rewrite an old transaction on the <Term id="blockchain">blockchain</Term>, an attacker would have to
   recalculate and re-mine that block, plus **every single subsequent block** faster than the entire
   rest of the global network combined!
 </Aside>
 
-Now that we know how blocks link together, who earns the right to add the next block to the chain? That brings us to **Proof of Work and Proof of Stake**.
+Now that we know how blocks link together, who earns the right to add the next block to the chain? That brings us to <Term id="pow">Proof of Work</Term> and <Term id="pos">Proof of Stake</Term>.
 
-[Next: Chapter 1.7 Proof of Work vs Proof of Stake &rarr;](/learn/foundations/07-pow-vs-pos/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-06"
+  chapterTitle="1.6 Blocks & The Immutable Chain"
+  nextChapterUrl="/learn/foundations/07-pow-vs-pos/"
+  nextChapterTitle="1.7 Proof of Work vs Proof of Stake"
+/>

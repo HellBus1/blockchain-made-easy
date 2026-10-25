@@ -61,3 +61,33 @@
 .sim-glow {
   box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
 }
+
+/* Sidebar progress badges */
+.bme-check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-left: auto;
+  border-radius: 9999px;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

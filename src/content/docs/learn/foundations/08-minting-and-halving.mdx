@@ -8,6 +8,8 @@ sims:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
 import HalvingScrubber from '@/components/sims/HalvingScrubber';
 
 In the traditional banking world, central banks (like the Federal Reserve or Bank Indonesia) can expand the monetary base by printing currency or expanding digital reserves at their discretion.
@@ -18,7 +20,7 @@ In a decentralized cryptocurrency like Bitcoin, **there is no central bank gover
 
 ## Where Do Coins Come From? The Coinbase Transaction
 
-When a miner or validator seals a block, the software protocol allows them to insert a special transaction at the very top of the block called the **Coinbase Transaction**.
+When a miner or validator seals a block, the software protocol allows them to insert a special transaction at the very top of the block called the <Term id="coinbase-tx">Coinbase Transaction</Term>.
 
 ```
 Block #102 Transaction List
@@ -37,7 +39,7 @@ The protocol creates these coins out of thin air according to an unalterable sch
 
 ## Interactive Lab: Scrub the Bitcoin Halving Epochs
 
-Every **210,000 blocks** (approximately every 4 years), the protocol automatically cuts the block reward in half. Use the interactive scrubber below to see how Bitcoin's supply matures toward its hard cap:
+Every **210,000 blocks** (approximately every 4 years), the protocol automatically cuts the block reward in half. This event is called <Term id="halving">The Halving</Term>. Use the interactive scrubber below to see how Bitcoin's supply matures toward its hard cap:
 
 <HalvingScrubber client:load />
 
@@ -60,4 +62,12 @@ Around the year **2140**, the 33rd halving will reduce the block reward to zero.
 
 Now let's bring all these concepts together into the grand story: Alice sends 1 Coin to Bob from fiat deposit all the way to self-custody.
 
-[Next: Chapter 1.9 Alice Sends 1 Coin to Bob Walkthrough &rarr;](/learn/foundations/09-alice-to-bob-walkthrough/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-08"
+  chapterTitle="1.8 Minting, Block Rewards & Halving"
+  nextChapterUrl="/learn/foundations/09-alice-to-bob-walkthrough/"
+  nextChapterTitle="1.9 Alice Sends 1 Coin to Bob"
+/>

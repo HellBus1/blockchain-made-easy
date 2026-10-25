@@ -1,66 +1,280 @@
 ---
 title: Interactive Crypto Glossary
-description: Clear, non-technical definitions of critical blockchain, DeFi, and trading terminology.
+description: Clear, non-technical definitions of critical blockchain, cryptography, and consensus terminology with everyday analogies.
+---
+
+import Term from '@/components/mdx/Term';
+
+Welcome to the **Blockchain Made Easy Glossary**. Every term across the curriculum is defined here with non-technical explanations and everyday mental models.
+
 ---
 
 ### A–E
 
-#### Avalanche Effect
+<div id="51-percent-attack" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">51% Attack</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Consensus</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A hypothetical attack where an entity controls the majority of mining hashpower, allowing them to rewrite recent blocks and execute double-spend attacks.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A hostile corporate takeover where a 51% shareholder votes to cancel recent legitimate payments.
+  </div>
+</div>
 
-A property of cryptographic hash functions where even a tiny alteration in the input data (such as changing one letter or capitalization) results in a drastically different, seemingly random output hash.
+<div id="blockchain" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Blockchain</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Architecture</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A distributed, decentralized, and append-only ledger composed of blocks linked together using cryptographic hashes. Once sealed, historical blocks cannot be altered without invalidating all subsequent blocks.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A stack of wax-sealed glass envelopes where each envelope contains a high-resolution photograph of the envelope beneath it.
+  </div>
+</div>
 
-#### Blockchain
+<div id="coinbase-tx" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Coinbase Transaction</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Economics</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    The very first transaction included in every new block, creating brand-new coins out of thin air to reward the miner or validator who sealed the block.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> The royal mint striking fresh coins from raw bullion and delivering them directly to the miner who dug the ore.
+  </div>
+</div>
 
-A distributed, decentralized, and append-only ledger composed of blocks linked together using cryptographic hashes. Once sealed, historical blocks cannot be altered without invalidating all subsequent blocks.
-
-#### Block Reward
-
-The protocol incentive paid to a miner or validator who successfully seals a new block. Consists of newly minted cryptocurrency plus accumulated transaction fees.
-
-#### Custodial vs. Non-Custodial
-
-A custodial service (like a centralized exchange) holds your private keys on your behalf. A non-custodial wallet (self-custody) grants you sole possession of the private key or seed phrase: _"Not your keys, not your coins."_
-
-#### Double-Spend Problem
-
-The vulnerability in digital cash where an asset can be duplicated and spent more than once before verification. Blockchains solve this without a central bank by synchronizing an immutable shared ledger across thousands of nodes.
+<div id="double-spend" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Double-Spend Problem</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Consensus</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    The risk that digital money could be copied and spent more than once before the recipient or network registers the transfer.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Trying to spend the exact same physical $20 bill at two different supermarket registers at the exact same second.
+  </div>
+</div>
 
 ---
 
 ### F–M
 
-#### Fiat Money
+<div id="fiat-bridge" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Fiat Gateway / Bridge</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Architecture</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A regulated centralized exchange or service allowing users to exchange fiat currency (Indonesian Rupiah, US Dollars) for cryptocurrencies via bank transfer or QRIS.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> An international airport money exchange counter connecting traditional sovereign banking with a decentralized world.
+  </div>
+</div>
 
-Government-issued legal tender not backed by a physical commodity like gold (e.g., Indonesian Rupiah [IDR], US Dollar [USD], Euro [EUR]).
+<div id="genesis-block" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Genesis Block (Block #0)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Architecture</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    The inaugural block of a blockchain network, hardcoded by its creator with a previous hash of 64 zeros (`0000...0000`).
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> The cornerstone laid at the foundation of a cathedral before any walls or arches can be erected.
+  </div>
+</div>
 
-#### Gossip Protocol
+<div id="gossip-protocol" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Gossip Protocol</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">Networking</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A peer-to-peer broadcast method where each node rapidly forwards newly verified transactions and blocks to approximately 8 randomly chosen connected neighbors.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> How rumors propagate across a lunchroom: you tell 3 friends, who each tell 3 friends, reaching everyone in seconds.
+  </div>
+</div>
 
-A peer-to-peer communication protocol where nodes randomly share new transactions and blocks with their nearest peers (typically 8 connected peers), rapidly synchronizing the global network within seconds.
+<div id="halving" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Halving (The Halvening)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Economics</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A programmed algorithmic event every 210,000 blocks (roughly every 4 years) that cuts the new coin issuance rate in half, enforcing scarcity toward a 21M hard cap.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A national mint bound by an unalterable treaty to slow down its printing presses by 50% every four years.
+  </div>
+</div>
 
-#### Halving
+<div id="hash" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Cryptographic Hash</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-500 border border-cyan-500/20">Cryptography</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A mathematical one-way function that compresses any input data into a fixed 64-character hexadecimal fingerprint (e.g. SHA-256). Changing a single character completely alters the hash.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A kitchen food processor: effortless to turn fruit into a smoothie; impossible to reconstruct the original fruit from the smoothie.
+  </div>
+</div>
 
-A programmed protocol event in Bitcoin occurring every 210,000 blocks (roughly every 4 years) where the rate of new coin issuance is halved (e.g., from 50 BTC down to 25, 12.5, 6.25, and 3.125 BTC).
+<div id="ledger" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Distributed Ledger</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Architecture</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A synchronized, consensus-backed financial log of balances and transactions held identically across thousands of computers globally.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A shared classroom notebook where all students hold an identical carbon copy and verify every single line.
+  </div>
+</div>
 
-#### Hash (Cryptographic)
-
-A mathematical one-way function that compresses any input data of arbitrary size into a fixed-length string of characters (e.g., 64 hexadecimal characters in SHA-256).
+<div id="mempool" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Mempool (Memory Pool)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Architecture</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    The temporary waiting area in a node's RAM where valid transactions wait before a miner includes them in an upcoming block.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Ticketed passengers waiting at an airport gate before boarding the next scheduled departure.
+  </div>
+</div>
 
 ---
 
 ### N–Z
 
-#### Node
+<div id="node" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Blockchain Node</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">Networking</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A computer running client software that connects to peers, checks cryptographic signatures, validates transactions, and stores ledger history.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> An independent bank auditor with a complete historical archive checking incoming checks against official guidelines.
+  </div>
+</div>
 
-An independent computer running the blockchain software client that maintains a copy of the ledger, verifies transactions, and enforces network protocol rules.
+<div id="nonce" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Nonce (Number Used Once)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Consensus</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A 32-bit arbitrary number that miners continuously increment to alter the block payload until the resulting SHA-256 hash falls below the network target.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Rotating a combination lock dial through random combinations until the lock clicks open.
+  </div>
+</div>
 
-#### Proof of Stake (PoS)
+<div id="order-book" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Order Book</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Economics</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A real-time ledger of pending buy orders (bids) and sell orders (asks) maintained by an exchange matching engine.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> An electronic stock exchange auction board pairing buyers seeking discounts with sellers demanding premiums.
+  </div>
+</div>
 
-A consensus mechanism where validators lock up a deposit of cryptocurrency (stake) to earn the right to propose and validate blocks. Cheating or submitting malicious blocks results in the validator's stake being slashed (burned).
+<div id="pow" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Proof of Work (PoW)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Consensus</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A consensus algorithm where network participants prove computational work by solving cryptographic mathematical puzzles to propose blocks and earn rewards.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A competitive high-stakes math olympiad where the first student to show the valid proof wins the scholarship.
+  </div>
+</div>
 
-#### Proof of Work (PoW)
+<div id="pos" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Proof of Stake (PoS)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">Consensus</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A consensus mechanism where validators lock native cryptocurrency (stake) as financial collateral. Dishonest behavior triggers automated slashing penalties.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A landlord holding a substantial security deposit: comply with apartment rules to get paid; trash the property to lose your deposit.
+  </div>
+</div>
 
-A consensus mechanism requiring miners to expend physical electrical energy and compute cycles to solve a challenging cryptographic puzzle before sealing a block.
+<div id="public-key" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Public Key & Address</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A public cryptographic coordinate derived from your private key that serves as your receiving address. It is safe to share with anyone.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> An email address or bank IBAN: anyone can send you mail or funds, but no one can send mail from your inbox.
+  </div>
+</div>
 
-#### Public Key & Private Key
+<div id="private-key" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Private Key</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A secret 256-bit number that generates cryptographic digital signatures to authorize transfers from your address. Never share it with anyone.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Your biological signature and physical vault key in one: anyone who possesses it owns everything inside.
+  </div>
+</div>
 
-A cryptographic keypair. The **Public Key** (derived into your wallet address) is safe to share with the world like an account number or glass mailbox. The **Private Key** (or 12-word seed phrase) is your secret digital signature used to authorize transfers.
+<div id="seed-phrase" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Seed Phrase (Mnemonic Recovery Phrase)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A human-readable sequence of 12 or 24 words from the BIP-39 standard dictionary that mathematically regenerates all your private keys and addresses.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A master DNA blueprint: storing these words safely on metal or paper allows you to recreate your wallet anywhere.
+  </div>
+</div>
+
+<div id="self-custody" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Self-Custody (Non-Custodial)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    Taking personal sovereignty over your crypto assets by holding the private keys on your own device rather than trusting an exchange or custodian.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Holding bullion or cash in a personal home vault rather than on a third-party bank ledger subject to freezes or insolvency.
+  </div>
+</div>

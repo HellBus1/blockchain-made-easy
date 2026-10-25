@@ -5,9 +5,11 @@ track: Foundations
 chapter: 1
 ---
 
-import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
 
-When most people think of money, they picture crisp paper bills or heavy metallic coins. But if you look deeper into economic history, money has never primarily been about physical tokens—**money is a record-keeping system**. It is a ledger.
+When most people think of money, they picture crisp paper bills or heavy metallic coins. But if you look deeper into economic history, money has never primarily been about physical tokens—**money is a record-keeping system**. It is a <Term id="ledger">ledger</Term>.
 
 ---
 
@@ -25,7 +27,7 @@ In fact, legend has it that one Rai stone was lost to the bottom of the ocean du
 
 <Aside type="tip" title="The Fundamental Truth of Money">
   Money doesn't need to physically move. You don't need to hand over an object. All you need is an
-  **agreed-upon ledger** that tracks who owns what, and a rulebook preventing unauthorized
+  **agreed-upon <Term id="ledger">ledger</Term>** that tracks who owns what, and a rulebook preventing unauthorized
   alterations.
 </Aside>
 
@@ -62,6 +64,14 @@ In a centralized system, one entity holds the notebook and the pencil. That trus
 - **Cross-border friction**: International wires can take 3–5 business days and incur hefty fees.
 - **Censorship & freezes**: The guard can freeze accounts or block transactions at will.
 
-This brings us to the fundamental problem that prevented digital money from existing without a bank for decades: **The Double-Spend Problem**.
+This brings us to the fundamental challenge that prevented digital money from existing without a bank for decades: <Term id="double-spend">The Double-Spend Problem</Term>.
 
-[Next: Chapter 1.2 The Double-Spend Problem &rarr;](/learn/foundations/02-the-double-spend-problem/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-01"
+  chapterTitle="1.1 What Money Really Is"
+  nextChapterUrl="/learn/foundations/02-the-double-spend-problem/"
+  nextChapterTitle="1.2 The Double-Spend Problem"
+/>

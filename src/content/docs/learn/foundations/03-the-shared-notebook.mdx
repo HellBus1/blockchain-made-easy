@@ -5,7 +5,9 @@ track: Foundations
 chapter: 3
 ---
 
-import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
 
 What if instead of paying one banker to sit in a tower holding the only ledger, **every citizen in the village kept their own identical copy of the notebook**?
 
@@ -24,9 +26,9 @@ One central database controls all.       Thousands of independent computers
 Single point of failure and censorship.  hold exact copies of the ledger.
 ```
 
-In a decentralized cryptocurrency network, these participating computers are called **Nodes**.
+In a decentralized cryptocurrency network, these participating computers are called <Term id="node">Nodes</Term>.
 
-There are currently tens of thousands of Bitcoin and Ethereum nodes running simultaneously in data centers, office buildings, and home basements across Jakarta, Tokyo, Frankfurt, London, and San Francisco.
+There are currently tens of thousands of Bitcoin and Ethereum nodes running simultaneously in data centers, office buildings, and home setups across Jakarta, Tokyo, Frankfurt, London, and New York.
 
 ---
 
@@ -37,16 +39,15 @@ When Alice wants to transfer **1 Coin to Bob**:
 1. Alice doesn't send a private message to a bank server.
 2. Alice broadcasts her signed message out loud to the entire global network:
    > _"Attention everyone: Move 1 Coin from Alice's Address to Bob's Address."_
-3. Every node that hears this message checks its local copy of the notebook to verify:
+3. Every <Term id="node">node</Term> that hears this message checks its local copy of the <Term id="ledger">ledger</Term> to verify:
    - Does Alice actually own at least 1 Coin?
    - Is Alice's digital cryptographic signature valid?
-4. If verified, every node writes down Alice's transaction on their pending page at the exact same time.
+4. If verified, every node writes down Alice's transaction in its pending memory at the exact same time.
 
 <Aside type="note" title="The Collective Defense Mechanism">
 What happens if Alice tries to be dishonest and alter an old entry in her local notebook to give herself an extra 1,000 Coins?
 
 When Alice tries to spend those fake coins, the other 10,000+ nodes compare Alice's claim against their synchronized copies. They discover her notebook disagrees with the consensus of the collective, and Alice's fraudulent transaction is **instantly rejected**.
-
 </Aside>
 
 ---
@@ -55,6 +56,14 @@ When Alice tries to spend those fake coins, the other 10,000+ nodes compare Alic
 
 If nodes are spread out across six continents with different internet latency, how do they stay in sync without falling into chaos?
 
-That is the role of the **Gossip Protocol**.
+That is the role of the <Term id="gossip-protocol">Gossip Protocol</Term>.
 
-[Next: Chapter 1.4 Gossip Protocol & Consensus &rarr;](/learn/foundations/04-gossip-protocol/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-03"
+  chapterTitle="1.3 The Shared Notebook"
+  nextChapterUrl="/learn/foundations/04-gossip-protocol/"
+  nextChapterTitle="1.4 Gossip Protocol & Consensus"
+/>

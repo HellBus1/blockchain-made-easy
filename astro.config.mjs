@@ -28,6 +28,36 @@ export default defineConfig({
       customCss: [
         './src/styles/global.css',
       ],
+      head: [
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'manifest',
+            href: '/manifest.webmanifest',
+          },
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'theme-color',
+            content: '#0284c7',
+          },
+        },
+        {
+          tag: 'script',
+          attrs: {
+            src: '/scripts/sidebar-checkmarks.js',
+            defer: true,
+          },
+        },
+        {
+          tag: 'script',
+          attrs: {
+            src: '/scripts/register-sw.js',
+            defer: true,
+          },
+        },
+      ],
       sidebar: [
         {
           label: 'Dashboard & Overview',

@@ -6,10 +6,21 @@ chapter: 4
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
+import GossipSimulator from '@/components/sims/GossipSimulator';
 
 When you post a video on Instagram or TikTok, your phone uploads the video to a central server (Meta or ByteDance), which then distributes it to anyone who follows you.
 
-In a decentralized blockchain, there is no central headquarters. Instead, the network relies on one of nature's most resilient communication models: **The Gossip Protocol**.
+In a decentralized blockchain, there is no central headquarters. Instead, the network relies on one of nature's most resilient communication models: <Term id="gossip-protocol">The Gossip Protocol</Term>.
+
+---
+
+## Interactive Simulation: 8-Node Global Gossip Network
+
+Experiment directly with this live network. Try broadcasting a valid transaction to watch it propagate across 8 global nodes, or launch a malicious <Term id="double-spend">double-spend attack</Term> to observe how the protocol detects conflicts and resolves them through consensus.
+
+<GossipSimulator client:load />
 
 ---
 
@@ -22,8 +33,8 @@ to nearest node:             history book to verify    Those 8 tell 8 more (64 p
 "Alice sends 1 BTC to Bob"   Alice owns 1 BTC.         Within seconds, network is synced!
 ```
 
-1. **Broadcast**: Your wallet app connects to the nearest internet node and transmits the signed transaction message: `Alice sends 1 Coin to Bob`.
-2. **Local Verification**: That receiving node doesn't blindly trust you. It opens its local copy of the historical ledger and runs mathematical checks:
+1. **Broadcast**: Your wallet app connects to the nearest internet <Term id="node">node</Term> and transmits the signed transaction message: `Alice sends 1 Coin to Bob`.
+2. **Local Verification**: That receiving node doesn't blindly trust you. It opens its local copy of the historical <Term id="ledger">ledger</Term> and runs mathematical checks:
    - Does Alice possess the coin?
    - Does the signature match Alice's public address?
 3. **Gossip Fanout**: Once verified, the node forwards ("gossips") the message to **8 connected peers**. Each of those 8 nodes verifies the transaction independently and tells 8 more peers.
@@ -42,8 +53,16 @@ Suppose Alice is malicious and tries to pull off a race attack:
 - She sends `Alice pays Bob 1 BTC` to a node in Singapore.
 - At the exact same second, she sends `Alice pays Charlie 1 BTC` to a node in London.
 
-Whichever message reaches each node first is marked as pending. When the second transaction arrives, the node sees that the exact same coin has already been earmarked in its pending memory pool (mempool), and **drops the conflicting duplicate on the spot**.
+Whichever message reaches each node first is marked as pending in its <Term id="mempool">mempool</Term>. When the second transaction arrives, the node sees that the exact same coin has already been earmarked in its pending memory pool, and **drops the conflicting duplicate on the spot**.
 
-Next, we need to know how these verified transactions are permanently locked into stone so no one can erase history: **Cryptographic Hashes**.
+Next, we need to know how these verified transactions are permanently locked into stone so no one can erase history: <Term id="hash">Cryptographic Hashes</Term>.
 
-[Next: Chapter 1.5 Cryptographic Hashing &rarr;](/learn/foundations/05-cryptographic-hashing/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-04"
+  chapterTitle="1.4 Gossip Protocol & Consensus"
+  nextChapterUrl="/learn/foundations/05-cryptographic-hashing/"
+  nextChapterTitle="1.5 Hashing: Digital Fingerprints"
+/>
