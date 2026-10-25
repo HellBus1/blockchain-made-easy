@@ -1,18 +1,114 @@
 ---
 title: 2.1 Keys & Public Addresses
-description: The glass mailbox analogy — how public and private keys govern digital property.
+description: The glass mailbox analogy — how elliptic curve cryptography (secp256k1) and one-way math govern digital property.
 track: Wallets
 chapter: 1
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
+import Term from '@/components/mdx/Term';
+import WalletLab from '@/components/sims/WalletLab';
 
-<Aside type="note" title="Track 2: Wallets & Security">
-  This chapter covers cryptographic keypairs, elliptic curve cryptography (secp256k1), and public
-  address generation. Detailed interactive wallet laboratory coming in Phase 2.
-</Aside>
+<ChapterProgress track="wallets" currentChapter={1} chapterId="wallets-01" client:load />
 
-### Key Concept: The Glass Mailbox
+In conventional banking, your money is locked inside an institutional server. You access it by proving your legal identity with a username, password, and SMS code. If you forget your password, customer support clicks a button to restore your access.
 
-- **Public Key (Address)**: Like a transparent mailbox on the street. Anyone can view what is inside and drop a payment into the slot.
-- **Private Key**: The only key that unlocks the door to withdraw funds. Never share this with anyone.
+In cryptocurrency, there is no customer support, no company server, and no identity card. Ownership is pure, unadulterated mathematics. You don't "hold" coins in your wallet; coins are permanently etched as unspent outputs on the decentralized <Term id="ledger">ledger</Term>. Your wallet merely holds the cryptographic keys that unlock the right to move those coins.
+
+---
+
+### The Glass Mailbox Analogy
+
+To understand asymmetric cryptography without getting lost in polynomial equations, picture a **bulletproof glass mailbox** mounted on the street corner:
+
+```
+┌───────────────────────────────────────────────┐
+│              THE GLASS MAILBOX                │
+├───────────────────────────────────────────────┤
+│                                               │
+│   Public Key / Address:                       │
+│   "123 Blockchain Ave, Mailbox #42"           │
+│   · Visible to every pedestrian on the street │
+│   · Anyone can drop coins into the top slot   │
+│   · Transparent: everyone verifies contents   │
+│                                               │
+│   ─────────────────────────────────────────   │
+│                                               │
+│   Private Key:                                │
+│   The unique brass key in your pocket         │
+│   · Only key that turns the bottom cylinder   │
+│   · Unlocks the door to withdraw funds        │
+│   · If lost: the glass can never be opened    │
+│   · If stolen: the thief empties the mailbox  │
+│                                               │
+└───────────────────────────────────────────────┘
+```
+
+1. **Your <Term id="public-address">Public Address</Term> is the slot and mailbox location.** Anyone can see your balance, view your incoming transactions, and drop payments into your mailbox. Sharing your address with friends or clients is 100% safe.
+2. **Your <Term id="private-key">Private Key</Term> is the only physical key that unlocks the door.** The moment someone obtains your private key, they have mathematical ownership over every single coin inside.
+
+---
+
+### The One-Way Trapdoor: Elliptic Curve Math
+
+How can you mathematically prove you own the private key without actually revealing it to the world?
+
+This is solved by **Asymmetric Cryptography** using the **secp256k1** elliptic curve standard, defined by the formula:
+
+```text
+y² ≡ x³ + 7  (mod p)
+```
+
+```
+           y
+           ▲
+           │         .---.  (y² = x³ + 7)
+           │       /       \
+           │      |    P    |
+           │       \       /
+───────────┼────────'───'──────────► x
+           │
+           │
+```
+
+1. **The Private Key ($k$)** is just a colossal random integer chosen between 1 and $2^{256} - 1$ (approximately $10^{77}$, roughly the number of atoms in the observable universe).
+2. **The Generator Point ($G$)** is an internationally agreed-upon starting coordinate point on the curve.
+3. **Scalar Multiplication ($K = k \times G$)**: The computer hops across the curve $k$ times to land on a new coordinate $(x, y)$, known as your <Term id="public-key">Public Key</Term>.
+
+> **The One-Way Property:** Calculating $k \times G$ takes less than a millisecond on a smartphone. However, going backwards—calculating the secret scalar $k$ from coordinate point $K$ (known as the Discrete Logarithm Problem)—would require all the computers on Earth billions of years of continuous brute force.
+
+---
+
+### From Public Key to Address
+
+You never share your raw 65-byte public key directly. Instead, blockchains pass it through one-way cryptographic hash functions:
+
+- **Ethereum Address:** Takes the raw $(x, y)$ coordinate bytes, runs them through the Keccak-256 hash function, keeps the last 20 bytes (40 hex characters), and prepends `0x`. Mixed-case capitalization (EIP-55) acts as an automatic checksum against typing errors.
+- **Bitcoin Address:** Takes the compressed 33-byte public key, applies `SHA-256` followed by `RIPEMD-160` (the Hash160 pipeline), adds network prefixes, and formats it using Base58Check or Bech32 (`bc1q...`).
+
+---
+
+### Hands-on Laboratory: Keys & Address Derivation
+
+Experiment live with real cryptographic primitives in your browser below. Generate entropy, derive elliptic curve coordinates, and test ECDSA message signing:
+
+<WalletLab client:load />
+
+---
+
+### Summary & Security Rules
+
+1. **Public Address $\neq$ Private Key**: You can safely broadcast your address on Twitter or an invoice; your private key must never be typed on an unverified device.
+2. **Elliptic Curve Security**: secp256k1 is so robust that guessing someone's private key is mathematically less likely than picking the exact same grain of sand out of all the beaches on planet Earth twice in a row.
+3. **Signatures Prove Intent**: When you send a transaction, your wallet generates an ECDSA mathematical signature $(r, s)$ proving you possess the private key without ever exposing it over the internet.
+
+<div id="chapter-seal-section">
+  <ChapterSeal
+    chapterId="wallets-01"
+    chapterTitle="2.1 Keys & Public Addresses"
+    track="Wallets & Security"
+    client:load
+  />
+</div>

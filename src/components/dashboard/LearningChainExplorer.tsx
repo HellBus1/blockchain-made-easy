@@ -15,10 +15,10 @@ export default function LearningChainExplorer() {
 
   const integrity = verifyChainIntegrity(chain);
 
-  // Chapters completed out of 9 Foundations chapters
-  const totalFoundations = 9;
-  const sealedFoundations = chain.filter((b) => b.chapterId.startsWith('foundations-')).length;
-  const progressPct = Math.round((sealedFoundations / totalFoundations) * 100);
+  // Chapters completed across Tracks 1 & 2
+  const totalChapters = 15;
+  const sealedChapters = chain.filter((b) => b.chapterId !== 'genesis').length;
+  const progressPct = Math.min(100, Math.round((sealedChapters / totalChapters) * 100));
 
   const handleExport = () => {
     const dataStr =
@@ -92,12 +92,12 @@ export default function LearningChainExplorer() {
 
         <div className="p-4 rounded-xl border border-border bg-card/70 backdrop-blur-sm">
           <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
-            Track 1 Progress
+            Curriculum Progress
           </div>
           <div className="text-2xl font-bold font-mono text-primary mt-1 flex items-baseline gap-2">
             {progressPct}%
             <span className="text-xs font-sans font-normal text-muted-foreground">
-              ({sealedFoundations}/{totalFoundations} Chapters)
+              ({sealedChapters}/{totalChapters} Chapters Mined)
             </span>
           </div>
           <div className="w-full bg-muted rounded-full h-1.5 mt-2 overflow-hidden">

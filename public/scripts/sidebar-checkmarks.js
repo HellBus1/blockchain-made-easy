@@ -4,8 +4,11 @@
  * and header status using the cryptographic learning chain from localStorage.
  */
 (function () {
-  const TOTAL_FOUNDATIONS = 9;
-  const CHAPTER_MAP = {
+  const TOTAL_TRACK1 = 9;
+  const TOTAL_TRACK2 = 6;
+  const TOTAL_CURRICULUM = TOTAL_TRACK1 + TOTAL_TRACK2;
+
+  const TRACK1_MAP = {
     '01-what-money-really-is': 'foundations-01',
     '02-the-double-spend-problem': 'foundations-02',
     '03-the-shared-notebook': 'foundations-03',
@@ -16,6 +19,17 @@
     '08-minting-and-halving': 'foundations-08',
     '09-alice-to-bob-walkthrough': 'foundations-09',
   };
+
+  const TRACK2_MAP = {
+    '01-keys-and-addresses': 'wallets-01',
+    '02-seed-phrases': 'wallets-02',
+    '03-custodial-vs-self-custody': 'wallets-03',
+    '04-hot-cold-hardware-wallets': 'wallets-04',
+    '05-sending-safely': 'wallets-05',
+    '06-scams-and-security': 'wallets-06',
+  };
+
+  const ALL_CHAPTERS_MAP = { ...TRACK1_MAP, ...TRACK2_MAP };
 
   function getCompletedChapterIds() {
     try {
@@ -31,8 +45,10 @@
 
   function updateSidebarAndProgress() {
     const completed = getCompletedChapterIds();
-    const completedCount = Object.values(CHAPTER_MAP).filter((id) => completed.has(id)).length;
-    const progressPct = Math.round((completedCount / TOTAL_FOUNDATIONS) * 100);
+    const track1Count = Object.values(TRACK1_MAP).filter((id) => completed.has(id)).length;
+    const track2Count = Object.values(TRACK2_MAP).filter((id) => completed.has(id)).length;
+    const totalCompleted = track1Count + track2Count;
+    const progressPct = Math.round((totalCompleted / TOTAL_CURRICULUM) * 100);
     const currentPath = window.location.pathname;
 
     // 1. Sidebar Progress Card
@@ -42,7 +58,6 @@
       if (!card) {
         card = document.createElement('div');
         card.className = 'bme-sidebar-progress-card';
-        // Insert right at the top of the sidebar content
         const firstChild = sidebar.firstElementChild;
         if (firstChild) {
           sidebar.insertBefore(card, firstChild);
@@ -60,23 +75,32 @@
           <div class="bme-progress-bar-fill" style="width: ${progressPct}%"></div>
         </div>
         <div class="bme-progress-footer">
-          <span>${completedCount} of ${TOTAL_FOUNDATIONS} Blocks Mined</span>
+          <span>${totalCompleted} of ${TOTAL_CURRICULUM} Blocks Mined</span>
           <a href="/dashboard/" class="bme-progress-link">Ledger ↗</a>
         </div>
       `;
     }
 
-    // 2. Track 1 Header Progress Badge
+    // 2. Track Header Progress Badges
     const summaries = document.querySelectorAll('summary, .sidebar-group-label');
     summaries.forEach((el) => {
-      if (el.textContent && el.textContent.includes('Track 1: Foundations')) {
+      const text = el.textContent || '';
+      if (text.includes('Track 1: Foundations')) {
         let badge = el.querySelector('.bme-track-count');
         if (!badge) {
           badge = document.createElement('span');
           badge.className = 'bme-track-count';
           el.appendChild(badge);
         }
-        badge.textContent = `(${completedCount}/${TOTAL_FOUNDATIONS})`;
+        badge.textContent = `(${track1Count}/${TOTAL_TRACK1})`;
+      } else if (text.includes('Track 2: Wallets & Security')) {
+        let badge = el.querySelector('.bme-track-count');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'bme-track-count';
+          el.appendChild(badge);
+        }
+        badge.textContent = `(${track2Count}/${TOTAL_TRACK2})`;
       }
     });
 
@@ -86,7 +110,7 @@
       const href = link.getAttribute('href') || '';
       let matchedChapterId = null;
 
-      for (const [slug, id] of Object.entries(CHAPTER_MAP)) {
+      for (const [slug, id] of Object.entries(ALL_CHAPTERS_MAP)) {
         if (href.includes(slug)) {
           matchedChapterId = id;
           break;
@@ -136,8 +160,8 @@
         headerContainer.appendChild(headerPill);
       }
       headerPill.innerHTML = `
-        <span class="bme-pill-dot ${completedCount > 0 ? 'bg-emerald-500' : 'bg-primary'}"></span>
-        <span class="bme-pill-text">Chain: <strong>${completedCount}/${TOTAL_FOUNDATIONS}</strong> (${progressPct}%)</span>
+        <span class="bme-pill-dot ${totalCompleted > 0 ? 'bg-emerald-500' : 'bg-primary'}"></span>
+        <span class="bme-pill-text">Chain: <strong>${totalCompleted}/${TOTAL_CURRICULUM}</strong> (${progressPct}%)</span>
       `;
     }
   }
