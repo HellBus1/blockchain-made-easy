@@ -293,6 +293,87 @@ export const TERMS: Record<string, TermDefinition> = {
       'Signing a blank Power of Attorney form believing it was merely an attendance sheet for a free concert.',
     category: 'wallets',
   },
+  'maker-taker': {
+    id: 'maker-taker',
+    name: 'Maker vs Taker Fees',
+    short:
+      'Makers provide liquidity by placing pending limit orders (paying lower fees); Takers remove liquidity by executing immediate market orders (paying higher fees).',
+    analogy:
+      'A wholesale farmer setting up a market stall with price tags (Maker) vs a hungry customer grabbing whatever is on the counter right away (Taker).',
+    category: 'economics',
+  },
+  'limit-order': {
+    id: 'limit-order',
+    name: 'Limit Order',
+    short:
+      'An order to buy or sell a cryptocurrency at a specified price or better, resting on the order book until filled.',
+    analogy:
+      'Telling a real estate agent: "Buy this property only if the owner accepts $300,000 or less, otherwise wait."',
+    category: 'economics',
+  },
+  'market-order': {
+    id: 'market-order',
+    name: 'Market Order',
+    short:
+      'An order to buy or sell immediately at the current best available price across the order book.',
+    analogy:
+      'Hailing a cab during rush hour: you get in immediately and pay whatever the meter says, regardless of traffic surcharges.',
+    category: 'economics',
+  },
+  'stop-loss': {
+    id: 'stop-loss',
+    name: 'Stop-Loss Order',
+    short:
+      'An automated conditional order designed to sell an asset if price drops to a designated trigger level, capping downside loss.',
+    analogy:
+      'An emergency parachute with an altimeter: if your plane drops below 1,000 feet, the chute deploys automatically.',
+    category: 'economics',
+  },
+  'p2p-trading': {
+    id: 'p2p-trading',
+    name: 'P2P (Peer-to-Peer) Trading',
+    short:
+      'Direct buying and selling of cryptocurrency between individuals using fiat payment methods, secured by exchange escrow.',
+    analogy:
+      'Buying a used car in cash from a neighbor with an escrow notary holding the car title until the bank transfer arrives.',
+    category: 'economics',
+  },
+  'fiat-offramp': {
+    id: 'fiat-offramp',
+    name: 'Fiat Off-Ramp (Cashout)',
+    short:
+      'The process of selling cryptocurrency on an exchange and transferring the resulting government fiat money directly into your bank account.',
+    analogy:
+      'Exchanging foreign currency or casino chips at the cashier desk for local cash before exiting the building.',
+    category: 'economics',
+  },
+  'staking-rewards': {
+    id: 'staking-rewards',
+    name: 'Staking Rewards',
+    short:
+      'Passive yield earned by locking Proof of Stake tokens to validate blockchain transactions and secure the network.',
+    analogy:
+      'Earning quarterly dividends or high-yield bond interest for depositing capital into a public utility trust.',
+    category: 'economics',
+  },
+  apy: {
+    id: 'apy',
+    name: 'APY (Annual Percentage Yield)',
+    short:
+      'The real annual rate of return earned on an investment, taking into account the effect of compounding interest over 365 days.',
+    analogy:
+      'A savings account where the interest you earned in January earns its own interest in February, snowballing over the full year.',
+    category: 'economics',
+  },
+  'grid-trading-bot': {
+    id: 'grid-trading-bot',
+    name: 'Grid Trading Bot',
+    short:
+      'An automated algorithmic bot that places a staggered ladder of buy and sell limit orders within a price corridor, harvesting profits from market volatility.',
+    analogy:
+      'A fisherman casting a net with 20 levels: as waves rise and fall, small fish are automatically caught and sold continuously.',
+    category: 'economics',
+  },
 };
 
 export function getTerm(id: string): TermDefinition | undefined {

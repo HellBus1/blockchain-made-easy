@@ -100,11 +100,21 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Track 3: Exchanges & Buying',
-          collapsed: true,
+          label: 'Track 3: Exchanges & Income',
+          collapsed: false,
           items: [
-            { label: '3.1 The Fiat Bridge', slug: 'learn/exchanges/01-fiat-bridge' },
-            { label: '3.2 Order Books & Matching Engines', slug: 'learn/exchanges/02-order-books' },
+            { label: '3.1 The Fiat Bridge & Cashing Out', slug: 'learn/exchanges/01-fiat-bridge' },
+            { label: '3.2 Order Books & Execution', slug: 'learn/exchanges/02-order-books' },
+            { label: '3.3 P2P Trading & Cash Arbitrage', slug: 'learn/exchanges/03-p2p-trading-and-arbitrage' },
+            {
+              label: '3.4 Generating Income: Staking & Yield',
+              slug: 'learn/exchanges/04-passive-income-staking-and-defi',
+            },
+            { label: '3.5 Automated Income: DCA & Grid Bots', slug: 'learn/exchanges/05-trading-bots-and-dca' },
+            {
+              label: '3.6 Risk Management & The Cash-Out Blueprint',
+              slug: 'learn/exchanges/06-risk-management-and-cashing-out',
+            },
           ],
         },
         {

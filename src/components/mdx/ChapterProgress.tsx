@@ -2,7 +2,7 @@ import { useStore } from '@nanostores/react';
 import { learningChain, sealChapterBlockInstant, unsealChapterBlock } from '../../stores/progress';
 
 interface ChapterProgressProps {
-  track?: 'foundations' | 'wallets';
+  track?: 'foundations' | 'wallets' | 'exchanges';
   currentChapter: number;
   chapterId: string;
 }
@@ -103,6 +103,45 @@ const WALLETS_CHAPTERS = [
   },
 ];
 
+const EXCHANGES_CHAPTERS = [
+  {
+    num: 1,
+    id: 'exchanges-01',
+    title: '3.1 The Fiat Bridge & Cashing Out',
+    url: '/learn/exchanges/01-fiat-bridge/',
+  },
+  {
+    num: 2,
+    id: 'exchanges-02',
+    title: '3.2 Order Books & Execution',
+    url: '/learn/exchanges/02-order-books/',
+  },
+  {
+    num: 3,
+    id: 'exchanges-03',
+    title: '3.3 P2P Trading & Cash Arbitrage',
+    url: '/learn/exchanges/03-p2p-trading-and-arbitrage/',
+  },
+  {
+    num: 4,
+    id: 'exchanges-04',
+    title: '3.4 Generating Income: Staking & Yield',
+    url: '/learn/exchanges/04-passive-income-staking-and-defi/',
+  },
+  {
+    num: 5,
+    id: 'exchanges-05',
+    title: '3.5 Automated Income: DCA & Grid Bots',
+    url: '/learn/exchanges/05-trading-bots-and-dca/',
+  },
+  {
+    num: 6,
+    id: 'exchanges-06',
+    title: '3.6 Risk Management & The Cash-Out Blueprint',
+    url: '/learn/exchanges/06-risk-management-and-cashing-out/',
+  },
+];
+
 export default function ChapterProgress({
   track = 'foundations',
   currentChapter,
@@ -112,8 +151,18 @@ export default function ChapterProgress({
   const sealedIds = new Set(chain.map((b) => b.chapterId));
   const isCurrentSealed = sealedIds.has(chapterId);
 
-  const chapters = track === 'wallets' ? WALLETS_CHAPTERS : FOUNDATIONS_CHAPTERS;
-  const trackName = track === 'wallets' ? 'Track 2: Wallets & Security' : 'Track 1: Foundations';
+  const chapters =
+    track === 'exchanges'
+      ? EXCHANGES_CHAPTERS
+      : track === 'wallets'
+        ? WALLETS_CHAPTERS
+        : FOUNDATIONS_CHAPTERS;
+  const trackName =
+    track === 'exchanges'
+      ? 'Track 3: Exchanges & Income'
+      : track === 'wallets'
+        ? 'Track 2: Wallets & Security'
+        : 'Track 1: Foundations';
   const completedCount = chapters.filter((ch) => sealedIds.has(ch.id)).length;
   const currentChapterObj = chapters.find((ch) => ch.num === currentChapter) || chapters[0];
 

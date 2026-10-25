@@ -6,7 +6,8 @@
 (function () {
   const TOTAL_TRACK1 = 9;
   const TOTAL_TRACK2 = 6;
-  const TOTAL_CURRICULUM = TOTAL_TRACK1 + TOTAL_TRACK2;
+  const TOTAL_TRACK3 = 6;
+  const TOTAL_CURRICULUM = TOTAL_TRACK1 + TOTAL_TRACK2 + TOTAL_TRACK3;
 
   const TRACK1_MAP = {
     '01-what-money-really-is': 'foundations-01',
@@ -29,7 +30,16 @@
     '06-scams-and-security': 'wallets-06',
   };
 
-  const ALL_CHAPTERS_MAP = { ...TRACK1_MAP, ...TRACK2_MAP };
+  const TRACK3_MAP = {
+    '01-fiat-bridge': 'exchanges-01',
+    '02-order-books': 'exchanges-02',
+    '03-p2p-trading-and-arbitrage': 'exchanges-03',
+    '04-passive-income-staking-and-defi': 'exchanges-04',
+    '05-trading-bots-and-dca': 'exchanges-05',
+    '06-risk-management-and-cashing-out': 'exchanges-06',
+  };
+
+  const ALL_CHAPTERS_MAP = { ...TRACK1_MAP, ...TRACK2_MAP, ...TRACK3_MAP };
 
   function getCompletedChapterIds() {
     try {
@@ -47,7 +57,8 @@
     const completed = getCompletedChapterIds();
     const track1Count = Object.values(TRACK1_MAP).filter((id) => completed.has(id)).length;
     const track2Count = Object.values(TRACK2_MAP).filter((id) => completed.has(id)).length;
-    const totalCompleted = track1Count + track2Count;
+    const track3Count = Object.values(TRACK3_MAP).filter((id) => completed.has(id)).length;
+    const totalCompleted = track1Count + track2Count + track3Count;
     const progressPct = Math.round((totalCompleted / TOTAL_CURRICULUM) * 100);
     const currentPath = window.location.pathname;
 
@@ -106,6 +117,14 @@
           el.appendChild(badge);
         }
         badge.textContent = `(${track2Count}/${TOTAL_TRACK2})`;
+      } else if (text.includes('Track 3: Exchanges') || text.includes('Exchanges & Income') || text.includes('Buying')) {
+        let badge = el.querySelector('.bme-track-count');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'bme-track-count';
+          el.appendChild(badge);
+        }
+        badge.textContent = `(${track3Count}/${TOTAL_TRACK3})`;
       }
     });
 
