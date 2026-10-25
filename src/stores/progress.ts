@@ -138,6 +138,46 @@ export async function mineChapterBlockWithPoW(
   return newBlock;
 }
 
+/**
+ * Instantly seals and signs a chapter block into the chain without running the PoW loop.
+ * Useful for one-click "Check & Sign" chapter completion.
+ */
+export async function sealChapterBlockInstant(
+  chapterId: string,
+  chapterTitle: string
+): Promise<SealedBlock> {
+  const chain = learningChain.get();
+  const existing = chain.find((b) => b.chapterId === chapterId);
+  if (existing) {
+    return existing;
+  }
+
+  const prevBlock = chain[chain.length - 1];
+  const nextBlockNum = chain.length;
+  const now = Date.now();
+  const nonce = Math.floor(Math.random() * 90000) + 1000;
+  const payload = `${prevBlock.hash}:${nextBlockNum}:${chapterId}:${chapterTitle}:${now}:${nonce}`;
+  const hash = await computeSha256(payload);
+
+  const newBlock: SealedBlock = {
+    blockNumber: nextBlockNum,
+    chapterId,
+    chapterTitle,
+    timestamp: now,
+    prevHash: prevBlock.hash,
+    nonce,
+    hash,
+  };
+
+  learningChain.set([...chain, newBlock]);
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('bme:chain-updated', { detail: newBlock }));
+  }
+
+  return newBlock;
+}
+
 export function unsealChapterBlock(chapterId: string): void {
   const chain = learningChain.get();
   if (chapterId === 'genesis') return;

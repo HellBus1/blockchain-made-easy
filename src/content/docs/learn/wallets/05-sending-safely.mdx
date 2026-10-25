@@ -1,0 +1,132 @@
+---
+title: 2.5 Sending Safely
+description: Networks, gas fees, destination tags, and the golden 5-step test send protocol to avoid irreversible loss.
+track: Wallets
+chapter: 5
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
+import Term from '@/components/mdx/Term';
+
+<ChapterProgress track="wallets" currentChapter={5} chapterId="wallets-05" client:load />
+
+In the traditional banking system, sending an international wire is forgiving. If you misspell a swift code or send to an invalid routing number, the transaction bounces back within 3 to 5 business days, minus a small administrative fee.
+
+In blockchain, **transactions are irreversible mathematical commands**. There is no customer service hotline to reverse a transfer, no fraud department, and no "undo" button. Once a transaction is mined into a block with valid cryptographic signatures, that transfer is permanently etched into history.
+
+Every day, millions of dollars are lost not by malicious hackers, but by simple human operational error. This chapter breaks down the mechanics of sending safely and provides the golden pre-flight protocol followed by seasoned veterans.
+
+---
+
+### Fatal Mistake #1: The Network Mismatch Trap
+
+One of the most common ways newcomers lose assets is sending a token across the **wrong blockchain network**.
+
+Consider **USDT (Tether)**, the world's most widely used stablecoin. USDT does not have its own blockchain; it exists as a smart contract token issued across dozens of completely independent, incompatible blockchains:
+- USDT on **Ethereum** (ERC-20 token)
+- USDT on **Tron** (TRC-20 token)
+- USDT on **Solana** (SPL token)
+- USDT on **Binance Smart Chain** (BEP-20 token)
+- USDT on **Arbitrum / Optimism** (Layer 2 rollups)
+
+```
+WRONG NETWORK TRANSFER:
+[ Your Wallet: USDT (TRC-20 on Tron) ]
+                  │
+                  ▼   Sent across Tron Network
+[ Exchange Address: USDT (ERC-20 on Ethereum) ] ──► ❌ FUNDS INACCESSIBLE!
+```
+
+> **The Golden Rule:** Both the sender wallet and the recipient wallet **must be operating on the exact same blockchain network**. If you withdraw USDT on Tron (TRC-20), your recipient address must explicitly be a Tron TRC-20 deposit address.
+
+---
+
+### Fatal Mistake #2: The Missing Memo / Destination Tag
+
+When sending funds to an individual self-custody wallet, you only need the recipient's public address. However, when sending to a **Centralized Exchange** (like Binance, Coinbase, Indodax, or Gate.io), you will often encounter a second field labeled **Memo** or **<Term id="destination-tag">Destination Tag</Term>**.
+
+Blockchains like **XRP, Stellar (XLM), Cosmos (ATOM), and TON** are designed with very high throughput. To save on on-chain storage fees, centralized exchanges do not create an independent on-chain wallet for each of their 50 million users. Instead, the exchange operates **one single, massive shared wallet address**.
+
+```
+CENTRALIZED EXCHANGE SHARED DEPOSIT ARCHITECTURE:
+
+[ Public Deposit Address ]  ──────────►  rEb8TK3gBgk5auZ4nnq23PBZlsbPCqUhed (Shared by everyone)
+                                                  │
+                                                  ▼
+                                       Destination Tag / Memo:
+                                       Tag: #10948210 ──► Credits Alice's Account ($500)
+                                       Tag: #88204911 ──► Credits Bob's Account ($1,200)
+```
+
+1. **The Address** routes the money to the exchange's front door.
+2. **The Memo / Destination Tag** is your personal apartment number telling the exchange's internal database which customer account should be credited.
+3. **If you leave the memo blank:** The exchange receives the funds on the blockchain, but their automated software has no idea whose account to credit. Recovering funds sent without a memo requires weeks of manual customer support tickets, proof of transaction videos, and hefty administrative recovery fees.
+
+---
+
+### Understanding Gas Fees: How Miners Prioritize You
+
+Every computational step on a blockchain requires computational resources from validating nodes. You pay for this compute power using **Gas**:
+
+- **Native Gas Tokens:** Every blockchain requires paying transaction fees in its own native base currency:
+  - Ethereum transactions require **ETH**.
+  - Binance Smart Chain requires **BNB**.
+  - Solana transactions require **SOL**.
+  - Polygon requires **POL** (formerly MATIC).
+
+Even if you have $10,000 in USDC in your Ethereum wallet, **you cannot send a single cent** if your wallet has $0.00 in native ETH to pay for the gas fee!
+
+#### Gas Limit vs Gas Price (Gwei):
+- **Gas Limit:** The maximum amount of computational units you authorize the transaction to consume (e.g., a simple transfer takes 21,000 gas units; a complex Uniswap swap might take 180,000 units).
+- **Gas Price (Gwei):** The bid you offer per unit of gas. During periods of heavy network congestion (like volatile market crashes or popular NFT mints), users bid higher gas prices to get miners to prioritize their transactions.
+
+---
+
+### The Golden 5-Step "Test Send" Protocol
+
+Never transfer substantial wealth in a single, blind transaction. Always execute this rigorous 5-step checklist:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                   THE 5-STEP TEST SEND CHECKLIST                       │
+├────┬─────────────────────────┬─────────────────────────────────────────┤
+│ 1. │ Network Alignment       │ Verify source & destination blockchains │
+│    │                         │ match character-for-character.          │
+├────┼─────────────────────────┼─────────────────────────────────────────┤
+│ 2. │ 6-and-6 Address Check   │ Inspect the first 6 AND last 6          │
+│    │                         │ characters of the address (defeats      │
+│    │                         │ clipboard hijackers & poisoning).       │
+├────┼─────────────────────────┼─────────────────────────────────────────┤
+│ 3. │ Tag / Memo Verification │ If sending to an exchange, verify the   │
+│    │                         │ Destination Tag is entered.             │
+├────┼─────────────────────────┼─────────────────────────────────────────┤
+│ 4. │ Execute Test Send       │ Send a nominal trivial amount ($5–$10). │
+│    │                         │ Treat the extra gas fee as insurance.   │
+├────┼─────────────────────────┼─────────────────────────────────────────┤
+│ 5. │ Confirm On-Chain Arrival│ Wait for required block confirmations.  │
+│    │                         │ Once verified, send the remaining balance│
+│    │                         │ using the exact same saved address.     │
+└────┴─────────────────────────┴─────────────────────────────────────────┘
+```
+
+Spending an extra $0.50 in gas to send a test transaction is the cheapest insurance policy in the financial world.
+
+---
+
+### Summary Takeaways
+
+1. **No Undo Button**: Blockchain finality is absolute.
+2. **Network Matching is Mandatory**: USDT on Tron cannot speak directly to Ethereum without a bridge.
+3. **Memos for Shared Wallets**: Always provide the Destination Tag when depositing to centralized exchanges.
+4. **Always Test Send**: Verify with $5 first before sending your life savings.
+
+<div id="chapter-seal-section">
+  <ChapterSeal
+    chapterId="wallets-05"
+    chapterTitle="2.5 Sending Safely"
+    track="Wallets & Security"
+    client:load
+  />
+</div>

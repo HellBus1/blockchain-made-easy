@@ -89,10 +89,14 @@ export default defineConfig({
         },
         {
           label: 'Track 2: Wallets & Security',
-          collapsed: true,
+          collapsed: false,
           items: [
             { label: '2.1 Keys & Public Addresses', slug: 'learn/wallets/01-keys-and-addresses' },
-            { label: '2.2 Seed Phrases & Self-Custody', slug: 'learn/wallets/02-seed-phrases' },
+            { label: '2.2 Seed Phrases & BIP-39', slug: 'learn/wallets/02-seed-phrases' },
+            { label: '2.3 Custodial vs Self-Custody', slug: 'learn/wallets/03-custodial-vs-self-custody' },
+            { label: '2.4 Hot, Cold & Hardware Wallets', slug: 'learn/wallets/04-hot-cold-hardware-wallets' },
+            { label: '2.5 Sending Safely', slug: 'learn/wallets/05-sending-safely' },
+            { label: '2.6 Scams & Threat Models', slug: 'learn/wallets/06-scams-and-security' },
           ],
         },
         {

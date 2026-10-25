@@ -278,3 +278,81 @@ Welcome to the **Blockchain Made Easy Glossary**. Every term across the curricul
     💡 <strong>Everyday Analogy:</strong> Holding bullion or cash in a personal home vault rather than on a third-party bank ledger subject to freezes or insolvency.
   </div>
 </div>
+
+<div id="bip39" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">BIP-39 Standard</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    Bitcoin Improvement Proposal 39: a standard for converting raw cryptographic entropy into a human-friendly sequence of 12 or 24 words from a 2,048-word dictionary with built-in checksum validation.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A universal translation dictionary turning an unpronounceable 64-digit hex code into simple English words.
+  </div>
+</div>
+
+<div id="derivation-path" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Derivation Path (BIP-44)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A standardized tree path (e.g. m/44'/60'/0'/0/0) telling the wallet algorithm how to navigate from the master seed phrase to specific cryptocurrency accounts.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> A street address inside an office tower: Floor 44, Suite 60, Room 0, Desk 0.
+  </div>
+</div>
+
+<div id="hardware-wallet" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Hardware Wallet (Cold Storage)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    A dedicated physical microcontroller (e.g. Ledger, Trezor) with an isolated Secure Element chip that stores private keys offline and signs transactions securely away from host computer malware.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> An isolated signing booth: transactions enter through a slot, get signed inside by an uncorruptible notary, and only the finished signature leaves.
+  </div>
+</div>
+
+<div id="blind-signing" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Blind Signing</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Wallets</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    Approving a cryptographic smart contract transaction on a wallet device without being able to verify the human-readable outcome or permissions being granted.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Signing a legal contract blindfolded because the counterparty promised it only orders lunch.
+  </div>
+</div>
+
+<div id="address-poisoning" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Address Poisoning</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Security</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    An attack where scammers generate vanity addresses with identical starting and ending characters to your frequent contacts, sending 0-value transfers to pollute your transaction history and fool copy-paste.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Printing business cards with the same first 4 and last 4 digits of your mother's phone number, hoping you click redial without reading the middle.
+  </div>
+</div>
+
+<div id="approval-phishing" className="scroll-mt-20 my-6 p-4 rounded-xl border border-border/80 bg-card/60">
+  <div className="flex items-center justify-between gap-2">
+    <h4 className="text-base font-bold text-foreground m-0">Approval Phishing (Drainer)</h4>
+    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">Security</span>
+  </div>
+  <p className="text-sm text-foreground/90 mt-2 mb-2">
+    Tricking a user into signing an ERC-20 approve or setApprovalForAll transaction that grants an attacker unlimited permission to drain assets from the victim's wallet.
+  </p>
+  <div className="text-xs text-muted-foreground italic bg-muted/40 p-2.5 rounded-lg border border-border/40">
+    💡 <strong>Everyday Analogy:</strong> Signing a blank Power of Attorney form believing it was merely an attendance sheet for a free concert.
+  </div>
+</div>

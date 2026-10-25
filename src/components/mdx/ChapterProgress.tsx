@@ -1,8 +1,9 @@
 import { useStore } from '@nanostores/react';
-import { learningChain } from '../../stores/progress';
+import { learningChain, sealChapterBlockInstant, unsealChapterBlock } from '../../stores/progress';
 
 interface ChapterProgressProps {
-  currentChapter: number; // 1 to 9
+  track?: 'foundations' | 'wallets';
+  currentChapter: number;
   chapterId: string;
 }
 
@@ -63,13 +64,66 @@ const FOUNDATIONS_CHAPTERS = [
   },
 ];
 
-export default function ChapterProgress({ currentChapter, chapterId }: ChapterProgressProps) {
+const WALLETS_CHAPTERS = [
+  {
+    num: 1,
+    id: 'wallets-01',
+    title: '2.1 Keys & Public Addresses',
+    url: '/learn/wallets/01-keys-and-addresses/',
+  },
+  {
+    num: 2,
+    id: 'wallets-02',
+    title: '2.2 Seed Phrases & BIP-39',
+    url: '/learn/wallets/02-seed-phrases/',
+  },
+  {
+    num: 3,
+    id: 'wallets-03',
+    title: '2.3 Custodial vs Self-Custody',
+    url: '/learn/wallets/03-custodial-vs-self-custody/',
+  },
+  {
+    num: 4,
+    id: 'wallets-04',
+    title: '2.4 Hot, Cold & Hardware Wallets',
+    url: '/learn/wallets/04-hot-cold-hardware-wallets/',
+  },
+  {
+    num: 5,
+    id: 'wallets-05',
+    title: '2.5 Sending Safely',
+    url: '/learn/wallets/05-sending-safely/',
+  },
+  {
+    num: 6,
+    id: 'wallets-06',
+    title: '2.6 Scams & Threat Models',
+    url: '/learn/wallets/06-scams-and-security/',
+  },
+];
+
+export default function ChapterProgress({
+  track = 'foundations',
+  currentChapter,
+  chapterId,
+}: ChapterProgressProps) {
   const chain = useStore(learningChain);
   const sealedIds = new Set(chain.map((b) => b.chapterId));
   const isCurrentSealed = sealedIds.has(chapterId);
 
-  const completedFoundations = FOUNDATIONS_CHAPTERS.filter((ch) => sealedIds.has(ch.id)).length;
-  const progressPct = Math.round((completedFoundations / FOUNDATIONS_CHAPTERS.length) * 100);
+  const chapters = track === 'wallets' ? WALLETS_CHAPTERS : FOUNDATIONS_CHAPTERS;
+  const trackName = track === 'wallets' ? 'Track 2: Wallets & Security' : 'Track 1: Foundations';
+  const completedCount = chapters.filter((ch) => sealedIds.has(ch.id)).length;
+  const currentChapterObj = chapters.find((ch) => ch.num === currentChapter) || chapters[0];
+
+  const handleInstantSign = async () => {
+    await sealChapterBlockInstant(chapterId, currentChapterObj.title);
+  };
+
+  const handleUnsign = () => {
+    unsealChapterBlock(chapterId);
+  };
 
   const scrollToSeal = () => {
     const sealElem = document.getElementById('chapter-seal-section');
@@ -86,29 +140,57 @@ export default function ChapterProgress({ currentChapter, chapterId }: ChapterPr
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Track 1: Foundations
+            {trackName}
           </span>
           <span className="text-muted-foreground/40">•</span>
           <span className="text-xs font-mono font-medium text-foreground">
-            Chapter {currentChapter} of 9
+            Chapter {currentChapter} of {chapters.length}
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {isCurrentSealed ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              Block Sealed ✓
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />✓ Chapter
+                Checked & Signed
+              </span>
+              <button
+                onClick={handleUnsign}
+                type="button"
+                className="cursor-pointer text-[11px] text-muted-foreground hover:text-red-500 underline decoration-dotted transition-colors ml-0.5"
+                title="Uncheck this chapter"
+              >
+                (undo)
+              </button>
+            </div>
           ) : (
-            <button
-              onClick={scrollToSeal}
-              type="button"
-              className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-colors"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-              Unsealed — Jump to Seal ↓
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={handleInstantSign}
+                type="button"
+                className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm hover:shadow transition-all duration-150 active:scale-98"
+                title="Check off and cryptographically sign this chapter"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                Check & Sign Chapter
+              </button>
+              <button
+                onClick={scrollToSeal}
+                type="button"
+                className="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted border border-border/60 transition-colors"
+                title="Scroll down to the interactive Proof of Work mining seal"
+              >
+                <span>⛏️ PoW Seal ↓</span>
+              </button>
+            </div>
           )}
 
           <a
@@ -116,15 +198,15 @@ export default function ChapterProgress({ currentChapter, chapterId }: ChapterPr
             className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors ml-1 hidden sm:inline"
             title="Open Learning Dashboard"
           >
-            Dashboard ({completedFoundations}/9) ↗
+            Dashboard ({completedCount}/{chapters.length}) ↗
           </a>
         </div>
       </div>
 
-      {/* 9-Node Blockchain Stepper */}
+      {/* Blockchain Stepper */}
       <div className="pt-1">
         <div className="flex items-center justify-between gap-1 sm:gap-2">
-          {FOUNDATIONS_CHAPTERS.map((ch, idx) => {
+          {chapters.map((ch, idx) => {
             const isCompleted = sealedIds.has(ch.id);
             const isCurrent = ch.num === currentChapter;
 
@@ -159,7 +241,7 @@ export default function ChapterProgress({ currentChapter, chapterId }: ChapterPr
                   </span>
                 </a>
 
-                {idx < FOUNDATIONS_CHAPTERS.length - 1 && (
+                {idx < chapters.length - 1 && (
                   <div className="hidden sm:block w-1.5 h-0.5 bg-border mx-0.5 shrink-0" />
                 )}
               </div>
@@ -171,13 +253,16 @@ export default function ChapterProgress({ currentChapter, chapterId }: ChapterPr
       {/* Progress completion bar subtext */}
       <div className="mt-2.5 flex items-center justify-between text-[11px] text-muted-foreground">
         <span>
-          Track Progress: <strong className="text-foreground">{progressPct}%</strong> (
-          {completedFoundations} of 9 blocks sealed)
+          Track Progress:{' '}
+          <strong className="text-foreground">
+            {Math.round((completedCount / chapters.length) * 100)}%
+          </strong>{' '}
+          ({completedCount} of {chapters.length} blocks sealed)
         </span>
         <span className="font-mono text-[10px]">
-          {9 - completedFoundations === 0
-            ? '🎉 Track 1 Complete!'
-            : `${9 - completedFoundations} chapters remaining`}
+          {chapters.length - completedCount === 0
+            ? `🎉 ${trackName} Complete!`
+            : `${chapters.length - completedCount} chapters remaining`}
         </span>
       </div>
     </div>

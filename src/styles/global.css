@@ -63,6 +63,13 @@
 }
 
 /* Sidebar progress badges */
+.sidebar-content a,
+nav.sidebar a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
 .bme-check-badge {
   display: inline-flex;
   align-items: center;
