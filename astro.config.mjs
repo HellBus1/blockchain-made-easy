@@ -2,10 +2,15 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import cloudflare from '@astrojs/cloudflare';
 import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+    imageService: 'compile',
+  }),
   site: 'https://blockchain-made-easy.pages.dev',
   integrations: [
     starlight({
@@ -120,6 +125,14 @@ export default defineConfig({
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+    build: {
+      rollupOptions: {
+        external: ['@bruits/satteri-wasm32-wasi'],
+      },
+      rolldownOptions: {
+        external: ['@bruits/satteri-wasm32-wasi'],
       },
     },
   },
