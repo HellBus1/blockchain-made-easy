@@ -6,6 +6,11 @@ chapter: 2
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+
+<ChapterProgress client:load currentChapter={2} chapterId="foundations-02" />
 
 Physical items have a built-in law of physics: if you hand someone a paper Rp 50,000 banknote or an apple, you no longer possess it. You cannot hand that exact same apple to two different people at the exact same moment.
 
@@ -29,7 +34,7 @@ Imagine if digital money worked like ordinary computer files (like an MP3 or tex
 Bought Dinner (Rp 100,000)     Bought Shoes (Rp 100,000)
 ```
 
-Without a central authority overseeing the ledger, an unscrupulous actor could spend the exact same 100,000 Rupiah twice. This is known as the **Double-Spend Problem**.
+Without a central authority overseeing the <Term id="ledger">ledger</Term>, an unscrupulous actor could spend the exact same 100,000 Rupiah twice. This is known as the <Term id="double-spend">Double-Spend Problem</Term>.
 
 ---
 
@@ -45,10 +50,10 @@ When Alice wants to transfer Rp 100,000 to Bob:
 
 <Aside type="caution" title="The Single Point of Failure">
   The central bank acts as a firewall against double-spending. But this introduces massive
-  structural trade-offs: - **Centralized Vulnerability**: If the bank's central database goes
-  offline, catches fire, or is hacked, commerce halts. - **Custody Risk**: You do not control your
-  money; you control a claim against the bank's promises. - **Toll Booth**: The institution charges
-  transaction fees, foreign exchange spreads, and withdrawal limits.
+  structural trade-offs:
+  - **Centralized Vulnerability**: If the bank's central database goes offline or is hacked, commerce halts.
+  - **Custody Risk**: You do not control your money directly; you control an IOU against the bank.
+  - **Toll Booth**: The institution charges transaction fees, spreads, and can freeze accounts without judicial process.
 </Aside>
 
 ---
@@ -59,4 +64,12 @@ For decades, computer scientists and cypherpunks tried to build digital money wi
 
 In 2008, an anonymous programmer using the pseudonym **Satoshi Nakamoto** published the Bitcoin whitepaper, solving this problem once and for all with a concept called **The Shared Notebook**.
 
-[Next: Chapter 1.3 The Shared Notebook &rarr;](/learn/foundations/03-the-shared-notebook/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-02"
+  chapterTitle="1.2 The Double-Spend Problem"
+  nextChapterUrl="/learn/foundations/03-the-shared-notebook/"
+  nextChapterTitle="1.3 The Shared Notebook"
+/>

@@ -2,10 +2,16 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import cloudflare from '@astrojs/cloudflare';
 import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
+  session: false,
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+    imageService: 'compile',
+  }),
   site: 'https://blockchain-made-easy.pages.dev',
   integrations: [
     starlight({
@@ -27,6 +33,36 @@ export default defineConfig({
       ],
       customCss: [
         './src/styles/global.css',
+      ],
+      head: [
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'manifest',
+            href: '/manifest.webmanifest',
+          },
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'theme-color',
+            content: '#0284c7',
+          },
+        },
+        {
+          tag: 'script',
+          attrs: {
+            src: '/scripts/sidebar-checkmarks.js',
+            defer: true,
+          },
+        },
+        {
+          tag: 'script',
+          attrs: {
+            src: '/scripts/register-sw.js',
+            defer: true,
+          },
+        },
       ],
       sidebar: [
         {
@@ -90,6 +126,14 @@ export default defineConfig({
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+    build: {
+      rollupOptions: {
+        external: ['@bruits/satteri-wasm32-wasi'],
+      },
+      rolldownOptions: {
+        external: ['@bruits/satteri-wasm32-wasi'],
       },
     },
   },

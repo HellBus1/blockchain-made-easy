@@ -8,11 +8,16 @@ sims:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Term from '@/components/mdx/Term';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
 import StoryWalkthrough from '@/components/sims/StoryWalkthrough';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+
+<ChapterProgress client:load currentChapter={9} chapterId="foundations-09" />
 
 Congratulations on reaching the conclusion of **Track 1: Foundations**!
 
-In this chapter, we assemble every concept you have learned—ledgers, double-spending, nodes, hashing, consensus, and custody—into a single, interconnected journey.
+In this chapter, we assemble every concept you have learned—<Term id="ledger">ledgers</Term>, <Term id="double-spend">double-spending</Term>, <Term id="node">nodes</Term>, <Term id="hash">hashing</Term>, <Term id="pow">consensus</Term>, and <Term id="self-custody">custody</Term>—into a single, interconnected journey.
 
 ---
 
@@ -27,11 +32,11 @@ Use the interactive presenter walkthrough below. You can navigate through all 6 
 ## Summary of the 6 Acts
 
 1. **Act 1 • The Problem**: Traditional money is controlled by a single bank that owns the private database. They control settlement speed, fees, and access.
-2. **Act 2 • The Breakthrough**: The Blockchain replaces the single bank with thousands of independent nodes running an identical synchronized notebook.
-3. **Act 3 • Minting Supply**: Brand-new coins enter circulation strictly as protocol rewards given to miners and validators who seal blocks.
-4. **Act 4 • Digital Identity**: Users claim accounts using cryptographic keypairs: Public addresses (glass mailboxes) and Private keys (unforgeable digital signatures).
-5. **Act 5 • The Fiat Bridge**: Regulated exchanges allow buyers with Rupiah (IDR) or USD to match with sellers, exchanging fiat for digital tokens off-chain.
-6. **Act 6 • On-Chain Settlement**: By withdrawing coins from the exchange to your personal wallet, your ownership is sealed onto the global blockchain forever.
+2. **Act 2 • The Breakthrough**: The <Term id="blockchain">Blockchain</Term> replaces the single bank with thousands of independent <Term id="node">nodes</Term> running an identical synchronized notebook.
+3. **Act 3 • Minting Supply**: Brand-new coins enter circulation strictly as protocol rewards given to miners and validators who seal blocks via <Term id="coinbase-tx">Coinbase transactions</Term>.
+4. **Act 4 • Digital Identity**: Users claim accounts using cryptographic keypairs: <Term id="public-key">Public addresses</Term> (glass mailboxes) and <Term id="private-key">Private keys</Term> (unforgeable digital signatures).
+5. **Act 5 • The Fiat Bridge**: Regulated exchanges (<Term id="fiat-bridge">fiat gateways</Term>) allow buyers with Rupiah (IDR) or USD to match with sellers, exchanging fiat for digital tokens off-chain.
+6. **Act 6 • On-Chain Settlement**: By withdrawing coins from the exchange to your personal wallet (<Term id="self-custody">self-custody</Term>), your ownership is sealed onto the global blockchain forever.
 
 <Aside type="tip" title="Track 1 Complete!">
   You now possess a solid mental model of how decentralized digital money works. In the upcoming
@@ -39,4 +44,12 @@ Use the interactive presenter walkthrough below. You can navigate through all 6 
   literacy.
 </Aside>
 
-[Return to Learning Dashboard &rarr;](/dashboard/)
+---
+
+<ChapterSeal
+  client:load
+  chapterId="foundations-09"
+  chapterTitle="1.9 Alice Sends 1 Coin to Bob"
+  nextChapterUrl="/dashboard/"
+  nextChapterTitle="Learning Dashboard"
+/>
