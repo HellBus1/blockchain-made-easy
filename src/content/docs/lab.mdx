@@ -8,8 +8,24 @@ import WalletLab from '@/components/sims/WalletLab';
 import ScamInspector from '@/components/sims/ScamInspector';
 import OrderBookSim from '@/components/sims/OrderBookSim';
 import IncomeSimulator from '@/components/sims/IncomeSimulator';
+import SmartContractGasSim from '@/components/sims/SmartContractGasSim';
+import DexLiquiditySim from '@/components/sims/DexLiquiditySim';
 
 Welcome to the **Simulation Lab**. Every core mechanism taught in Blockchain Made Easy is backed by an interactive laboratory component you can tweak, stress-test, and observe in real-time.
+
+---
+
+### Featured Track 4 Web3 & DeFi Sandboxes
+
+#### ⚡ EVM Gas Engine & Layer 2 Cost Calculator
+Simulate opcode execution costs, calculate EIP-1559 base fee burning, and see how Layer 2 rollups (Base, Arbitrum) protect your profit margins from $20+ L1 gas fees:
+
+<SmartContractGasSim client:load />
+
+#### 💧 Automated Market Maker (AMM) & Liquidity Income Simulator
+Test liquidity provider returns in a Uniswap constant-product pool ($x \cdot y = k$), model trading fee cash-flow, and calculate Impermanent Loss:
+
+<DexLiquiditySim client:load />
 
 ---
 
@@ -102,5 +118,17 @@ Inspect 4 realistic incoming signature prompts (Approval Phishing, Address Poiso
     Model fiat bank off-ramp deductions (fees and taxes), project multi-year staking compounding, and simulate automated grid trading bot arbitrage.
     <br/><br/>
     [Explore in Chapter 3.5 &rarr;](/learn/exchanges/05-trading-bots-and-dca/)
+  </Card>
+
+  <Card title="11. EVM Gas & Layer 2 Cost Engine" icon="seti:cpu">
+    Analyze EVM opcode costs, model base fee burning under EIP-1559, and calculate real-world dollar savings on Base, Arbitrum, and Optimism rollups.
+    <br/><br/>
+    [Explore in Chapter 4.2 &rarr;](/learn/ethereum/02-gas-mechanics-and-eip1559/)
+  </Card>
+
+  <Card title="12. AMM Liquidity & Yield Simulator" icon="seti:graphql">
+    Simulate Uniswap liquidity pools ($x \cdot y = k$), calculate trading fee cash flow, model Impermanent Loss against HODL, and find optimal yield pairs.
+    <br/><br/>
+    [Explore in Chapter 4.4 &rarr;](/learn/ethereum/04-dex-and-liquidity-pools/)
   </Card>
 </CardGrid>

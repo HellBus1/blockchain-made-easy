@@ -374,6 +374,105 @@ export const TERMS: Record<string, TermDefinition> = {
       'A fisherman casting a net with 20 levels: as waves rise and fall, small fish are automatically caught and sold continuously.',
     category: 'economics',
   },
+  'smart-contract': {
+    id: 'smart-contract',
+    name: 'Smart Contract',
+    short:
+      'A self-executing software program deployed on a blockchain that automatically enforces agreements without human intermediaries.',
+    analogy:
+      'A digital vending machine: insert the right coins, press the button, and the snack drops automatically with no shopkeeper needed.',
+    category: 'architecture',
+  },
+  evm: {
+    id: 'evm',
+    name: 'EVM (Ethereum Virtual Machine)',
+    short:
+      'The global decentralized runtime environment that executes smart contract bytecode across every Ethereum node.',
+    analogy:
+      'A worldwide virtual computer with infinite backup nodes: whatever code runs on it produces identical results everywhere.',
+    category: 'architecture',
+  },
+  'gas-limit': {
+    id: 'gas-limit',
+    name: 'Gas & Gas Limit',
+    short:
+      'The unit measuring the computational effort required to execute a transaction or smart contract, capped by a user-defined limit.',
+    analogy:
+      'A car fuel tank: your gas limit determines how far your car can drive before shutting down to prevent infinite loops.',
+    category: 'economics',
+  },
+  gwei: {
+    id: 'gwei',
+    name: 'Gwei (Shannon)',
+    short:
+      'A denomination of ether (0.000000001 ETH or 10^-9 ETH) universally used to price transaction gas fees.',
+    analogy:
+      'Like quoting fuel prices in cents per gallon rather than hundreds of dollars per barrel.',
+    category: 'economics',
+  },
+  'eip-1559': {
+    id: 'eip-1559',
+    name: 'EIP-1559',
+    short:
+      'The Ethereum fee market upgrade that algorithmically calculates a base fee that is permanently burned, plus an optional priority tip.',
+    analogy:
+      'A toll booth where the base toll ticket is thrown into a fire furnace (reducing supply) and a tip is handed to the valet.',
+    category: 'economics',
+  },
+  'erc-20': {
+    id: 'erc-20',
+    name: 'ERC-20 Token Standard',
+    short:
+      'A standardized smart contract blueprint on Ethereum that defines how fungible tokens (like USDC, USDT, and UNI) transfer and store balances.',
+    analogy:
+      'A standard USB-C port: any device following the specification can plug into any charger or computer seamlessly.',
+    category: 'architecture',
+  },
+  dex: {
+    id: 'dex',
+    name: 'DEX (Decentralized Exchange)',
+    short:
+      'A peer-to-contract crypto trading venue operating purely via smart contracts, allowing direct wallet-to-wallet token swaps without custodial accounts.',
+    analogy:
+      'An automated marketplace kiosk in the town square that operates 24/7 without a bank, cashier, or registration desk.',
+    category: 'economics',
+  },
+  amm: {
+    id: 'amm',
+    name: 'AMM (Automated Market Maker)',
+    short:
+      'An algorithmic trading protocol that prices assets using a mathematical formula (like x * y = k) instead of a traditional order book.',
+    analogy:
+      'A scale with apples on one side and oranges on the other: if you take an apple, you must add enough oranges to keep the scale balanced.',
+    category: 'economics',
+  },
+  'liquidity-pool': {
+    id: 'liquidity-pool',
+    name: 'Liquidity Pool',
+    short:
+      'A crowdsourced pool of digital assets locked in a smart contract that facilitates trading, lending, and fee generation for liquidity providers.',
+    analogy:
+      'A shared community water reservoir: anyone who contributes water earns a micro-fee every time a farmer opens the valve.',
+    category: 'economics',
+  },
+  'impermanent-loss': {
+    id: 'impermanent-loss',
+    name: 'Impermanent Loss (IL)',
+    short:
+      'The temporary loss of potential profit experienced by liquidity providers when token prices diverge compared to simply holding the assets.',
+    analogy:
+      'Selling your best-performing stock too early as it climbs, leaving you holding more of the cash that didn’t grow.',
+    category: 'economics',
+  },
+  'layer-2-rollup': {
+    id: 'layer-2-rollup',
+    name: 'Layer 2 Rollup',
+    short:
+      'A secondary scaling network (like Arbitrum or Base) that executes transactions off-chain, compresses data, and settles batches onto Ethereum L1 for 99% cheaper fees.',
+    analogy:
+      'A high-speed bullet train: instead of 1,000 individual cars clogging the highway, everyone boards one train that takes a single lane.',
+    category: 'architecture',
+  },
 };
 
 export function getTerm(id: string): TermDefinition | undefined {

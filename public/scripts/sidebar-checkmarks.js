@@ -7,7 +7,8 @@
   const TOTAL_TRACK1 = 9;
   const TOTAL_TRACK2 = 6;
   const TOTAL_TRACK3 = 6;
-  const TOTAL_CURRICULUM = TOTAL_TRACK1 + TOTAL_TRACK2 + TOTAL_TRACK3;
+  const TOTAL_TRACK4 = 6;
+  const TOTAL_CURRICULUM = TOTAL_TRACK1 + TOTAL_TRACK2 + TOTAL_TRACK3 + TOTAL_TRACK4;
 
   const TRACK1_MAP = {
     '01-what-money-really-is': 'foundations-01',
@@ -39,7 +40,16 @@
     '06-risk-management-and-cashing-out': 'exchanges-06',
   };
 
-  const ALL_CHAPTERS_MAP = { ...TRACK1_MAP, ...TRACK2_MAP, ...TRACK3_MAP };
+  const TRACK4_MAP = {
+    '01-smart-contracts': 'ethereum-01',
+    '02-gas-mechanics-and-eip1559': 'ethereum-02',
+    '03-tokens-erc20-and-rwa': 'ethereum-03',
+    '04-dex-and-liquidity-pools': 'ethereum-04',
+    '05-layer-2-scaling-and-cheap-yield': 'ethereum-05',
+    '06-smart-contract-safety-and-auditing': 'ethereum-06',
+  };
+
+  const ALL_CHAPTERS_MAP = { ...TRACK1_MAP, ...TRACK2_MAP, ...TRACK3_MAP, ...TRACK4_MAP };
 
   function getCompletedChapterIds() {
     try {
@@ -58,7 +68,8 @@
     const track1Count = Object.values(TRACK1_MAP).filter((id) => completed.has(id)).length;
     const track2Count = Object.values(TRACK2_MAP).filter((id) => completed.has(id)).length;
     const track3Count = Object.values(TRACK3_MAP).filter((id) => completed.has(id)).length;
-    const totalCompleted = track1Count + track2Count + track3Count;
+    const track4Count = Object.values(TRACK4_MAP).filter((id) => completed.has(id)).length;
+    const totalCompleted = track1Count + track2Count + track3Count + track4Count;
     const progressPct = Math.round((totalCompleted / TOTAL_CURRICULUM) * 100);
     const currentPath = window.location.pathname;
 
@@ -125,6 +136,14 @@
           el.appendChild(badge);
         }
         badge.textContent = `(${track3Count}/${TOTAL_TRACK3})`;
+      } else if (text.includes('Track 4: Ethereum') || text.includes('Ethereum & DeFi') || text.includes('Smart Contracts')) {
+        let badge = el.querySelector('.bme-track-count');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'bme-track-count';
+          el.appendChild(badge);
+        }
+        badge.textContent = `(${track4Count}/${TOTAL_TRACK4})`;
       }
     });
 

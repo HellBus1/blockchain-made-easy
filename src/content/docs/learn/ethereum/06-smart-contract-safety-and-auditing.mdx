@@ -1,0 +1,121 @@
+---
+title: '4.6 Web3 Security: Spotting Rugpulls, Honeypots & Exploits'
+description: Protect your capital and profits by learning how to analyze smart contract risk, verify on-chain source code, and spot hidden backdoors.
+track: Ethereum
+chapter: 6
+---
+
+import ChapterProgress from '../../../../components/mdx/ChapterProgress';
+import ChapterSeal from '../../../../components/mdx/ChapterSeal';
+import Term from '../../../../components/mdx/Term';
+import { Aside } from '@astrojs/starlight/components';
+
+<ChapterProgress client:load track="ethereum" currentChapter={6} chapterId="ethereum-06" />
+
+In traditional banking, if a bank teller accidentally sends funds to the wrong account or an unauthorized debit occurs, a fraud manager can file an internal dispute, freeze the wire, and reverse the transaction.
+
+In Web3, **code is law**. The same immutability that makes blockchains censorship-resistant also means that **once a smart contract executes, it cannot be undone**. There is no customer service hotline to call, and no central administrator who can reverse a hacked protocol.
+
+If you want to preserve your hard-earned profits, you must know how to inspect a smart contract before depositing a single dollar of your capital.
+
+---
+
+### The 4 Most Dangerous Smart Contract Threats
+
+```
+ANATOMY OF COMMON WEB3 THREATS:
+┌───────────────────────┬────────────────────────────────────────────────────────┐
+│ Threat Type           │ How the Attack Operates                                │
+├───────────────────────┼────────────────────────────────────────────────────────┤
+│ 1. Honeypots          │ Smart contract lets anyone buy, but the `transfer()`   │
+│                       │ function has a hidden modifier that blocks all sells.  │
+├───────────────────────┼────────────────────────────────────────────────────────┤
+│ 2. Liquidity Rug Pulls│ Developer deposits liquidity into Uniswap, lets        │
+│                       │ victims buy tokens, then pulls the entire liquidity pool│
+├───────────────────────┼────────────────────────────────────────────────────────┤
+│ 3. Infinite Minting   │ Owner keeps an unannounced `mint()` function with no   │
+│                       │ hard cap, prints trillions of tokens, and dumps them.  │
+├───────────────────────┼────────────────────────────────────────────────────────┤
+│ 4. Oracle Exploits    │ Hacker uses an uncollateralized Flash Loan to skew an  │
+│                       │ illiquid AMM price, draining a lending protocol vault. │
+└───────────────────────┴────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Red Flags in Smart Contract Code
+
+Here is what an actual malicious backdoor looks like inside Solidity bytecode:
+
+```solidity
+// EXAMPLE OF A HONEYPOT FUNCTION
+function transfer(address recipient, uint256 amount) public returns (bool) {
+    // HIDDEN TRAP: Only the owner is allowed to sell or transfer!
+    if (recipient == uniswapPairAddress) {
+        require(msg.sender == owner, "Only owner can sell");
+    }
+    
+    _balances[msg.sender] -= amount;
+    _balances[recipient] += amount;
+    return true;
+}
+```
+
+To an unsuspecting user on a chart platform like DexScreener, the green price candles look like an incredible 500% pump. In reality, **nobody except the creator can sell**. Every dollar deposited into the contract is permanently trapped!
+
+---
+
+### The Free Due-Diligence Toolbelt
+
+Before interacting with any unfamiliar token or yield farm, run the contract address through these free security tools:
+
+1. **[Etherscan / Arbiscan / Basescan](https://etherscan.io)**:
+   - Click the **Contract** tab.
+   - Look for the **Green Checkmark** (`Contract Source Code Verified`). If the source code is unverified bytecode, **never touch it**.
+   - Check the **Read/Write Contract** tab for suspicious functions like `setFee(100)`, `blacklistAddress()`, or `migrateAll()`.
+2. **[Token Sniffer](https://tokensniffer.com) & [Honeypot.is](https://honeypot.is)**:
+   - Paste the token contract address.
+   - Automatically simulates buy and sell transactions on a local fork.
+   - Checks if the sell fee is over 10% or if transfers can be paused.
+3. **[DefiLlama](https://defillama.com)**:
+   - Check the protocol's **Total Value Locked (TVL)** and track record.
+   - Review the **Audits** section. Tier-1 security auditing firms include **OpenZeppelin, Trail of Bits, Spearbit, and CertiK**.
+4. **[Revoke.cash](https://revoke.cash)**:
+   - Connect your wallet to inspect all active ERC-20 allowances.
+   - Revoke permissions for any platform you no longer actively use.
+
+---
+
+### The 6-Step Pre-Deposit Due Diligence Checklist
+
+Never deposit funds into any decentralized protocol or token pool without checking every item on this list:
+
+- [ ] **Contract Verification**: Is the source code verified with a green checkmark on the block explorer?
+- [ ] **Audit Reports**: Has the smart contract been audited by at least one reputable third-party security firm? Have all critical vulnerabilities been marked as resolved?
+- [ ] **Liquidity Lock**: For DEX pools, is the LP token locked in a reputable locker (like Unicrypt or Team Finance) or burned to `0x000...dead`?
+- [ ] **Honeypot Test**: Have you verified on Honeypot.is that selling the token is functioning properly with reasonable fees (under 5%)?
+- [ ] **Admin Ownership**: Does a single private key hold total owner rights, or is governance controlled by a multi-signature wallet (e.g. Safe with 3/5 signers) and a timelock contract?
+- [ ] **Test Transaction First**: When connecting to a new dapp, start with a tiny test deposit ($5–$10) and verify that you can deposit, earn, and successfully withdraw your funds back to your wallet before committing your main capital!
+
+---
+
+### Track 4 Conclusion: The Web3 World Awaits
+
+Congratulations! You have completed **Track 4: Ethereum, Smart Contracts & Web3**. 
+
+You now understand:
+- How programmable money and smart contracts replace human financial intermediaries.
+- How to calculate and minimize gas costs using EIP-1559 and Layer 2 rollups.
+- How ERC-20 tokens, stablecoins, and tokenized real-world assets stream global yield.
+- How to provide liquidity on Automated Market Makers without getting burned by Impermanent Loss.
+- How to audit contract code and protect your profits from malicious exploits.
+
+Seal your final Track 4 block below to record your achievement on your cryptographic learning chain!
+
+<ChapterSeal
+  client:load
+  chapterId="ethereum-06"
+  chapterTitle="4.6 Web3 Security: Spotting Rugpulls, Honeypots & Exploits"
+  track="ethereum"
+  proof="SMART-CONTRACT-AUDITING-HONEYPOT-DEFENSE"
+/>

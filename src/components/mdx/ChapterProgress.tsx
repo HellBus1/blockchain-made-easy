@@ -2,7 +2,7 @@ import { useStore } from '@nanostores/react';
 import { learningChain, sealChapterBlockInstant, unsealChapterBlock } from '../../stores/progress';
 
 interface ChapterProgressProps {
-  track?: 'foundations' | 'wallets' | 'exchanges';
+  track?: 'foundations' | 'wallets' | 'exchanges' | 'ethereum';
   currentChapter: number;
   chapterId: string;
 }
@@ -142,6 +142,45 @@ const EXCHANGES_CHAPTERS = [
   },
 ];
 
+const ETHEREUM_CHAPTERS = [
+  {
+    num: 1,
+    id: 'ethereum-01',
+    title: '4.1 Programmable Money & Smart Contracts',
+    url: '/learn/ethereum/01-smart-contracts/',
+  },
+  {
+    num: 2,
+    id: 'ethereum-02',
+    title: '4.2 Gas Economics: Protecting Your Profits',
+    url: '/learn/ethereum/02-gas-mechanics-and-eip1559/',
+  },
+  {
+    num: 3,
+    id: 'ethereum-03',
+    title: '4.3 Tokens, Stablecoins & Real-World Assets',
+    url: '/learn/ethereum/03-tokens-erc20-and-rwa/',
+  },
+  {
+    num: 4,
+    id: 'ethereum-04',
+    title: '4.4 Decentralized Exchanges & Liquidity Fees',
+    url: '/learn/ethereum/04-dex-and-liquidity-pools/',
+  },
+  {
+    num: 5,
+    id: 'ethereum-05',
+    title: '4.5 Layer 2 Scaling: 99% Cheaper Gas',
+    url: '/learn/ethereum/05-layer-2-scaling-and-cheap-yield/',
+  },
+  {
+    num: 6,
+    id: 'ethereum-06',
+    title: '4.6 Web3 Security: Rugpulls & Exploits',
+    url: '/learn/ethereum/06-smart-contract-safety-and-auditing/',
+  },
+];
+
 export default function ChapterProgress({
   track = 'foundations',
   currentChapter,
@@ -152,17 +191,21 @@ export default function ChapterProgress({
   const isCurrentSealed = sealedIds.has(chapterId);
 
   const chapters =
-    track === 'exchanges'
-      ? EXCHANGES_CHAPTERS
-      : track === 'wallets'
-        ? WALLETS_CHAPTERS
-        : FOUNDATIONS_CHAPTERS;
+    track === 'ethereum'
+      ? ETHEREUM_CHAPTERS
+      : track === 'exchanges'
+        ? EXCHANGES_CHAPTERS
+        : track === 'wallets'
+          ? WALLETS_CHAPTERS
+          : FOUNDATIONS_CHAPTERS;
   const trackName =
-    track === 'exchanges'
-      ? 'Track 3: Exchanges & Income'
-      : track === 'wallets'
-        ? 'Track 2: Wallets & Security'
-        : 'Track 1: Foundations';
+    track === 'ethereum'
+      ? 'Track 4: Ethereum, Smart Contracts & Web3'
+      : track === 'exchanges'
+        ? 'Track 3: Exchanges & Income'
+        : track === 'wallets'
+          ? 'Track 2: Wallets & Security'
+          : 'Track 1: Foundations';
   const completedCount = chapters.filter((ch) => sealedIds.has(ch.id)).length;
   const currentChapterObj = chapters.find((ch) => ch.num === currentChapter) || chapters[0];
 
