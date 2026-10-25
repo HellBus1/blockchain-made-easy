@@ -1,0 +1,129 @@
+---
+title: '4.3 Tokens, Stablecoins & Real-World Assets (ERC-20)'
+description: Understand how digital tokens are programmed on Ethereum, how stablecoins power global fiat earnings, and how tokenized Real-World Assets (RWA) stream passive yields.
+track: Ethereum
+chapter: 3
+---
+
+import ChapterProgress from '../../../../components/mdx/ChapterProgress';
+import ChapterSeal from '../../../../components/mdx/ChapterSeal';
+import Term from '../../../../components/mdx/Term';
+import { Aside } from '@astrojs/starlight/components';
+
+<ChapterProgress client:load track="ethereum" currentChapter={3} chapterId="ethereum-03" />
+
+When people talk about "crypto tokens", many imagine standalone blockchains with thousands of servers running around the globe.
+
+In reality, the vast majority of tokens in existence—including multi-billion-dollar stablecoins like **USDT (Tether)** and **USDC (Circle)**—are simply **smart contracts living on Ethereum**.
+
+Understanding how token standards work is essential for moving, holding, and generating yield from digital dollars safely.
+
+---
+
+### What Is the ERC-20 Standard?
+
+An **<Term id="erc-20">ERC-20</Term>** token is a standardized smart contract blueprint that defines how fungible tokens must behave.
+
+Because all ERC-20 contracts share the exact same interface, every wallet (MetaMask, Phantom), decentralized exchange (Uniswap), and lending platform (Aave) can automatically support any new token the second it is launched!
+
+#### The Internal Architecture of a Token
+At its core, an ERC-20 smart contract is simply an internal bookkeeping ledger stored inside Ethereum:
+
+```solidity
+// Core data structures inside an ERC-20 smart contract
+contract ERC20Token {
+    string public name = "USD Coin";
+    string public symbol = "USDC";
+    uint8 public decimals = 6;
+    uint256 public totalSupply;
+
+    // The Ledger: Links every Ethereum address to its token balance
+    mapping(address => uint256) public balanceOf;
+
+    // The Allowance Table: Who has permission to spend your tokens
+    mapping(address => mapping(address => uint256)) public allowance;
+
+    function transfer(address recipient, uint256 amount) public returns (bool) {
+        require(balanceOf[msg.sender] >= amount, "Insufficient balance");
+        balanceOf[msg.sender] -= amount;
+        balanceOf[recipient] += amount;
+        emit Transfer(msg.sender, recipient, amount);
+        return true;
+    }
+}
+```
+
+When someone sends you 500 USDC, no physical files are transferred. The contract code simply subtracts 500 from the sender's balance and adds 500 to your address inside the contract's storage mapping!
+
+---
+
+### Native ETH vs. ERC-20 Tokens
+
+It is critical to distinguish between native currency and contract tokens:
+
+| Feature | Native ETH | ERC-20 Tokens (USDC, USDT, UNI) |
+| :--- | :--- | :--- |
+| **Origin** | Built into the core Ethereum protocol. | Created via smart contract code. |
+| **Gas Fee Role** | The **only** asset accepted to pay network gas fees. | Cannot directly pay gas; you must hold ETH to send them. |
+| **Balance Location** | Global state tree of accounts. | Stored within that specific token's smart contract. |
+| **Spending Permission** | Requires your private key signature for every transfer. | Can grant third-party contracts permission via `approve()`. |
+
+<Aside type="caution" title="Common Beginner Trap">
+If you have $5,000 worth of USDC in your self-custody wallet but **0 ETH**, your funds are effectively frozen! Because the Ethereum network only accepts native ETH to pay for transaction computation, you must hold a small buffer of ETH (e.g. $10–$20) to pay gas when moving contract tokens.
+</Aside>
+
+---
+
+### Stablecoins: The Engine of Fiat Crypto Income
+
+For investors looking to generate income without suffering the gut-wrenching volatility of Bitcoin or Ether, **fiat-pegged stablecoins** are the answer:
+
+1. **Centralized Fiat-Backed (USDC, USDT)**:
+   - For every $1 token issued on-chain, a regulated institution holds $1 of real US cash or short-term US Treasury Bills in audited bank reserves.
+   - Ideal for: Cashing out to local bank accounts, international remittances, and anchoring profits.
+2. **Decentralized Crypto-Backed (DAI, USDS)**:
+   - Governed by smart contract protocols (like MakerDAO/Sky). Minted by over-collateralizing crypto assets (e.g. depositing $150 of ETH to mint $100 of DAI).
+   - Resistant to censorship and single-point-of-failure bank freezes.
+
+---
+
+### The New Frontier: Real-World Assets (RWA)
+
+In traditional finance, retail investors often earn virtually 0% on bank checking balances while institutional funds earn 4.5%–5.0% on US Federal Reserve rates.
+
+Through **Real-World Asset (RWA) tokenization**, high-yield government debt is now packaged directly into yield-streaming ERC-20 tokens:
+
+```
+RWA PASSIVE INCOME PIPELINE:
+┌─────────────────────────┐     ┌────────────────────────┐     ┌─────────────────────────┐
+│ Real US Treasury Bills  │ ──► │ Smart Contract Token   │ ──► │ Your Web3 Wallet        │
+│ Yield: ~4.5% - 5.0% APY │     │ (e.g., USDY, OUSG)     │     │ Daily Interest Compounding│
+└─────────────────────────┘     └────────────────────────┘     └─────────────────────────┘
+```
+
+- **How it works**: Regulated asset managers (such as Ondo Finance, Superstate, and Franklin Templeton) buy short-dated US Treasury bonds, wrap them in an institutional SPV, and issue yield-bearing ERC-20 tokens.
+- **Why it matters**: Anyone with a smartphone and a non-custodial wallet can earn institutional-grade dollar yields 24 hours a day, bypassing predatory local banking limits and currency inflation.
+
+---
+
+### Token Allowances & Approval Safety
+
+Before a decentralized application (like Uniswap or Aave) can interact with your ERC-20 tokens, it requires you to call the `approve()` function:
+
+```text
+User Wallet ──► approve(UniswapRouter, 500 USDC) ──► Uniswap can now withdraw up to 500 USDC
+```
+
+Many dApps default to requesting **Unlimited Approvals** (`115792089237316...` tokens) so you don't have to pay gas for approvals on future trades. 
+
+However, if that dApp's smart contract is ever hacked or exploited, a malicious actor could drain all approved tokens directly from your wallet! 
+
+**Best Practice**: Whenever possible, enter custom approval amounts equal to the exact trade you are executing, or regularly revoke stale approvals using tools like [Revoke.cash](https://revoke.cash).
+
+<ChapterSeal
+  client:load
+  chapterId="ethereum-03"
+  chapterTitle="4.3 Tokens, Stablecoins & Real-World Assets (ERC-20)"
+  track="ethereum"
+  proof="ERC20-MAPPING-BALANCEOF-STABLECOINS-RWA"
+/>

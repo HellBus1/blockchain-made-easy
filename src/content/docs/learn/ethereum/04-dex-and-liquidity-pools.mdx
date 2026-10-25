@@ -1,0 +1,112 @@
+---
+title: '4.4 Decentralized Exchanges (DEX) & Earning Liquidity Fees'
+description: Discover how Automated Market Makers (AMMs) replace order books, how liquidity providers collect passive trading fees, and how to avoid Impermanent Loss.
+track: Ethereum
+chapter: 4
+---
+
+import ChapterProgress from '../../../../components/mdx/ChapterProgress';
+import ChapterSeal from '../../../../components/mdx/ChapterSeal';
+import Term from '../../../../components/mdx/Term';
+import DexLiquiditySim from '../../../../components/sims/DexLiquiditySim';
+import { Aside } from '@astrojs/starlight/components';
+
+<ChapterProgress client:load track="ethereum" currentChapter={4} chapterId="ethereum-04" />
+
+In Track 3, we examined Centralized Exchanges (CEXs) like Binance and Coinbase, where orders match through a centralized database using order books.
+
+While convenient, CEXs present clear risks: they require KYC documentation, can freeze your account at any moment, and hold custodial control of your private keys (*"Not your keys, not your coins"*).
+
+Enter the **<Term id="dex">Decentralized Exchange (DEX)</Term>**. Powered by smart contracts, DEXs enable peer-to-contract trading directly from your personal Web3 wallet, 24 hours a day, with zero registration and zero middlemen.
+
+---
+
+### How Do DEXs Work? The Automated Market Maker (AMM)
+
+Traditional stock exchanges require professional high-frequency market-making firms to constantly quote buy and sell prices. But on a blockchain where every transaction costs gas and takes seconds to confirm, traditional order books are too slow and expensive for L1 mainnets.
+
+In 2018, **Uniswap** solved this problem with a revolutionary invention: the **<Term id="amm">Automated Market Maker (AMM)</Term>**.
+
+Instead of matching individual buyers and sellers, an AMM pools two tokens into a smart contract reserve governed by a simple mathematical formula:
+
+```text
+THE CONSTANT PRODUCT FORMULA:
+  x · y = k
+```
+
+- **x**: Total quantity of Token A in the pool (e.g. ETH).
+- **y**: Total quantity of Token B in the pool (e.g. USDC).
+- **k**: A fixed constant that must remain identical before and after any swap.
+
+When a trader deposits USDC into the pool to buy ETH, the quantity of USDC increases ($y \uparrow$). To preserve the constant $k$, the contract must decrease the amount of ETH ($x \downarrow$) and dispense it to the trader. The relative balance shifts, automatically raising the price of ETH for the next buyer!
+
+---
+
+### Generating Income as a Liquidity Provider (LP)
+
+Where do the initial tokens in the pool come from? **From everyday users like you.**
+
+Anyone can deposit equal dollar values of two tokens (e.g., $1,000 worth of ETH + $1,000 worth of USDC) into a liquidity pool. In return:
+
+1. You receive **LP Tokens (or NFT positions)** representing your exact percentage share of the pool.
+2. Every time a trader swaps through that pool, a trading fee (typically **0.30%**) is deducted and added directly into the pool's reserves.
+3. When you withdraw your liquidity, you receive your initial deposit plus your pro-rata share of all accumulated trading fees!
+
+---
+
+### Interactive AMM & Liquidity Income Simulator
+
+Use the interactive simulator below to test your liquidity earnings across different market conditions and observe how price volatility impacts your returns:
+
+<DexLiquiditySim client:load />
+
+---
+
+### The Hidden Risk: Impermanent Loss (IL)
+
+While earning 0.3% on every trade sounds like free money, liquidity providers face a subtle risk known as **<Term id="impermanent-loss">Impermanent Loss (IL)</Term>**.
+
+Impermanent Loss happens when the price ratio of your deposited tokens changes compared to when you deposited them.
+
+#### Why Does It Happen?
+Because the AMM is an isolated mathematical algorithm, it doesn't know external market prices. When ETH rallies on Binance from $3,000 to $4,000, external arbitrageurs immediately buy the cheaper ETH out of the AMM pool until the pool's ratio matches the global market.
+
+As a result:
+- The pool sells your winning asset (ETH) as it rises.
+- The pool accumulates more of the stable asset (USDC).
+- If you withdraw during this price divergence, your total portfolio value will be **lower than if you had simply held (HODLed)** both tokens in your wallet!
+
+```
+ESTIMATED IMPERMANENT LOSS MATRIX (VS HODL):
+  1.25x Price Change (+25%) ──►  -0.6% Impermanent Loss
+  1.50x Price Change (+50%) ──►  -2.0% Impermanent Loss
+  2.00x Price Change (+100%) ─►  -5.7% Impermanent Loss
+  3.00x Price Change (+200%) ─► -13.4% Impermanent Loss
+  5.00x Price Change (+400%) ─► -25.5% Impermanent Loss
+```
+
+> **The Golden Rule of LP Profitability**:  
+> You make money as a liquidity provider **only when the trading fees earned exceed the Impermanent Loss** incurred!
+
+#### How to Generate Stable Yield with Zero Impermanent Loss
+To avoid Impermanent Loss entirely, seasoned DeFi earners provide liquidity exclusively to **pegged or correlated pairs**:
+- **Stablecoin Pools (USDC / USDT)**: Both assets are pegged to $1.00. The price ratio almost never changes ($r \approx 1$), meaning Impermanent Loss is virtually **0.00%**. Every trade fee collected is pure cash profit!
+- **Liquid Staking Pools (wstETH / ETH)**: Both assets track the same underlying asset with predictable price convergence.
+
+---
+
+### Trade Execution: Slippage & MEV Sandwich Attacks
+
+When trading on a DEX, keep two crucial security settings in mind:
+
+1. **Slippage Tolerance**: The maximum price difference you are willing to accept between when you submit your transaction and when it is mined. For liquid pairs, keep slippage between **0.1% and 0.5%**. Setting slippage to 5% or 10% is an open invitation for automated bots to exploit you.
+2. **MEV (Maximum Extractable Value) Bots**: Predatory trading bots scan the public mempool for pending DEX swaps. If you submit a large swap with loose slippage, a sandwich bot will place a buy order right *before* yours (driving the price up) and a sell order right *after* yours, stealing your profit in a single block.
+   - *Protection*: Use MEV-blocking RPC endpoints like **Flashbots Protect** or execute swaps on Layer 2 rollups with private sequencing.
+
+<ChapterSeal
+  client:load
+  chapterId="ethereum-04"
+  chapterTitle="4.4 Decentralized Exchanges (DEX) & Earning Liquidity Fees"
+  track="ethereum"
+  proof="AMM-CONSTANT-PRODUCT-XYK-LIQUIDITY-IL"
+/>

@@ -118,10 +118,30 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Track 4: Ethereum & DeFi',
-          collapsed: true,
+          label: 'Track 4: Ethereum, Smart Contracts & Web3',
+          collapsed: false,
           items: [
-            { label: '4.1 Smart Contracts & EVM', slug: 'learn/ethereum/01-smart-contracts' },
+            { label: '4.1 Programmable Money & Smart Contracts', slug: 'learn/ethereum/01-smart-contracts' },
+            {
+              label: '4.2 Gas Economics: Protecting Your Profits',
+              slug: 'learn/ethereum/02-gas-mechanics-and-eip1559',
+            },
+            {
+              label: '4.3 Tokens, Stablecoins & Real-World Assets',
+              slug: 'learn/ethereum/03-tokens-erc20-and-rwa',
+            },
+            {
+              label: '4.4 Decentralized Exchanges & Liquidity Fees',
+              slug: 'learn/ethereum/04-dex-and-liquidity-pools',
+            },
+            {
+              label: '4.5 Layer 2 Scaling: 99% Cheaper Gas',
+              slug: 'learn/ethereum/05-layer-2-scaling-and-cheap-yield',
+            },
+            {
+              label: '4.6 Web3 Security: Rugpulls & Exploits',
+              slug: 'learn/ethereum/06-smart-contract-safety-and-auditing',
+            },
           ],
         },
         {
