@@ -8,6 +8,9 @@ chapter: 2
 import { Aside } from '@astrojs/starlight/components';
 import Term from '@/components/mdx/Term';
 import ChapterSeal from '@/components/mdx/ChapterSeal';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+
+<ChapterProgress client:load currentChapter={2} chapterId="foundations-02" />
 
 Physical items have a built-in law of physics: if you hand someone a paper Rp 50,000 banknote or an apple, you no longer possess it. You cannot hand that exact same apple to two different people at the exact same moment.
 

@@ -11,6 +11,9 @@ import { Aside } from '@astrojs/starlight/components';
 import Term from '@/components/mdx/Term';
 import ChapterSeal from '@/components/mdx/ChapterSeal';
 import BlockChainSimulator from '@/components/sims/BlockChainSimulator';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+
+<ChapterProgress client:load currentChapter={6} chapterId="foundations-06" />
 
 Transactions don't float around individually forever. In Bitcoin and other networks, transactions are gathered together into batches called **Blocks** (like pages in an accounting ledger).
 

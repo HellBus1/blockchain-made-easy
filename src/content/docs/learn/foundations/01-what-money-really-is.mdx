@@ -8,6 +8,9 @@ chapter: 1
 import { Aside } from '@astrojs/starlight/components';
 import Term from '@/components/mdx/Term';
 import ChapterSeal from '@/components/mdx/ChapterSeal';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+
+<ChapterProgress client:load currentChapter={1} chapterId="foundations-01" />
 
 When most people think of money, they picture crisp paper bills or heavy metallic coins. But if you look deeper into economic history, money has never primarily been about physical tokens—**money is a record-keeping system**. It is a <Term id="ledger">ledger</Term>.
 

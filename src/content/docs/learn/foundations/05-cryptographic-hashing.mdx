@@ -11,6 +11,9 @@ import { Aside } from '@astrojs/starlight/components';
 import Term from '@/components/mdx/Term';
 import ChapterSeal from '@/components/mdx/ChapterSeal';
 import HashPlayground from '@/components/sims/HashPlayground';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+
+<ChapterProgress client:load currentChapter={5} chapterId="foundations-05" />
 
 How do you prove that an entire document—whether it contains one transaction or a million lines of financial history—has not been tampered with by even a single comma?
 

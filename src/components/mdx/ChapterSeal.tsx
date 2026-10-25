@@ -61,7 +61,10 @@ export default function ChapterSeal({
   };
 
   return (
-    <div className="my-10 rounded-xl border border-border bg-card/60 backdrop-blur-sm p-6 shadow-sm transition-all hover:shadow-md">
+    <div
+      id="chapter-seal-section"
+      className="my-10 rounded-xl border border-border bg-card/60 backdrop-blur-sm p-6 shadow-sm transition-all hover:shadow-md"
+    >
       {!isSealed && !isMining && (
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-1">
