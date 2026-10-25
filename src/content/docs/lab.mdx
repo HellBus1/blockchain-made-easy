@@ -1,11 +1,79 @@
 ---
 title: Interactive Simulation Lab
-description: Directly access all 8 cryptocurrency simulations and interactive sandbox environments.
+description: Directly access all cryptocurrency simulations, cryptographic sandboxes, and interactive lab environments.
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import WalletLab from '@/components/sims/WalletLab';
+import ScamInspector from '@/components/sims/ScamInspector';
+import OrderBookSim from '@/components/sims/OrderBookSim';
+import IncomeSimulator from '@/components/sims/IncomeSimulator';
+import SmartContractGasSim from '@/components/sims/SmartContractGasSim';
+import DexLiquiditySim from '@/components/sims/DexLiquiditySim';
+import CandlestickLab from '@/components/sims/CandlestickLab';
+import PaperTradingSim from '@/components/sims/PaperTradingSim';
 
 Welcome to the **Simulation Lab**. Every core mechanism taught in Blockchain Made Easy is backed by an interactive laboratory component you can tweak, stress-test, and observe in real-time.
+
+---
+
+### Featured Track 5 Market & Execution Sandboxes
+
+#### 🎮 Real-Time Paper Trading & Fiat Off-Ramp Terminal
+Execute disciplined trades with $10,000 in simulated capital, set stop-losses and take-profits (1:3 R:R), and off-ramp realized trading profits directly to your bank account:
+
+<PaperTradingSim client:load />
+
+#### 📊 Candlestick Anatomy & Pattern Sculptor
+Adjust Open, High, Low, and Close prices to observe how buying absorption and selling rejection create high-winrate candlestick signals:
+
+<CandlestickLab client:load />
+
+---
+
+### Featured Track 4 Web3 & DeFi Sandboxes
+
+#### ⚡ EVM Gas Engine & Layer 2 Cost Calculator
+Simulate opcode execution costs, calculate EIP-1559 base fee burning, and see how Layer 2 rollups (Base, Arbitrum) protect your profit margins from $20+ L1 gas fees:
+
+<SmartContractGasSim client:load />
+
+#### 💧 Automated Market Maker (AMM) & Liquidity Income Simulator
+Test liquidity provider returns in a Uniswap constant-product pool ($x \cdot y = k$), model trading fee cash-flow, and calculate Impermanent Loss:
+
+<DexLiquiditySim client:load />
+
+---
+
+### Featured Track 3 Income & Trading Sandboxes
+
+#### 📈 Live Exchange Order Book & Matching Engine
+Test Maker vs Taker execution, inspect real-time Bid/Ask depth, and execute Limit and Market orders:
+
+<OrderBookSim client:load />
+
+#### 💰 Blockchain Income & Fiat Cash-Out Suite
+Model real fiat bank cashouts (net of fees and tax), calculate passive staking APY compounding, and simulate automated 24/7 grid trading bots:
+
+<IncomeSimulator client:load />
+
+---
+
+### Featured Track 2 Security Sandboxes
+
+#### 🔬 Interactive Wallet Laboratory (secp256k1 & BIP-39)
+Generate 12 or 24-word seed phrases, derive elliptic curve public keys, compute Ethereum and Bitcoin addresses, and test ECDSA message signing:
+
+<WalletLab client:load />
+
+#### 🛡️ Web3 Transaction Defense Inspector
+Inspect 4 realistic incoming signature prompts (Approval Phishing, Address Poisoning, Permit2, Legitimate DEX Swaps) and test your security reflexes:
+
+<ScamInspector client:load />
+
+---
+
+### All Simulation Lab Modules
 
 <CardGrid stagger>
   <Card title="1. SHA-256 Hash Playground" icon="seti:code">
@@ -14,57 +82,81 @@ Welcome to the **Simulation Lab**. Every core mechanism taught in Blockchain Mad
     [Explore in Chapter 1.5 &rarr;](/learn/foundations/05-cryptographic-hashing/)
   </Card>
 
-<Card title="2. Immutable Blockchain Tamper Lab" icon="seti:lock">
-  Inspect a live chain of blocks linked by mathematical fingerprints. Edit a transaction in Block #1
-  and watch subsequent blocks shatter into red error states.
-  <br />
-  <br />
-  [Explore in Chapter 1.6 &rarr;](/learn/foundations/06-blocks-and-blockchain/)
-</Card>
+  <Card title="2. Immutable Blockchain Tamper Lab" icon="seti:lock">
+    Inspect a live chain of blocks linked by mathematical fingerprints. Edit a transaction in Block #1 and watch subsequent blocks shatter into red error states.
+    <br/><br/>
+    [Explore in Chapter 1.6 &rarr;](/learn/foundations/06-blocks-and-blockchain/)
+  </Card>
 
-<Card title="3. Proof-of-Work Mining Engine" icon="seti:cpu">
-  Race to solve mathematical puzzles by finding a valid nonce that produces leading zeros. Adjust
-  network difficulty and claim newly minted block rewards.
-  <br />
-  <br />
-  [Explore in Chapter 1.7 &rarr;](/learn/foundations/07-pow-vs-pos/)
-</Card>
+  <Card title="3. Proof-of-Work Mining Engine" icon="seti:cpu">
+    Race to solve mathematical puzzles by finding a valid nonce that produces leading zeros. Adjust network difficulty and claim newly minted block rewards.
+    <br/><br/>
+    [Explore in Chapter 1.7 &rarr;](/learn/foundations/07-pow-vs-pos/)
+  </Card>
 
-<Card title="4. Bitcoin Supply & Halving Scrubber" icon="seti:clock">
-  Scrub through historical and future epochs from 2009 (50 BTC) to 2024 (3.125 BTC) and beyond.
-  Watch the asymptotic supply curve approach the 21 Million hard cap.
-  <br />
-  <br />
-  [Explore in Chapter 1.8 &rarr;](/learn/foundations/08-minting-and-halving/)
-</Card>
+  <Card title="4. Bitcoin Supply & Halving Scrubber" icon="seti:clock">
+    Scrub through historical and future epochs from 2009 (50 BTC) to 2024 (3.125 BTC) and beyond. Watch the asymptotic supply curve approach the 21 Million hard cap.
+    <br/><br/>
+    [Explore in Chapter 1.8 &rarr;](/learn/foundations/08-minting-and-halving/)
+  </Card>
 
-<Card title="5. Global Gossip Protocol Simulator" icon="seti:globe">
-  Broadcast transactions from Jakarta, Tokyo, London, or New York across a simulated peer-to-peer
-  network. Watch the 8-node gossip spread and reject double-spends.
-  <br />
-  <br />
-  [Explore in Chapter 1.4 &rarr;](/learn/foundations/04-gossip-protocol/)
-</Card>
+  <Card title="5. Global Gossip Protocol Simulator" icon="seti:globe">
+    Broadcast transactions from Jakarta, Tokyo, London, or New York across a simulated peer-to-peer network. Watch the 8-node gossip spread and reject double-spends.
+    <br/><br/>
+    [Explore in Chapter 1.4 &rarr;](/learn/foundations/04-gossip-protocol/)
+  </Card>
 
-<Card title="6. The Story of Crypto Walkthrough" icon="seti:play">
-  The complete interactive presenter journey from centralized bank ledgers, to shared notebooks,
-  minting, glass mailboxes, fiat exchange bridges, and cold-storage self-custody.
-  <br />
-  <br />
-  [Explore in Chapter 1.9 &rarr;](/learn/foundations/09-alice-to-bob-walkthrough/)
-</Card>
+  <Card title="6. The Story of Crypto Walkthrough" icon="seti:play">
+    The complete interactive presenter journey from centralized bank ledgers, to shared notebooks, minting, glass mailboxes, fiat exchange bridges, and cold-storage self-custody.
+    <br/><br/>
+    [Explore in Chapter 1.9 &rarr;](/learn/foundations/09-alice-to-bob-walkthrough/)
+  </Card>
 
-<Card title="7. Exchange Order Book & Matching Engine" icon="seti:credit-card">
-  Place real Limit and Market buy/sell orders. Watch bid and ask liquidity depth update live, and
-  observe how buyers and sellers match off-chain.
-  <br />
-  <br />
-  [Explore in Chapter 3.2 &rarr;](/learn/exchanges/02-order-books/)
-</Card>
+  <Card title="7. Interactive Wallet Laboratory" icon="seti:key">
+    Derive keys using elliptic curve cryptography ($y^2 = x^3 + 7$), inspect BIP-39 entropy to word mapping, and sign arbitrary payloads.
+    <br/><br/>
+    [Explore in Chapter 2.1 &rarr;](/learn/wallets/01-keys-and-addresses/)
+  </Card>
 
-  <Card title="8. Candlestick Chart & Paper Trading" icon="seti:chart">
-    Read open-high-low-close candles, observe volume indicators, and practice risk management with a simulated paper trading wallet.
+  <Card title="8. Web3 Scam & Threat Inspector" icon="seti:shield">
+    Practice detecting zero-value address poisoning, approval phishing drainers, and malicious Permit2 gasless signatures in a simulated wallet environment.
+    <br/><br/>
+    [Explore in Chapter 2.6 &rarr;](/learn/wallets/06-scams-and-security/)
+  </Card>
+
+  <Card title="9. Exchange Order Book & Matching Engine" icon="seti:graphql">
+    Experience Maker vs Taker dynamics, place Limit and Market orders, and watch orders cross the spread in real-time.
+    <br/><br/>
+    [Explore in Chapter 3.2 &rarr;](/learn/exchanges/02-order-books/)
+  </Card>
+
+  <Card title="10. Blockchain Income & Cashout Suite" icon="seti:settings">
+    Model fiat bank off-ramp deductions (fees and taxes), project multi-year staking compounding, and simulate automated grid trading bot arbitrage.
+    <br/><br/>
+    [Explore in Chapter 3.5 &rarr;](/learn/exchanges/05-trading-bots-and-dca/)
+  </Card>
+
+  <Card title="11. EVM Gas & Layer 2 Cost Engine" icon="seti:cpu">
+    Analyze EVM opcode costs, model base fee burning under EIP-1559, and calculate real-world dollar savings on Base, Arbitrum, and Optimism rollups.
+    <br/><br/>
+    [Explore in Chapter 4.2 &rarr;](/learn/ethereum/02-gas-mechanics-and-eip1559/)
+  </Card>
+
+  <Card title="12. AMM Liquidity & Yield Simulator" icon="seti:graphql">
+    Simulate Uniswap liquidity pools ($x \cdot y = k$), calculate trading fee cash flow, model Impermanent Loss against HODL, and find optimal yield pairs.
+    <br/><br/>
+    [Explore in Chapter 4.4 &rarr;](/learn/ethereum/04-dex-and-liquidity-pools/)
+  </Card>
+
+  <Card title="13. Candlestick Anatomy & Pattern Lab" icon="seti:chart">
+    Deconstruct Open, High, Low, and Close geometry, observe upper wick selling rejection and lower wick absorption, and master high-probability chart signals.
     <br/><br/>
     [Explore in Chapter 5.1 &rarr;](/learn/markets/01-candlesticks-and-charts/)
+  </Card>
+
+  <Card title="14. Systematic Paper Trading & Off-Ramp Suite" icon="seti:play">
+    Simulate real-time cryptocurrency trade execution with $10,000, manage stop-loss risk, practice 1:3 R:R setups, and cash out profits directly to bank accounts.
+    <br/><br/>
+    [Explore in Chapter 5.6 &rarr;](/learn/markets/06-the-complete-income-blueprint-and-graduation/)
   </Card>
 </CardGrid>

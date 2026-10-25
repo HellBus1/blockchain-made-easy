@@ -1,0 +1,20 @@
+{
+  "name": "Blockchain Made Easy",
+  "short_name": "BME Crypto",
+  "description": "Master cryptocurrency from scratch through interactive simulations, real-world analogies, and hands-on labs.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#0284c7",
+  "orientation": "portrait-primary",
+  "categories": ["education", "finance", "books"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

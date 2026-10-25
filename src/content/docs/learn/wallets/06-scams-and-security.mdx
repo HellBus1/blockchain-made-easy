@@ -1,0 +1,133 @@
+---
+title: 2.6 Scams & Threat Models
+description: Phishing drainers, address poisoning, permit signatures, and interactive live defense scenarios.
+track: Wallets
+chapter: 6
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
+import Term from '@/components/mdx/Term';
+import ScamInspector from '@/components/sims/ScamInspector';
+
+<ChapterProgress track="wallets" currentChapter={6} chapterId="wallets-06" client:load />
+
+Blockchain networks like Bitcoin and Ethereum have never been cracked at the cryptographic level. The elliptic curve mathematics, SHA-256 hashing, and consensus protocols remain completely unbreached.
+
+Instead, attackers focus 100% of their creative energy on the single weakest link in the entire security chain: **the human being holding the mouse**.
+
+Because cryptocurrency transactions bypass intermediaries, criminals have engineered sophisticated psychological and technical vectors to trick users into willingly handing over their funds or signing away token allowances. This chapter breaks down the most dangerous threat models and tests your reflexes in a live on-chain simulator.
+
+---
+
+### Threat #1: Approval Phishing & Wallet Drainers
+
+In traditional phishing, scammers steal your password. In Web3, scammers trick you into signing an **On-Chain Allowance**.
+
+Under the ERC-20 token standard, decentralized applications like Uniswap or Aave need permission to move tokens out of your wallet when you initiate a swap. To save users from having to sign a fee-bearing transaction for every tiny trade, frontends often prompt an **Unlimited Approval**:
+
+```solidity
+approve(address spender, 2**256 - 1); // Max Uint256
+```
+
+```
+MALICIOUS TOKEN DRAINER FLOW:
+
+1. Malicious Website: "Click here to claim your 2,500 $ARB airdrop!"
+                     │
+                     ▼
+2. Wallet Prompt: Signature Request
+   Contract: 0x9f8...c2
+   Function: setApprovalForAll(operator: 0x9f8...c2, approved: true)
+                     │
+                     ▼ [ User Clicks "Confirm" ]
+3. Attacker sweeps every token and NFT from your wallet in a single block!
+```
+
+- **The Illusion:** The victim thinks they are receiving free tokens.
+- **The Reality:** The victim signed an on-chain Power of Attorney granting the attacker's smart contract permission to call `transferFrom()` on their entire balance.
+- **The Defense:** Regularly audit and revoke old token approvals using tools like [Revoke.cash](https://revoke.cash) or block explorers. Never grant unlimited approvals to unverified or new DApps.
+
+---
+
+### Threat #2: Address Poisoning (The Vanity Copy-Paste Trap)
+
+Most wallet interfaces truncate long 42-character hex addresses to save visual space on screen, showing only the first four and last four characters:
+
+```text
+0x71C8 ... 3aF2
+```
+
+Attackers use powerful GPU clusters to compute billions of private keys until they generate an address that shares the exact same prefix and suffix as your frequent transfer counterparties:
+
+```
+Your Friend's Real Address:   0x71C8 40b1274910283019249019283740 3aF2
+Attacker's Poison Address:     0x71C8 294a500918F395213bC27d092B08 3aF2
+                              ▲▲▲▲                                 ▲▲▲▲
+                              (Matches!)                           (Matches!)
+```
+
+1. The attacker monitors the public blockchain and identifies an address you send funds to frequently.
+2. The attacker sends your wallet a $0.00 transaction from the poison address.
+3. The poison address now sits at the very top of your wallet's recent transaction history.
+4. Next week, when you need to send funds, you open your wallet history, click "Copy address from last transfer", and paste the scammer's address.
+5. **Defense:** Never copy addresses from your transaction history. Always use your wallet's built-in **Address Book** or manually inspect the middle characters.
+
+---
+
+### Threat #3: Gasless Permit & Permit2 Signatures
+
+Attackers have increasingly shifted from standard on-chain transactions to **EIP-712 Typed Data Signatures (Permit & Permit2)**.
+
+#### Why They Are Dangerous:
+- Signing typed data requires **$0.00 in gas fees** from your wallet.
+- Because no gas is deducted, victims assume signing the message is harmless (like signing into Discord or verifying a guestbook).
+- In reality, an EIP-712 Permit signature is a cryptographically valid check. The attacker can take your signature, broadcast it to the blockchain using their own gas, and withdraw your approved USDC or WETH immediately.
+
+---
+
+### Threat #4: Sweeper Bots
+
+If your 12-word seed phrase or private key is ever leaked online (e.g. committed to GitHub, pasted into a phishing site, or compromised by malware), you enter the realm of **<Term id="sweeper-bot">Sweeper Bots</Term>**.
+
+A sweeper bot is an automated script running on high-speed RPC nodes that constantly monitors an address's incoming mempool transactions. 
+
+> **The Nightmare Scenario:** Suppose a compromised wallet still holds $10,000 worth of locked staking tokens or NFTs, but has 0 ETH for gas. The victim deposits 0.05 ETH into the wallet to pay the gas fee to transfer the NFTs out.
+> In less than 1.2 seconds, before the victim can even click "Send", the sweeper bot detects the incoming ETH and broadcasts a high-priority transaction that siphons the gas away to the hacker's address! Rescuing assets from a swept wallet requires specialized MEV flashbots or white-hat security rescues.
+
+---
+
+### Threat #5: Social Engineering & SIM Swapping
+
+Not all crypto crimes happen on-chain:
+
+1. **Fake Telegram & Discord "Support":** The moment you ask for help in an official crypto community, 5 fake accounts with official logos will direct message you: *"Hello sir, I am senior technical support. Please synchronize your wallet node at this URL."*
+2. **SIM Swapping:** Attackers bribe or trick mobile carrier representatives into reassigning your phone number to their SIM card. They then reset your exchange passwords using SMS verification.
+   - **Defense:** Never use SMS for Two-Factor Authentication (2FA). Always use physical hardware keys (YubiKey) or time-based authenticator apps (Google Authenticator, Aegis).
+
+---
+
+### Hands-on Defense: The Scam Inspector
+
+Test your security reflexes below. Inspect the transaction payloads, examine the decoded parameters, and decide whether each incoming prompt is **Legitimate** or **Malicious**:
+
+<ScamInspector client:load />
+
+---
+
+### Summary Takeaways
+
+1. **Verify the Calldata**: Don't just read the website's button text; read what the wallet signature actually authorizes.
+2. **Beware of Lookalike Addresses**: Never copy destination addresses from recent incoming transaction history.
+3. **No Support DMs**: No legitimate project will ever initiate a private message or ask you to "synchronize" your wallet.
+4. **Hardware 2FA**: Protect your exchange accounts with authenticator apps and YubiKeys, never SMS.
+
+<div id="chapter-seal-section">
+  <ChapterSeal
+    chapterId="wallets-06"
+    chapterTitle="2.6 Scams & Threat Models"
+    track="Wallets & Security"
+    client:load
+  />
+</div>

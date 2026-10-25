@@ -1,17 +1,140 @@
 ---
-title: 2.2 Seed Phrases & Self-Custody
-description: 12-word recovery phrases, BIP-39 mnemonic standards, and securing your wealth.
+title: 2.2 Seed Phrases & BIP-39
+description: 12-word recovery phrases, the BIP-39 entropy-to-word algorithm, checksum mathematics, and resilient backup strategies.
 track: Wallets
 chapter: 2
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import ChapterProgress from '@/components/mdx/ChapterProgress';
+import ChapterSeal from '@/components/mdx/ChapterSeal';
+import Term from '@/components/mdx/Term';
+import WalletLab from '@/components/sims/WalletLab';
 
-<Aside type="note" title="Track 2: Wallets & Security">
-  This chapter covers how human-readable 12 and 24-word seed phrases represent cryptographic keys
-  under the BIP-39 standard, and how to avoid wallet drainers and phishing attacks.
+<ChapterProgress track="wallets" currentChapter={2} chapterId="wallets-02" client:load />
+
+If you ask a human being to write down a 64-character hexadecimal private key like:
+
+```text
+e9873d79c6d87dc0fb6a5778633389f4453213303da61f20bd67fc233aa33262
+```
+
+They will almost certainly misread an `8` for a `B`, confuse `0` with `O`, or drop a digit entirely. In cryptography, an error of a single character produces a completely different address, causing permanent, irreversible financial loss.
+
+In 2013, developers introduced **Bitcoin Improvement Proposal 39 (<Term id="bip39">BIP-39</Term>)**: a mathematical framework to encode raw cryptographic entropy into a human-friendly sequence of 12 or 24 English words.
+
+---
+
+### How BIP-39 Works Under the Hood
+
+The conversion from computer randomness to English words is not arbitrary. It follows an exact mathematical sequence:
+
+```
+Step 1: Generate Raw Entropy (128 bits)
+[ 10011010 11010010 01011100 11000101 ... 10101101 ] (16 bytes)
+
+Step 2: Calculate SHA-256 Checksum (First 4 bits)
+Entropy ──► [ SHA-256 ] ──► Checksum: [ 1011 ]
+
+Step 3: Concatenate Entropy + Checksum
+128 bits + 4 bits = 132 bits total
+
+Step 4: Slice into 12 Chunks of Exactly 11 Bits Each
+Chunk 1:  [10011010110] ──► Decimal 1238 ──► Word #1238: "patrol"
+Chunk 2:  [10010010111] ──► Decimal 1175 ──► Word #1175: "nuclear"
+...
+Chunk 12: [11010011011] ──► Decimal 1691 ──► Word #1691: "timber"
+```
+
+1. **Why 11 bits?** Because $2^{11} = 2,048$. The BIP-39 wordlist contains precisely 2,048 carefully chosen English words. No two words in the list share the same first 4 letters (e.g., typing `patr` uniquely identifies `patrol`).
+2. **The Built-in Checksum:** The final word contains the checksum bits. If you write down a seed phrase and swap two words or make a typo, your wallet software will immediately flag: *"Invalid Checksum: Seed phrase corrupted"*. You cannot accidentally generate a valid seed phrase from random words.
+
+---
+
+### One Seed Phrase, Thousands of Blockchains: BIP-32 & BIP-44
+
+How can a single 12-word seed phrase hold your Bitcoin, Ethereum, Solana, and Polygon all at the same time?
+
+This is accomplished by **Hierarchical Deterministic (HD) Key Derivation**:
+
+```
+                  [ 12-Word Seed Phrase ]
+                             │ (PBKDF2 512-bit seed)
+                             ▼
+                    [ Master Key Pair ]
+                             │
+            ┌────────────────┴────────────────┐
+            ▼                                 ▼
+   Bitcoin Tree (Coin 0')            Ethereum Tree (Coin 60')
+   m/44'/0'/0'/0/0                   m/44'/60'/0'/0/0
+   bc1qxy2...                        0x71C...
+```
+
+The standard **<Term id="derivation-path">Derivation Path</Term>** follows a standardized hierarchical notation:
+
+```text
+m / purpose' / coin_type' / account' / change / address_index
+```
+
+- `m`: Master node
+- `44'`: BIP-44 standard
+- `0'`: Bitcoin (`60'` for Ethereum, `501'` for Solana)
+- `0'`: Account 0 (your primary account)
+- `0`: External address (used for receiving payments)
+- `0`: Address index 0 (first address in account)
+
+If your laptop catches fire or your phone falls into the ocean, you don't need to panic. Entering those same 12 words into any BIP-39 compliant wallet (whether Trezor, Ledger, MetaMask, or Phantom) traverses this exact same mathematical tree and regenerates every address and private key down to the penny.
+
+---
+
+### The "25th Word": Passphrase Protection
+
+BIP-39 allows an optional user-defined **Passphrase** (often called the 25th word or 13th word). 
+
+When you specify a passphrase, the algorithm uses it as a cryptographic salt during the PBKDF2 hashing step.
+- Entering `seed words + ""` generates **Wallet A** (e.g., your public daily wallet holding $100).
+- Entering `seed words + "SecretVault2026!"` generates a completely independent **Wallet B** (your cold vault holding $50,000).
+
+> **Plausible Deniability:** An attacker who discovers your written seed phrase has no mathematical way of proving whether an additional passphrase exists. If coerced, you can reveal Wallet A, leaving Wallet B completely invisible.
+
+---
+
+### Physical Backup Hygiene: Paper vs Steel
+
+Where should your seed phrase be stored?
+
+| Method | Vulnerability | Longevity Rating | Recommendation |
+|---|---|---|---|
+| **Screenshot / Photo** | Cloud hack, malware, gallery sync | ❌ Immediate Compromise | **NEVER** store digital copies |
+| **Password Manager** | Keylogger, browser extension exploit | ❌ High Risk | **NEVER** save in clipboard/cloud |
+| **Paper Notebook** | Water damage, house fire, fading ink | ⚠️ Fragile (3–5 years) | Acceptable only in fireproof safe |
+| **Stainless Steel Plate** | Fireproof (>1400°C), waterproof, crushproof | ✅ Decades of resilience | **Gold Standard** for cold storage |
+
+<Aside type="caution" title="The Golden Rule of Self-Custody">
+  No legitimate customer support agent, Telegram admin, Discord bot, or blockchain foundation will ever ask for your 12-word seed phrase. The instant you type your seed phrase onto a website or keyboard connected to the internet, consider your funds gone.
 </Aside>
 
-### The Golden Rule of Cryptocurrency
+---
 
-> _"Not your keys, not your coins."_
+### Try It in the Wallet Lab
+
+Open the **Seed Words & Entropy** tab below to roll a 12-word or 24-word phrase, view its 11-bit chunks, and observe how entering an optional passphrase produces an entirely new seed:
+
+<WalletLab client:load />
+
+---
+
+### Summary Takeaways
+
+1. **Deterministic Master Blueprint**: The 12 words are not accounts; they are the mathematical formula that calculates all your accounts.
+2. **Checksum Integrity**: BIP-39 detects transcription errors before you ever send funds.
+3. **Never Digital**: Engrave your words on metal or write them on acid-free paper. Keep them offline forever.
+
+<div id="chapter-seal-section">
+  <ChapterSeal
+    chapterId="wallets-02"
+    chapterTitle="2.2 Seed Phrases & BIP-39"
+    track="Wallets & Security"
+    client:load
+  />
+</div>
