@@ -1,5 +1,6 @@
 {
   "name": "blockchain-made-easy",
+  "description": "project to learn blockchain from scratch",
   "version": "1.0.0",
   "type": "module",
   "private": true,
