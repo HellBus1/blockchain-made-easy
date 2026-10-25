@@ -473,6 +473,42 @@ export const TERMS: Record<string, TermDefinition> = {
       'A high-speed bullet train: instead of 1,000 individual cars clogging the highway, everyone boards one train that takes a single lane.',
     category: 'architecture',
   },
+  candlestick: {
+    id: 'candlestick',
+    name: 'Candlestick Chart (OHLC)',
+    short:
+      'A financial chart display showing Open, High, Low, and Close prices for a specific time period, visually revealing buying vs selling pressure.',
+    analogy:
+      'A medical ECG pulse reading of market emotion: tall green bodies show vigorous buyer health, while long upper wicks reveal exhaustion.',
+    category: 'economics',
+  },
+  'support-resistance': {
+    id: 'support-resistance',
+    name: 'Support & Resistance',
+    short:
+      'Price levels with high concentrations of historical buy orders (support floor) or sell orders (resistance ceiling).',
+    analogy:
+      'The rubber floor and glass ceiling of an elevator: price bounces up when it hits the floor and knocks its head against the ceiling.',
+    category: 'economics',
+  },
+  'oco-order': {
+    id: 'oco-order',
+    name: 'OCO (One-Cancels-the-Other)',
+    short:
+      'A dual bracket order pairing a Take-Profit limit order with a Stop-Loss stop-limit order; when one executes, the other is automatically canceled.',
+    analogy:
+      'A fork in the road with automated turnstiles: stepping through the profit door locks the loss exit behind you forever.',
+    category: 'economics',
+  },
+  'market-structure': {
+    id: 'market-structure',
+    name: 'Market Structure',
+    short:
+      'The overarching directional pattern of a market defined by Higher Highs / Higher Lows (uptrend) or Lower Lows / Lower Highs (downtrend).',
+    analogy:
+      'The incoming or receding tide at the beach: each wave pushes further up the sand during high tide and recedes during low tide.',
+    category: 'economics',
+  },
 };
 
 export function getTerm(id: string): TermDefinition | undefined {

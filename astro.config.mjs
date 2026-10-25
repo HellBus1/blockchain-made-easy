@@ -145,10 +145,30 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Track 5: Market Literacy',
-          collapsed: true,
+          label: 'Track 5: Market Literacy & Execution',
+          collapsed: false,
           items: [
-            { label: '5.1 Candlesticks & Charts', slug: 'learn/markets/01-candlesticks-and-charts' },
+            { label: '5.1 Candlesticks & Market Volume', slug: 'learn/markets/01-candlesticks-and-charts' },
+            {
+              label: '5.2 Support, Resistance & Structure',
+              slug: 'learn/markets/02-support-resistance-and-trends',
+            },
+            {
+              label: '5.3 Advanced Orders: OCO & Trailing Stops',
+              slug: 'learn/markets/03-order-types-and-execution-tactics',
+            },
+            {
+              label: '5.4 Trading Psychology: FOMO & Discipline',
+              slug: 'learn/markets/04-trading-psychology-and-discipline',
+            },
+            {
+              label: '5.5 Portfolio Architecture: Cash-Flow Barbell',
+              slug: 'learn/markets/05-portfolio-construction-and-cash-flow',
+            },
+            {
+              label: '5.6 The Complete Income Blueprint & Graduation',
+              slug: 'learn/markets/06-the-complete-income-blueprint-and-graduation',
+            },
           ],
         },
       ],

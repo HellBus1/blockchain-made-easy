@@ -1,0 +1,100 @@
+---
+title: '5.3 Advanced Orders: OCO, Trailing Stops & Execution'
+description: Master advanced conditional order types — using OCO brackets and trailing stops to lock in fiat profits and protect downside risk without staring at screens 24/7.
+track: Markets
+chapter: 3
+---
+
+import ChapterProgress from '../../../../components/mdx/ChapterProgress';
+import ChapterSeal from '../../../../components/mdx/ChapterSeal';
+import Term from '../../../../components/mdx/Term';
+import { Aside } from '@astrojs/starlight/components';
+
+<ChapterProgress client:load track="markets" currentChapter={3} chapterId="markets-03" />
+
+In Track 3, we examined basic Limit and Market orders. While sufficient for simple accumulation, relying exclusively on simple orders leaves you vulnerable to the 24/7 nature of cryptocurrency markets.
+
+Crypto never sleeps. If a major regulatory announcement or liquidation cascade occurs while you are sleeping at 3:00 AM, you cannot wake up in time to manually sell your assets.
+
+Professional traders use **Conditional and Bracket Orders** to automate both profit-taking and loss prevention with mathematical discipline.
+
+---
+
+### 1. The Stop-Limit Order
+
+A **Stop-Limit Order** is a two-step conditional trigger:
+
+```
+STOP-LIMIT WORKFLOW:
+  Market Price drops to $65,000 (TRIGGER PRICE) ──► Submits Limit Sell at $64,800 (LIMIT PRICE)
+```
+
+- **Stop Price (Trigger)**: The threshold that wakes up the exchange matching engine and submits your order.
+- **Limit Price (Execution)**: The worst price you are willing to accept for the fill.
+
+<Aside type="tip" title="Execution Pro Tip">
+Never set your Stop Price and Limit Price to the exact same number! During a violent flash crash, the price might gap directly through your price level, leaving your order unfilled while the market plunges further. Always set your Limit Price slightly lower (e.g. 0.3%–0.5% below the Stop trigger) to guarantee immediate execution.
+</Aside>
+
+---
+
+### 2. OCO (One-Cancels-the-Other): The Professional Bracket
+
+The most important order type for stress-free crypto trading is the **<Term id="oco-order">OCO (One-Cancels-the-Other)</Term>** order.
+
+An OCO bundles two orders simultaneously:
+1. A **Take-Profit Limit Order** (above current price).
+2. A **Stop-Loss Stop-Limit Order** (below current price).
+
+```
+OCO DUAL-BRACKET EXECUTION:
+                               ┌──► TAKE-PROFIT LIMIT: $75,000 (Hits target! Sells for +$1,000 profit)
+                               │    (Automatically cancels Stop-Loss below!)
+  Current Price: $68,000 ──────┤
+                               │    (Automatically cancels Take-Profit above!)
+                               └──► STOP-LOSS TRIGGER: $66,000 (Hits stop! Sells for -$100 max risk)
+```
+
+**Why is OCO essential?**
+On most exchanges, you cannot place a separate Limit Sell and Stop-Loss on the same coins because your balance is locked by the first order. 
+
+An OCO solves this by linking both instructions: **the second one of them is triggered, the matching engine automatically cancels the other!** You can close your laptop, go to sleep, and know your capital is 100% protected.
+
+---
+
+### 3. Trailing Stop-Loss: Riding Winning Trends
+
+When you enter a trade that surges higher, how do you decide when to take profits? If you exit too early, you miss an explosive multi-week bull run. If you hold too long, the market reverses and wipes out your gains.
+
+A **Trailing Stop-Loss** solves this dilemma by dynamically following the price upward:
+
+```
+TRAILING STOP (SET AT 5% TRAIL):
+  - Entry Price: $60,000 ──► Stop-Loss is set at $57,000 (-5%)
+  - Price rallies to $70,000 ──► Stop-Loss automatically ratchets UP to $66,500 (-5% from peak)
+  - Price rallies to $80,000 ──► Stop-Loss automatically ratchets UP to $76,000 (-5% from peak)
+  - Price drops from $80,000 to $76,000 ──► STOP TRIGGERED!
+  ────────────────────────────────────────────────────────────────────────
+  Result: You banked +$16,000 in net profit (+26.6%) without guessing the top!
+```
+
+Crucially, **the trailing stop only moves in one direction: UP**. If the market pulls back, the stop-loss level remains locked at the highest peak reached, protecting your accumulated fiat earnings.
+
+---
+
+### Execution Flags: Post-Only & Time-in-Force
+
+When executing high-capital trades, use these exchange flags to maximize your fill quality:
+
+1. **Post-Only (Maker Guarantee)**: Ensures your limit order is posted to the order book as a Maker order. If the order would execute immediately as a Taker (costing higher fees), the system rejects it automatically.
+2. **GTC (Good-Til-Canceled)**: The default setting. Your order stays active on the books indefinitely until filled or manually canceled.
+3. **IOC (Immediate-Or-Cancel)**: Fills as much of the order as possible immediately at the specified price and cancels any remaining unfilled balance.
+4. **FOK (Fill-Or-Kill)**: The order must be filled in its entirety immediately, or the entire order is canceled without partial fills.
+
+<ChapterSeal
+  client:load
+  chapterId="markets-03"
+  chapterTitle="5.3 Advanced Orders: OCO, Trailing Stops & Execution"
+  track="markets"
+  proof="CONDITIONAL-ORDERS-OCO-TRAILING-STOP-MAKER"
+/>
