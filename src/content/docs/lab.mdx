@@ -6,12 +6,28 @@ description: Directly access all cryptocurrency simulations, cryptographic sandb
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import WalletLab from '@/components/sims/WalletLab';
 import ScamInspector from '@/components/sims/ScamInspector';
+import OrderBookSim from '@/components/sims/OrderBookSim';
+import IncomeSimulator from '@/components/sims/IncomeSimulator';
 
 Welcome to the **Simulation Lab**. Every core mechanism taught in Blockchain Made Easy is backed by an interactive laboratory component you can tweak, stress-test, and observe in real-time.
 
 ---
 
-### Featured Track 2 Sandboxes
+### Featured Track 3 Income & Trading Sandboxes
+
+#### 📈 Live Exchange Order Book & Matching Engine
+Test Maker vs Taker execution, inspect real-time Bid/Ask depth, and execute Limit and Market orders:
+
+<OrderBookSim client:load />
+
+#### 💰 Blockchain Income & Fiat Cash-Out Suite
+Model real fiat bank cashouts (net of fees and tax), calculate passive staking APY compounding, and simulate automated 24/7 grid trading bots:
+
+<IncomeSimulator client:load />
+
+---
+
+### Featured Track 2 Security Sandboxes
 
 #### 🔬 Interactive Wallet Laboratory (secp256k1 & BIP-39)
 Generate 12 or 24-word seed phrases, derive elliptic curve public keys, compute Ethereum and Bitcoin addresses, and test ECDSA message signing:
@@ -74,5 +90,17 @@ Inspect 4 realistic incoming signature prompts (Approval Phishing, Address Poiso
     Practice detecting zero-value address poisoning, approval phishing drainers, and malicious Permit2 gasless signatures in a simulated wallet environment.
     <br/><br/>
     [Explore in Chapter 2.6 &rarr;](/learn/wallets/06-scams-and-security/)
+  </Card>
+
+  <Card title="9. Exchange Order Book & Matching Engine" icon="seti:graphql">
+    Experience Maker vs Taker dynamics, place Limit and Market orders, and watch orders cross the spread in real-time.
+    <br/><br/>
+    [Explore in Chapter 3.2 &rarr;](/learn/exchanges/02-order-books/)
+  </Card>
+
+  <Card title="10. Blockchain Income & Cashout Suite" icon="seti:settings">
+    Model fiat bank off-ramp deductions (fees and taxes), project multi-year staking compounding, and simulate automated grid trading bot arbitrage.
+    <br/><br/>
+    [Explore in Chapter 3.5 &rarr;](/learn/exchanges/05-trading-bots-and-dca/)
   </Card>
 </CardGrid>

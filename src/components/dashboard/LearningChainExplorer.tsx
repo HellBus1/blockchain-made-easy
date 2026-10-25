@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { useStore } from '@nanostores/react';
 import {
   learningChain,
@@ -15,8 +15,8 @@ export default function LearningChainExplorer() {
 
   const integrity = verifyChainIntegrity(chain);
 
-  // Chapters completed across Tracks 1 & 2
-  const totalChapters = 15;
+  // Chapters completed across Tracks 1, 2 & 3
+  const totalChapters = 21;
   const sealedChapters = chain.filter((b) => b.chapterId !== 'genesis').length;
   const progressPct = Math.min(100, Math.round((sealedChapters / totalChapters) * 100));
 
@@ -197,7 +197,7 @@ export default function LearningChainExplorer() {
               const isSelected = selectedBlock?.blockNumber === block.blockNumber;
 
               return (
-                <React.Fragment key={block.blockNumber}>
+                <Fragment key={block.blockNumber}>
                   {index > 0 && (
                     <div className="flex items-center text-muted-foreground/60">
                       <svg
@@ -260,7 +260,7 @@ export default function LearningChainExplorer() {
                       </div>
                     </div>
                   </div>
-                </React.Fragment>
+                </Fragment>
               );
             })}
           </div>
