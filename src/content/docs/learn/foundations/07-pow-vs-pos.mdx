@@ -1,0 +1,54 @@
+---
+title: 1.7 Proof of Work vs Proof of Stake
+description: How decentralized networks reach consensus without a central bank through electrical computation (PoW) or financial collateral (PoS).
+track: Foundations
+chapter: 7
+sims:
+  - mining-simulator
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import MiningSimulator from '@/components/sims/MiningSimulator';
+
+In a village with 10,000 notebooks, who gets the authority to write down the official page of transactions and seal it?
+
+If anyone could do it for free, an attacker could create a million fake computers (a **Sybil Attack**) and flood the network with fraudulent pages. To prevent this, the protocol demands that sealing a page must **cost something real**.
+
+---
+
+## Comparison: The Two Pillars of Consensus
+
+| Attribute                | Proof of Work (PoW)                                                  | Proof of Stake (PoS)                                                  |
+| ------------------------ | -------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Mechanism**            | Racing to solve ultra-hard cryptographic math puzzles.               | Locking up existing digital assets as a validator security deposit.   |
+| **Real-World Metaphor**  | Burning physical energy and computational power to prove commitment. | Placing money in a locked escrow vault to prove honesty.              |
+| **Penalty for Cheating** | Wasted electricity bills and depreciating specialized hardware.      | Security deposit is permanently destroyed or slashed by the protocol. |
+| **Real-World Networks**  | Bitcoin (BTC), Litecoin (LTC)                                        | Ethereum (ETH), Solana (SOL), Cardano (ADA)                           |
+
+---
+
+## Interactive Lab: Mine a Block & Test Slashing
+
+Use the interactive engine below to simulate mining with Proof of Work (hunting for a nonce that produces leading zeros), or switch to the Proof of Stake tab to see how economic slashing prevents cheating:
+
+<MiningSimulator client:load />
+
+---
+
+## Proof of Work: The Mathematical Nonce Search
+
+In Bitcoin, miners gather pending transactions and combine them with an arbitrary 32-bit number called a **Nonce** (number used once):
+
+```text
+SHA-256(Block Data + Nonce) < Target Difficulty
+```
+
+Because hash outputs are completely random, there is no formula to predict which nonce will work. The only way to find it is brute-force trial and error—guessing quintillions of numbers every second.
+
+When a miner finally discovers a winning nonce:
+
+1. They broadcast the block and the winning nonce to the world.
+2. Every other node can verify the solution in **less than a millisecond** by running SHA-256 once.
+3. The miner earns newly minted coins: **The Block Reward**.
+
+[Next: Chapter 1.8 Minting, Block Rewards & Halving &rarr;](/learn/foundations/08-minting-and-halving/)

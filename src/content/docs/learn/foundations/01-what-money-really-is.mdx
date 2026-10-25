@@ -1,0 +1,67 @@
+---
+title: 1.1 What Money Really Is
+description: Why money is fundamentally a ledger of debts and credits, and how physical coins evolved into centralized database rows.
+track: Foundations
+chapter: 1
+---
+
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+When most people think of money, they picture crisp paper bills or heavy metallic coins. But if you look deeper into economic history, money has never primarily been about physical tokens—**money is a record-keeping system**. It is a ledger.
+
+---
+
+## The Island of Yap: The Stone Money Ledger
+
+Centuries ago on the Micronesian island of Yap, the native people conducted commerce using massive limestone discs called **Rai stones**. Some of these discs were up to 12 feet across and weighed over 8,000 pounds—far too heavy to physically carry to a market stall.
+
+When a villager wanted to buy a canoe or land, they didn't roll the 4-ton stone down the hill. Instead, the buyer and seller simply stood before the village and announced:
+
+> _"This Rai stone standing near the coconut palm now belongs to Bob instead of Alice."_
+
+Everyone in the village agreed, updated their mental ledger, and business continued.
+
+In fact, legend has it that one Rai stone was lost to the bottom of the ocean during a sea storm. The villagers agreed that the stone was still down there, its value was intact, and its ownership was traded for generations despite lying on the ocean floor.
+
+<Aside type="tip" title="The Fundamental Truth of Money">
+  Money doesn't need to physically move. You don't need to hand over an object. All you need is an
+  **agreed-upon ledger** that tracks who owns what, and a rulebook preventing unauthorized
+  alterations.
+</Aside>
+
+---
+
+## From Cowrie Shells to Modern Bank Servers
+
+Fast forward to the modern banking system. When you open your banking app on your phone and transfer **Rp 100,000** (or $50) to a friend via bank transfer or QRIS:
+
+1. **No physical cash travels** through the cellular towers or Wi-Fi.
+2. The central bank database locates your row in their private SQL database:
+   - It verifies your current balance.
+   - It performs: `UPDATE accounts SET balance = balance - 100000 WHERE id = 'YOU'`.
+   - It locates your friend's row: `UPDATE accounts SET balance = balance + 100000 WHERE id = 'FRIEND'`.
+
+```
+Centralized Bank Ledger (Private Database)
+┌──────────────────────┬──────────────────────┬──────────────────────┐
+│ Account ID           │ Balance (IDR)        │ Controlled By        │
+├──────────────────────┼──────────────────────┼──────────────────────┤
+│ User_01 (You)        │ Rp 900,000 (-100k)   │ Bank Admin Only      │
+│ User_02 (Friend)     │ Rp 600,000 (+100k)   │ Bank Admin Only      │
+│ System Permission    │ Read/Write/Freeze    │ Central Authority    │
+└──────────────────────┴──────────────────────┴──────────────────────┘
+```
+
+---
+
+## The Catch: The Monopoly Scorekeeper
+
+In a centralized system, one entity holds the notebook and the pencil. That trusted guard decides:
+
+- **Settlement times**: Banks close on weekends and national holidays.
+- **Cross-border friction**: International wires can take 3–5 business days and incur hefty fees.
+- **Censorship & freezes**: The guard can freeze accounts or block transactions at will.
+
+This brings us to the fundamental problem that prevented digital money from existing without a bank for decades: **The Double-Spend Problem**.
+
+[Next: Chapter 1.2 The Double-Spend Problem &rarr;](/learn/foundations/02-the-double-spend-problem/)

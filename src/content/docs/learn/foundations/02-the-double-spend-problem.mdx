@@ -1,0 +1,62 @@
+---
+title: 1.2 The Double-Spend Problem
+description: Why digital files can be easily copied, why digital money historically required a bank, and how the trust bottleneck emerged.
+track: Foundations
+chapter: 2
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Physical items have a built-in law of physics: if you hand someone a paper Rp 50,000 banknote or an apple, you no longer possess it. You cannot hand that exact same apple to two different people at the exact same moment.
+
+Digital files, on the other hand, are just streams of ones and zeros (`1`s and `0`s). When you email an image or a PDF document to a coworker, you don't lose the file; your computer creates a **perfect clone** and transmits the copy.
+
+---
+
+## The Fatal Flaw of Pure Digital Cash
+
+Imagine if digital money worked like ordinary computer files (like an MP3 or text file):
+
+```
+       ┌───────────────────────────────┐
+       │   User holds 1 Digital Coin   │
+       └──────────────┬────────────────┘
+                      │
+        ┌─────────────┴─────────────┐
+        ▼                           ▼
+[Copies file to Recipient A]   [Copies file to Recipient B]
+        ▼                           ▼
+Bought Dinner (Rp 100,000)     Bought Shoes (Rp 100,000)
+```
+
+Without a central authority overseeing the ledger, an unscrupulous actor could spend the exact same 100,000 Rupiah twice. This is known as the **Double-Spend Problem**.
+
+---
+
+## Why We Trusted the Bank
+
+To stop this fraud, society instituted a trusted middleman: a **Bank**.
+
+When Alice wants to transfer Rp 100,000 to Bob:
+
+1. Alice sends a transaction request to the bank.
+2. The bank verifies Alice's account has at least Rp 100,000.
+3. If Alice simultaneously sends a request to pay Charlie with the same money, the bank's database processes the first transaction, docks Alice's balance, and rejects the second transaction with `Insufficient Funds`.
+
+<Aside type="caution" title="The Single Point of Failure">
+  The central bank acts as a firewall against double-spending. But this introduces massive
+  structural trade-offs: - **Centralized Vulnerability**: If the bank's central database goes
+  offline, catches fire, or is hacked, commerce halts. - **Custody Risk**: You do not control your
+  money; you control a claim against the bank's promises. - **Toll Booth**: The institution charges
+  transaction fees, foreign exchange spreads, and withdrawal limits.
+</Aside>
+
+---
+
+## The Holy Grail: Trustless Consensus
+
+For decades, computer scientists and cypherpunks tried to build digital money without a middleman. Every attempt failed because without a centralized server, who decides which transaction came first? If Alice broadcasts one payment to Europe and another to Asia at the exact same microsecond, which one is real?
+
+In 2008, an anonymous programmer using the pseudonym **Satoshi Nakamoto** published the Bitcoin whitepaper, solving this problem once and for all with a concept called **The Shared Notebook**.
+
+[Next: Chapter 1.3 The Shared Notebook &rarr;](/learn/foundations/03-the-shared-notebook/)

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cubeTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="cubeLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#082f49" />
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="64" cy="64" r="60" fill="#090d16" stroke="#1e293b" stroke-width="4" />
+  
+  <g transform="translate(64, 64) scale(0.48) translate(-200, -184)">
+    <!-- Top Face -->
+    <polygon points="200,80 290,132 200,184 110,132" fill="url(#cubeTop)" stroke="#7dd3fc" stroke-width="4" />
+    <!-- Left Face -->
+    <polygon points="110,132 200,184 200,288 110,236" fill="url(#cubeLeft)" stroke="#38bdf8" stroke-width="4" />
+    <!-- Right Face -->
+    <polygon points="200,184 290,132 290,236 200,288" fill="url(#cubeRight)" stroke="#38bdf8" stroke-width="4" />
+  </g>
+</svg>

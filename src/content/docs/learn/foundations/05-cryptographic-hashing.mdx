@@ -1,0 +1,48 @@
+---
+title: '1.5 Hashing: Digital Fingerprints'
+description: How one-way cryptographic math compresses entire ledgers into unforgeable mathematical fingerprints.
+track: Foundations
+chapter: 5
+sims:
+  - hash-playground
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import HashPlayground from '@/components/sims/HashPlayground';
+
+How do you prove that an entire document—whether it contains one transaction or a million lines of financial history—has not been tampered with by even a single comma?
+
+You use a **Cryptographic Hash Function**.
+
+---
+
+## What is a Hash?
+
+Think of a cryptographic hash function like an industrial meat grinder:
+
+- You can feed a whole cow into the grinder, and ground meat comes out.
+- However, looking at the ground meat, **you can never turn it back into the living cow** (One-Way property).
+- If you run the exact same inputs through the grinder, you get the exact same results every single time (Deterministic property).
+
+In Bitcoin and modern cryptography, the standard function is **SHA-256** (Secure Hash Algorithm 256-bit). It takes any input (a word, a photo, an entire library) and converts it into a unique 64-character hexadecimal fingerprint.
+
+---
+
+## Interactive Lab: Test the Avalanche Effect
+
+Try typing different messages in the interactive laboratory below. Notice that changing a single capital letter completely randomizes all 64 characters of the hash output:
+
+<HashPlayground client:load />
+
+---
+
+## The Four Iron Rules of Cryptographic Hashes
+
+1. **Fixed Length**: Whether your input is 3 letters (`"Bob"`) or an entire encyclopedia, the hash output is always exactly 256 bits (64 hexadecimal characters).
+2. **Deterministic**: `SHA-256("Alice")` will produce the exact same fingerprint on your phone, in a supercomputer, and 50 years from now.
+3. **One-Way (Pre-image Resistance)**: It is computationally impossible to reverse-engineer the original text from the hash fingerprint alone. You cannot "un-hash" it.
+4. **Collision Resistant**: No two different messages have ever been discovered that produce the exact same SHA-256 hash.
+
+Now, let's see how these hashes chain blocks together to make it impossible to rewrite history.
+
+[Next: Chapter 1.6 Blocks & The Immutable Chain &rarr;](/learn/foundations/06-blocks-and-blockchain/)
