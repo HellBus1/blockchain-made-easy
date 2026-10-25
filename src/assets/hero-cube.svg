@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cubeTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="cubeLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#082f49" />
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
+    </linearGradient>
+    <filter id="neonBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Ambient Glow -->
+  <circle cx="200" cy="200" r="130" fill="url(#glow)" filter="url(#neonBlur)" />
+
+  <!-- Connecting Chain Links (Left & Right) -->
+  <path d="M 90 200 L 140 225" stroke="#38bdf8" stroke-width="4" stroke-dasharray="6,6" opacity="0.7" />
+  <path d="M 260 225 L 310 200" stroke="#38bdf8" stroke-width="4" stroke-dasharray="6,6" opacity="0.7" />
+
+  <!-- Main Block Cube -->
+  <g filter="url(#neonBlur)">
+    <!-- Top Face -->
+    <polygon points="200,80 290,132 200,184 110,132" fill="url(#cubeTop)" stroke="#7dd3fc" stroke-width="2" />
+    <!-- Left Face -->
+    <polygon points="110,132 200,184 200,288 110,236" fill="url(#cubeLeft)" stroke="#38bdf8" stroke-width="2" />
+    <!-- Right Face -->
+    <polygon points="200,184 290,132 290,236 200,288" fill="url(#cubeRight)" stroke="#38bdf8" stroke-width="2" />
+  </g>
+
+  <!-- Inner Circuit Grid Lines on Faces -->
+  <line x1="200" y1="184" x2="200" y2="288" stroke="#bae6fd" stroke-width="3" opacity="0.9" />
+  <circle cx="200" cy="184" r="5" fill="#ffffff" />
+  <circle cx="155" cy="158" r="4" fill="#38bdf8" />
+  <circle cx="245" cy="158" r="4" fill="#38bdf8" />
+  <circle cx="155" cy="210" r="4" fill="#38bdf8" />
+  <circle cx="245" cy="210" r="4" fill="#38bdf8" />
+
+  <!-- Cryptographic Seal Hash Symbol -->
+  <text x="200" y="248" font-family="'IBM Plex Mono', monospace" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="2">#101</text>
+  <text x="200" y="142" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#e0f2fe" text-anchor="middle" opacity="0.9">0x9f8e...3d1a</text>
+</svg>

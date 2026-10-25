@@ -1,0 +1,63 @@
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+@theme {
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+
+  --color-ledger-navy: #0a0e17;
+  --color-ledger-card: #121927;
+  --color-ledger-border: #1e293b;
+  --color-ledger-cyan: #06b6d4;
+  --color-ledger-amber: #f59e0b;
+  --color-ledger-emerald: #10b981;
+  --color-ledger-rose: #f43f5e;
+}
+
+:root {
+  --sl-font: var(--font-sans);
+  --sl-font-mono: var(--font-mono);
+}
+
+/* Starlight customizations */
+:root[data-theme='dark'] {
+  --sl-color-bg: #090d16;
+  --sl-color-bg-nav: #0d1322;
+  --sl-color-bg-sidebar: #0b101c;
+  --sl-color-hairline: #1e293b;
+  --sl-color-accent-low: #082f49;
+  --sl-color-accent: #38bdf8;
+  --sl-color-accent-high: #bae6fd;
+}
+
+:root[data-theme='light'] {
+  --sl-color-bg: #f8fafc;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #f1f5f9;
+  --sl-color-hairline: #e2e8f0;
+  --sl-color-accent-low: #e0f2fe;
+  --sl-color-accent: #0284c7;
+  --sl-color-accent-high: #0369a1;
+}
+
+/* Custom interactive simulation styling utilities */
+.sim-card {
+  border-radius: 0.875rem;
+  border: 1px solid var(--sl-color-hairline);
+  background: var(--sl-color-bg-nav);
+  transition: all 0.2s ease;
+}
+
+.sim-glow {
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+}

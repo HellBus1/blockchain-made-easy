@@ -1,0 +1,70 @@
+---
+title: Interactive Simulation Lab
+description: Directly access all 8 cryptocurrency simulations and interactive sandbox environments.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+Welcome to the **Simulation Lab**. Every core mechanism taught in Blockchain Made Easy is backed by an interactive laboratory component you can tweak, stress-test, and observe in real-time.
+
+<CardGrid stagger>
+  <Card title="1. SHA-256 Hash Playground" icon="seti:code">
+    Type any text and watch the 256-bit cryptographic fingerprint change instantaneously. Experience the *avalanche effect* where changing one single comma completely randomizes the output.
+    <br/><br/>
+    [Explore in Chapter 1.5 &rarr;](/learn/foundations/05-cryptographic-hashing/)
+  </Card>
+
+<Card title="2. Immutable Blockchain Tamper Lab" icon="seti:lock">
+  Inspect a live chain of blocks linked by mathematical fingerprints. Edit a transaction in Block #1
+  and watch subsequent blocks shatter into red error states.
+  <br />
+  <br />
+  [Explore in Chapter 1.6 &rarr;](/learn/foundations/06-blocks-and-blockchain/)
+</Card>
+
+<Card title="3. Proof-of-Work Mining Engine" icon="seti:cpu">
+  Race to solve mathematical puzzles by finding a valid nonce that produces leading zeros. Adjust
+  network difficulty and claim newly minted block rewards.
+  <br />
+  <br />
+  [Explore in Chapter 1.7 &rarr;](/learn/foundations/07-pow-vs-pos/)
+</Card>
+
+<Card title="4. Bitcoin Supply & Halving Scrubber" icon="seti:clock">
+  Scrub through historical and future epochs from 2009 (50 BTC) to 2024 (3.125 BTC) and beyond.
+  Watch the asymptotic supply curve approach the 21 Million hard cap.
+  <br />
+  <br />
+  [Explore in Chapter 1.8 &rarr;](/learn/foundations/08-minting-and-halving/)
+</Card>
+
+<Card title="5. Global Gossip Protocol Simulator" icon="seti:globe">
+  Broadcast transactions from Jakarta, Tokyo, London, or New York across a simulated peer-to-peer
+  network. Watch the 8-node gossip spread and reject double-spends.
+  <br />
+  <br />
+  [Explore in Chapter 1.4 &rarr;](/learn/foundations/04-gossip-protocol/)
+</Card>
+
+<Card title="6. The Story of Crypto Walkthrough" icon="seti:play">
+  The complete interactive presenter journey from centralized bank ledgers, to shared notebooks,
+  minting, glass mailboxes, fiat exchange bridges, and cold-storage self-custody.
+  <br />
+  <br />
+  [Explore in Chapter 1.9 &rarr;](/learn/foundations/09-alice-to-bob-walkthrough/)
+</Card>
+
+<Card title="7. Exchange Order Book & Matching Engine" icon="seti:credit-card">
+  Place real Limit and Market buy/sell orders. Watch bid and ask liquidity depth update live, and
+  observe how buyers and sellers match off-chain.
+  <br />
+  <br />
+  [Explore in Chapter 3.2 &rarr;](/learn/exchanges/02-order-books/)
+</Card>
+
+  <Card title="8. Candlestick Chart & Paper Trading" icon="seti:chart">
+    Read open-high-low-close candles, observe volume indicators, and practice risk management with a simulated paper trading wallet.
+    <br/><br/>
+    [Explore in Chapter 5.1 &rarr;](/learn/markets/01-candlesticks-and-charts/)
+  </Card>
+</CardGrid>

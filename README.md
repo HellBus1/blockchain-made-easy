@@ -1,66 +1,79 @@
-# Lightweight React JS + Vite Starter Kit Template
+# Blockchain Made Easy
 
-<https://github.com/user-attachments/assets/2ee04f33-57dd-42d0-80d7-bc173aa76b2e>
+An end-to-end, visual, interactive GitBook-style learning web application designed to help anyone master cryptocurrency from scratch. 
 
-<div align="center">
-  <!-- <img alt="GitHub release" src="https://img.shields.io/github/v/release//HellBus1/ts-react-tailwind-starter?include_prereleases"> -->
-  <img alt="GitHub react version" src="https://img.shields.io/github/package-json/dependency-version/HellBus1/ts-react-tailwind-starter/react?style=flat">
-</div>
+Built with **Astro**, **Starlight**, **React islands**, and **Tailwind CSS v4**, deployed statically on **Cloudflare Pages**, and designed to be installed as an offline-first **PWA**.
 
-## Description
+---
 
-A React.js template with Vite ⚡ is super simple and ready to go. It comes packed with all the essential libraries you need for modern frontend development.
+## Key Features
 
-### Why Vite?
+- 📖 **GitBook-Style Navigation**: Smooth left-hand sidebar navigation, structured track hierarchy, and integrated full-text Pagefind search.
+- ⚡ **Interactive Laboratory**: Every major concept is backed by an interactive simulation (SHA-256 hash playground, blockchain tamper simulator, PoW mining engine, Bitcoin halving scrubber, and the 6-act crypto journey).
+- 🇮🇩 **Real-World Indonesian & Global Context**: Clear analogies connecting Rupiah (IDR), QRIS, bank rails, crypto exchanges (like Gate.io), and self-custody cold storage.
+- 🔐 **Privacy-First**: Zero server tracking; progress is saved in local browser storage (`localStorage`).
+- 📱 **Offline-First PWA**: Installable on desktop and mobile, with full static caching for offline learning.
+- ☁️ **Cloudflare Pages Ready**: Zero-config static output (`dist/`) with custom caching and security headers.
 
-Here is several things that made vite is better bundler out there :
+---
 
-1. **Instant Server Start**: No more waiting around—start your server instantly.
-2. **Lightning Fast HMR**: Hot Module Replacement that's truly fast.
-3. **Create React App Best Alternative**: Skip the unecessary clutter of Create React App 🙂.
-4. **And More**: There are plenty of other reasons to love Vite!
+## 5-Track Curriculum
 
-If you’re curious to explore Vite further, check out the [link](https://vitejs.dev/)
+1. **Foundations**: Money as a ledger, double-spending, distributed networks, hashing, proof-of-work/stake, and halving.
+2. **Wallets & Security**: Public addresses, private keys, 12-word seed phrases, and scam defense.
+3. **Exchanges & Buying**: Crossing the fiat bridge, order books, matching engines, and proof-of-reserves.
+4. **Ethereum & Smart Contracts**: Programmable money, EVM, gas, tokens, stablecoins, and DeFi.
+5. **Market Literacy & Trading**: Candlesticks (OHLC), order flow, risk management, and paper trading.
 
-## Features
+---
 
-Here is the building blocks of this repository
+## Tech Stack
 
-- 📟 **Navigation**: Configured with [React Router DOM](https://reactrouter.com/en/main) for dynamic routing.
-- 🔋 **CSS Frameworks**: [Tailwind CSS](https://tailwindcss.com/) and [Daisy UI](https://daisyui.com/) for rapid UI development with minimal custom styling.
-- 📊 **Code Formatting**: [Prettier](https://prettier.io/) is integrated to ensure consistent code style across the project.
-- 🗂️ **Linting**: [ESLint](https://eslint.org/) is set up to enforce coding standards and best practices.
-- 📮 **Pre-commit Hooks**: [Husky](https://github.com/lint-staged/lint-staged) is utilized to run automated checks before code is committed.
-- 🛠️ **Lint-Staged**: Paired with Husky, [lint-staged](https://github.com/lint-staged/lint-staged) handles formatting and linting for all staged changes.
+- **Framework**: [Astro](https://astro.build/) + [Starlight](https://starlight.astro.build/)
+- **UI Islands**: [React](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Cryptography**: Native Web Crypto API & `@noble/hashes`
+- **Typography**: IBM Plex Sans & IBM Plex Mono
+- **Search**: Built-in Pagefind static indexer
+- **Testing & Quality**: Vitest, ESLint (Flat Config), Prettier, Husky
+
+---
 
 ## Getting Started
 
-1. **Clone the repository** :
-```shell
-git clone https://github.com/HellBus1/ts-react-tailwind-starter.git
-cd ts-react-tailwind-starter
-```
-
-2. **Install dependencies** :
-```shell
+### 1. Install Dependencies
+```bash
 npm install
 ```
 
-3. **Run the development server** :
-```shell
+### 2. Start Local Development Server
+```bash
 npm run dev
 ```
+Open `http://localhost:4321` in your browser.
 
-4. **Build for production** :
-```shell
+### 3. Build for Production
+```bash
 npm run build
 ```
+Generates a production static build in `./dist/`.
 
-## Getting Started
+### 4. Preview Production Build
+```bash
+npm run preview
+```
 
-Contributions are welcome! Please open an issue or submit a pull request.
+---
 
-## Supports Me
-Want to see more free, high-quality code and articles? Buy me a coffee and make it happen! 
+## Cloudflare Pages Deployment
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/syubban)
+- **Framework preset**: `Astro` / `None`
+- **Build command**: `npm run build`
+- **Build output directory**: `dist`
+- **Node version**: Specified in `.nvmrc` (v22+)
+
+---
+
+## License
+
+MIT
